@@ -123,7 +123,7 @@ class Note {
     {
         if(is_int($extEnseignant))
         {
-            $this->Enseignant = UserDAL::findById($extEnseignant);
+            $this->Enseignant = UserDAL::findById($extEnseignant); 
         }
         else if(is_a($extEnseignant, "User"))
         {
@@ -152,7 +152,7 @@ class Note {
     {
         if(is_int($travail))
         {
-            $this->extTravail = TravailDAL::findById($travail);
+            $this->extTravail = TravailDAL::findById($travail); //rustine car travailDAL n'existe pas
         }
         else if(is_a($travail, "Travail"))
         {
