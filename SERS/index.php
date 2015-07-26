@@ -17,6 +17,8 @@ and open the template in the editor.
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" href="./view/css/main.css">
     </head>
     <body>
 
@@ -103,7 +105,7 @@ and open the template in the editor.
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                                aria-haspopup="true" aria-expanded="false">
-                                <span class="glyphicon glyphicon-user"></span> Jean-Michel CtrlCV 
+                                <img src="./view/document/picture/smile.png" class="avatar"/> Jean-Michel CtrlCV 
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Profile Edition</a></li>
