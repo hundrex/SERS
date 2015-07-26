@@ -100,7 +100,7 @@ class UserPayerExam {
     }
     
    //GetterSetter extExam
-    public function setAssignment($exam)
+    public function setExam($exam)
     {
         if(is_int($exam))
         {
