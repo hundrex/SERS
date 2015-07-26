@@ -120,6 +120,9 @@ and open the template in the editor.
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <?php
+        require_once './view/phtml/home.php';
+        ?>
     </body>
     <footer>
         <div class="panel-footer navbar-fixed-bottom">
