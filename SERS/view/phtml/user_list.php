@@ -23,10 +23,8 @@
 
 
 <div class="panel panel-default">
-    <!-- Default panel contents -->
     <div class="panel-heading">User list</div>
 
-    <!-- Table -->
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>User Type</th><th></th></tr>
         <tr><td>Commandant</td><td>Cousteau</td><td>-104AD</td><td>Root</td><td>

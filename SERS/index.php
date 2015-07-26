@@ -75,7 +75,7 @@ and open the template in the editor.
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                                aria-haspopup="true" aria-expanded="false">Module <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">All Modules</a></li>
+                                <li><a href="?page=module_list">All Modules</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">Web Development</a></li>
                                 <li><a href="#">Web Design</a></li>

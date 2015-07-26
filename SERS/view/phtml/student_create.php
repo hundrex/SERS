@@ -22,6 +22,36 @@
         <input type="email" class="form-control" id="email" 
                placeholder="e.g. thomas.anderson@skynet.com">
     </div>
+
+    <div class="panel panel-default">
+            <div class="panel-heading">Modules</div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Web Development
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Web Design
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"> Content Management System
+            </label>
+        </div>
+            <div class="checkbox">
+            <label>
+                <input type="checkbox"> Legal Ethical Social and Professional Issues
+            </label>
+        </div>
+            <div class="checkbox">
+            <label>
+                <input type="checkbox"> Web Development Framework
+            </label>
+        </div>
+    </div>
+
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
