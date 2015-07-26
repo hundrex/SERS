@@ -70,9 +70,9 @@ class User {
     private $extFichier;
     
     /*
-     * @var TypeUtilisateur
+     * @var TypeUser
      */
-    private $extTypeUtilisateur;
+    private $extTypeUser;
     
     ///////////////////
     // CONSTRUCTEURS //
@@ -81,7 +81,7 @@ class User {
     public function User($id=-1, $adresse=null,
             $prenom=null,$mail=null,$nom=null, $dateNaissance=null, 
             $dateCreation=null, $affiche=false, $password=null, 
-            $pseudo=null, $typeUtilisateur=null, $fichier=null)
+            $pseudo=null, $typeUser=null, $fichier=null)
     {
         $this->id = $id;
         $this->adresse = $adresse;
@@ -89,7 +89,7 @@ class User {
         $this->dateCreation = $dateCreation;
         $this->dateNaissance = $dateNaissance;
         $this->extFichier = $fichier;
-        $this->extTypeUtilisateur = $typeUtilisateur;
+        $this->extTypeUser = $typeUser;
         $this->mail = $mail;
         $this->nom = $nom;
         $this->password = $password;
@@ -270,33 +270,33 @@ class User {
         return $fichier;
     }
     
-    //GetterSetter extTypeUtilisateur
-    public function setTypeUtilisateur($extTypeUtilisateur)
+    //GetterSetter extTypeUser
+    public function setTypeUser($extTypeUser)
     {
-        if(is_int($extTypeUtilisateur))
+        if(is_int($extTypeUser))
         {
-            $this->extTypeUtilisateur = TypeUtilisateurDAL::findById($extTypeUtilisateur);
+            $this->extTypeUser = TypeUserDAL::findById($extTypeUser);
         }
-        else if(is_a($extTypeUtilisateur, "TypeUtilisateur"))
+        else if(is_a($extTypeUser, "TypeUser"))
         {
-            $this->extTypeUtilisateur = $extTypeUtilisateur;
+            $this->extTypeUser = $extTypeUser;
         }
     }
     
-    public function getTypeUtilisateur()
+    public function getTypeUser()
     {
-        $extTypeUtilisateur = null;
+        $extTypeUser = null;
         
-        if(is_int($this->extTypeUtilisateur))
+        if(is_int($this->extTypeUser))
         {
-            $extTypeUtilisateur = TypeUtilisateurDAL::findById($this->extTypeUtilisateur);
-            $this->extTypeUtilisateur = $extTypeUtilisateur;
+            $extTypeUser = TypeUserDAL::findById($this->extTypeUser);
+            $this->extTypeUser = $extTypeUser;
         }
-        else if(is_a($this->extTypeUtilisateur, "TypeUtilisateur"))
+        else if(is_a($this->extTypeUser, "TypeUser"))
         {
-            $extTypeUtilisateur = $this->extTypeUtilisateur;
+            $extTypeUser = $this->extTypeUser;
         }
-        return $extTypeUtilisateur;
+        return $extTypeUser;
     }
     
     //////////////
@@ -311,7 +311,7 @@ class User {
         $this->dateCreation = $dataSet['dateCreation'];
         $this->dateNaissance = $dataSet['dateNaissance'];
         $this->extFichier = $dataSet['Fichier'];
-        $this->extTypeUtilisateur = $dataSet['TypUtilisateur'];
+        $this->extTypeUser = $dataSet['TypUser'];
         $this->mail = $dataSet['mail'];
         $this->nom = $dataSet['nom'];
         $this->password = $dataSet['password'];
