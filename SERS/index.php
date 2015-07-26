@@ -17,7 +17,7 @@ and open the template in the editor.
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        
+
         <link rel="stylesheet" href="./view/css/main.css">
     </head>
     <body>
@@ -121,4 +121,9 @@ and open the template in the editor.
             </div><!-- /.container-fluid -->
         </nav>
     </body>
+    <footer>
+        <div class="panel-footer navbar-fixed-bottom">
+            <div> ©SERS 2015 </div>
+        </div>
+    </footer>
 </html>
