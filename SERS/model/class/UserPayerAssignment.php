@@ -100,7 +100,7 @@ class UserPayerAssignment {
     }
     
    //GetterSetter extAssignment
-    public function setAssigment($assignment)
+    public function setAssignment($assignment)
     {
         if(is_int($assignment))
         {
