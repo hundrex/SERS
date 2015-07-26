@@ -17,6 +17,11 @@ and open the template in the editor.
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
+        <!-- Required for date picker -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+        <!--https://eonasdan.github.io/bootstrap-datetimepicker/Installing/-->
+        
 
         <link rel="stylesheet" href="./view/css/main.css">
     </head>
@@ -47,7 +52,7 @@ and open the template in the editor.
                             <ul class="dropdown-menu">
                                 <li><a href="?page=user_list">User List</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">New...</a></li>
+                                <li><a href="?page=user_create">New...</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -120,16 +125,18 @@ and open the template in the editor.
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <?php
-//        require_once './view/phtml/user_list.php';
-        
-        $page_to_require = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
-        if ($page_to_require !== null) {
-            require_once './view/phtml/' . $page_to_require . '.php';
-        } else {
-            require_once './view/phtml/home.php';
-        }
-        ?>
+        <div id="left-column" class="col-lg-2"></div>
+        <div id="content" class="col-lg-8">
+            <?php
+            $page_to_require = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
+            if ($page_to_require !== null) {
+                require_once './view/phtml/' . $page_to_require . '.php';
+            } else {
+                require_once './view/phtml/home.php';
+            }
+            ?>
+        </div>
+        <div id="right-column" class="col-lg-2"></div>
     </body>
     <footer>
         <div class="panel-footer navbar-fixed-bottom">
