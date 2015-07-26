@@ -7,11 +7,11 @@
  */
 
 /**
- * Description of UserParticipeAssignment
+ * Description of UserParticipeExam
  *
  * @author Alexis
  */
-class UserParticipeAssignment {
+class UserParticipeExam {
     
     ///////////////
     // ATTRIBUTS //
@@ -28,9 +28,9 @@ class UserParticipeAssignment {
     private $dateRemise;    
     
     /*
-     * @var Assignment
+     * @var Exam
      */
-    private $extAssignment;
+    private $extExam;
     
     /*
      * @var User
@@ -43,12 +43,12 @@ class UserParticipeAssignment {
     ///////////////////
            
     public function TypeFichier($note=-1, $dateRemise=null,
-            $extAssignment=null,
+            $extExam=null,
             $extUser=null)
     {
         $this->dateRemise = $dateRemise;
         $this->note = $note;
-        $this->extAssignment = $extAssignment;
+        $this->extExam = $extExam;
         $this->extUser = $extUser;
     }
     
@@ -113,33 +113,33 @@ class UserParticipeAssignment {
         return $user;
     }
     
-   //GetterSetter extAssignment
-    public function setAssignment($assignment)
+   //GetterSetter extExam
+    public function setExam($exam)
     {
-        if(is_int($assignment))
+        if(is_int($exam))
         {
-            $this->extAssignment = AssignmentDAL::findById($assignment);
+            $this->extExam = ExamDAL::findById($exam);
         }
-        else if(is_a($assignment, "Assignment"))
+        else if(is_a($exam, "Exam"))
         {
-            $this->extAssignment = $assignment;
+            $this->extExam = $exam;
         }
     }
     
-    public function getAssignment()
+    public function getExam()
     {
-        $assignment = null;
+        $exam = null;
         
-        if(is_int($this->extAssignment))
+        if(is_int($this->extExam))
         {
-            $assignment = AssignmentDAL::findById($this->extAssignment);
-            $this->extAssignment = $assignment;
+            $exam = ExamDAL::findById($this->extExam);
+            $this->extExam = $exam;
         }
-        else if(is_a($this->extAssignment, "Assignment"))
+        else if(is_a($this->extExam, "Exam"))
         {
-            $assignment = $this->extAssignment;
+            $exam = $this->extExam;
         }
-        return $assignment;
+        return $exam;
     }
 
     //////////////
@@ -150,7 +150,7 @@ class UserParticipeAssignment {
     {
         $this->note = $dataSet['note'];
         $this->dateRemise = $dataSet['dateRemise'];
-        $this->extAssignment = $dataSet['Assignment'];
+        $this->extExam = $dataSet['Exam'];
         $this->extUser = $dataSet['User'];
     }
 }
