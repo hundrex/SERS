@@ -38,7 +38,7 @@ class UserParticipeAssignment {
     private $extUser;
     
     
- ///////////////////
+    ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
            
