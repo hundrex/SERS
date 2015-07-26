@@ -19,47 +19,47 @@ class Travail {
     /*
      * @var int
      */
-    private $id;
+    protected $id;
     
     /*
      * @var string
      */
-    private $label;
+    protected $label;
    
     /*
      * @var date
      */
-    private $dateCreation;
+    protected $dateCreation;
         
     /*
      * @var date
      */
-    private $datePassage;
+    protected $datePassage;
      
     /*
      * @var string
      */
-    private $description;
+    protected $description;
     
     /*
      * @var int
      */
-    private $annee;
+    protected $annee;
     
     /*
      * @var int
      */
-    private $prixRattrapage;
+    protected $prixRattrapage;
 
     /*
      * @var bool
      */
-    private $affiche;
+    protected $affiche;
     
     /*
      * @var Module
      */
-    private $extModule;
+    protected $extModule;
     
     
     ///////////////////
