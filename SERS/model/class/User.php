@@ -6,6 +6,7 @@
  * @author Alexis
  */
 
+
 class User {
     
     ///////////////
@@ -40,12 +41,12 @@ class User {
     /*
      * @var date
      */
-    private $date_naissance;
+    private $dateNaissance;
 
     /*
      * @var date
      */
-    private $date_creation;
+    private $dateCreation;
     
     
     /*
@@ -77,7 +78,10 @@ class User {
     // CONSTRUCTEURS //
     ///////////////////
            
-    public function classeBidon($id=-1, $adresse,$prenom,$mail,$nom, $dateNaissance=null, $dateCreation=null, $affiche=true, $password, $pseudo, $typeUtilisateur, $fichier)
+    public function User($id=-1, $adresse=null,
+            $prenom=null,$mail=null,$nom=null, $dateNaissance=null, 
+            $dateCreation=null, $affiche=false, $password=null, 
+            $pseudo=null, $typeUtilisateur=null, $fichier=null)
     {
         $this->id = $id;
         $this->adresse = $adresse;
