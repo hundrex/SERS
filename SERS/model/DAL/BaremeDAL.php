@@ -59,7 +59,7 @@ class BaremeDAL extends Bareme
      */
     public static function insertOnDuplicate($bareme)
     {
-        $sql = 'INSERT INTO module '
+        $sql = 'INSERT INTO bareme '
             + '(label '
             + 'VALUES(?) '
             + 'ON DUPLICATE KEY '
