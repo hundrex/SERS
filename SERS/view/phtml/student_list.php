@@ -24,21 +24,15 @@
 
 <div class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading">User list</div>
+    <div class="panel-heading">Student list</div>
 
     <!-- Table -->
     <table class="table">
-        <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>User Type</th><th></th></tr>
-        <tr><td>Commandant</td><td>Cousteau</td><td>-104AD</td><td>Root</td><td>
+        <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th></th></tr>
+        <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>
                 <span class="glyphicon glyphicon-eye-open"></span></td>
         </tr>
-        <tr><td>Batman</td><td>Batman</td><td>1895</td><td>Administration</td><td>
-                <span class="glyphicon glyphicon-eye-open"></span></td>
-        </tr>
-        <tr><td>Jones</td><td>Indiana</td><td>1910</td><td>Teacher</td><td>
-                <span class="glyphicon glyphicon-eye-open"></span></td>
-        </tr>
-        <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>Student</td><td>
+        <tr><td>Rabbit</td><td>Roger</td><td>1981</td><td>
                 <span class="glyphicon glyphicon-eye-open"></span></td>
         </tr>
     </table>

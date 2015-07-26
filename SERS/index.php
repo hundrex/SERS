@@ -62,10 +62,10 @@ and open the template in the editor.
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                                aria-haspopup="true" aria-expanded="false">Student <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Student List</a></li>
+                                <li><a href="?page=student_list">Student List</a></li>
                                 <li><a href="#">Module Inscription</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">New...</a></li>
+                                <li><a href="?page=student_create">New...</a></li>
                             </ul>
                         </li>
                     </ul>

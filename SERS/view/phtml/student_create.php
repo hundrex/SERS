@@ -22,17 +22,6 @@
         <input type="email" class="form-control" id="email" 
                placeholder="e.g. thomas.anderson@skynet.com">
     </div>
-    <div class="form-group">
-        <label for="userType">User type</label>
-        <select class="combobox">
-            <option value="Root">Root</option>
-            <option value="Administration">Administration</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Student">Student</option>
-        </select>
-    </div>
-
-
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
