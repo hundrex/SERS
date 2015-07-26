@@ -7,12 +7,11 @@
  */
 
 /**
- * Description of Module
+ * Description of Assignment
  *
  * @author Alexis
  */
-class Module {
-    
+class Assignment {
     ///////////////
     // ATTRIBUTS //
     ///////////////
@@ -32,6 +31,13 @@ class Module {
      */
     private $dateCreation;
      
+    
+    /*
+     * @var date
+     */
+    private $datePassage;
+     
+    
     /*
      * @var string
      */
@@ -40,7 +46,7 @@ class Module {
     /*
      * @var int
      */
-    private $number;
+    private $annee;
 
     /*
      * @var bool
@@ -48,25 +54,28 @@ class Module {
     private $affiche;
     
     /*
-     * @var Bareme
+     * @var Module
      */
-    private $extBareme;
+    private $extModule;
+    
     
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
            
-    public function Module($id=-1, $label=null,
-            $description=null,$dateCreation=null,
-            $number=null, $affiche=null, $extBareme=null)
+    public function Assignment($id=-1, $label=null,$number=null,
+            $description=null,$dateCreation=null,$datePassage=null,
+            $annee=null, $affiche=null, $extModule=null)
     {
         $this->id = $id;
         $this->label = $label;
         $this->dateCreation = $dateCreation;
+        $this->datePassage = $datePassage;
         $this->description = $description;
         $this->affiche = $affiche;
         $this->number = $number;
-        $this->extBareme = $extBareme;
+        $this->annee = $annee;
+        $this->extModule = $extModule;
     }
     
     /////////////////////
@@ -115,6 +124,21 @@ class Module {
         return $this->dateCreation;
     }   
     
+    
+    //GetterSetter datePassage
+    public function setDatePassage($datePassage)
+    {
+        if(is_a($datePassage, "Date"))
+        {
+            $this->datePassage = $datePassage;
+        }
+    }
+    
+    public function getDatePassage()
+    {
+        return $this->datePassage;
+    }    
+    
     //GetterSetter label
     public function setLabel($label)
     {
@@ -157,33 +181,33 @@ class Module {
         return $this->affiche;
     }
 
-    //GetterSetter bareme
-    public function setBareme($bareme)
+    //GetterSetter module
+    public function setModule($module)
     {
-        if(is_int($bareme))
+        if(is_int($module))
         {
-            $this->extBareme = BaremeDAL::findById($bareme);
+            $this->extModule = ModuleDAL::findById($module);
         }
-        else if(is_a($bareme, "Bareme"))
+        else if(is_a($module, "Module"))
         {
-            $this->extBareme = $bareme;
+            $this->extModule = $module;
         }
     }
     
-    public function getBareme()
+    public function getModule()
     {
-        $bareme = null;
+        $module = null;
         
-        if(is_int($this->extBareme))
+        if(is_int($this->extModule))
         {
-            $bareme = BaremeDAL::findById($this->extBareme);
-            $this->extBareme = $bareme;
+            $module = ModuleDAL::findById($this->extModule);
+            $this->extModule = $module;
         }
-        else if(is_a($this->extBareme, "Bareme"))
+        else if(is_a($this->extModule, "Module"))
         {
-            $bareme = $this->extBareme;
+            $module = $this->extModule;
         }
-        return $bareme;
+        return $module;
     }
     
     //////////////
@@ -196,8 +220,9 @@ class Module {
         $this->label = $dataSet['label'];
         $this->affiche = $dataSet['affiche'];
         $this->dateCreation = $dataSet['dateCreation'];
+        $this->datePassage = $dataSet['datePassage'];
         $this->description = $dataSet['description'];
-        $this->number = $dataSet['number'];
-        $this->extBareme = $dataSet['Bareme'];
+        $this->annee = $dataSet['annee'];
+        $this->extModule = $dataSet['Module'];
     }
 }
