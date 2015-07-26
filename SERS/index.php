@@ -33,7 +33,7 @@ and open the template in the editor.
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="?page=home">
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> SERS
                     </a>
                 </div>
@@ -45,7 +45,7 @@ and open the template in the editor.
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                                aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">User List</a></li>
+                                <li><a href="?page=user_list">User List</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">New...</a></li>
                             </ul>
@@ -121,7 +121,14 @@ and open the template in the editor.
             </div><!-- /.container-fluid -->
         </nav>
         <?php
-        require_once './view/phtml/home.php';
+//        require_once './view/phtml/user_list.php';
+        
+        $page_to_require = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
+        if ($page_to_require !== null) {
+            require_once './view/phtml/' . $page_to_require . '.php';
+        } else {
+            require_once './view/phtml/home.php';
+        }
         ?>
     </body>
     <footer>
