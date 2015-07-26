@@ -67,12 +67,12 @@ class User {
     /*
      * @var Fichier
      */
-    private $extFichier;
+    private $avatar;
     
     /*
      * @var TypeUser
      */
-    private $extTypeUser;
+    private $type;
     
     ///////////////////
     // CONSTRUCTEURS //
@@ -88,8 +88,8 @@ class User {
         $this->affiche = $affiche;
         $this->dateCreation = $dateCreation;
         $this->dateNaissance = $dateNaissance;
-        $this->extFichier = $fichier;
-        $this->extTypeUser = $typeUser;
+        $this->avatar = $fichier;
+        $this->type = $typeUser;
         $this->mail = $mail;
         $this->nom = $nom;
         $this->password = $password;
@@ -246,11 +246,11 @@ class User {
     {
         if(is_int($fichier))
         {
-            $this->extFichier = FichierDAL::findById($fichier);
+            $this->avatar = FichierDAL::findById($fichier);
         }
         else if(is_a($fichier, "Fichier"))
         {
-            $this->extFichier = $fichier;
+            $this->avatar = $fichier;
         }
     }
     
@@ -258,14 +258,14 @@ class User {
     {
         $fichier = null;
         
-        if(is_int($this->extFichier))
+        if(is_int($this->avatar))
         {
-            $fichier = FichierDAL::findById($this->extFichier);
-            $this->extFichier = $fichier;
+            $fichier = FichierDAL::findById($this->avatar);
+            $this->avatar = $fichier;
         }
-        else if(is_a($this->extFichier, "Fichier"))
+        else if(is_a($this->avatar, "Fichier"))
         {
-            $fichier = $this->extFichier;
+            $fichier = $this->avatar;
         }
         return $fichier;
     }
@@ -275,11 +275,11 @@ class User {
     {
         if(is_int($extTypeUser))
         {
-            $this->extTypeUser = TypeUserDAL::findById($extTypeUser);
+            $this->type = TypeUserDAL::findById($extTypeUser);
         }
         else if(is_a($extTypeUser, "TypeUser"))
         {
-            $this->extTypeUser = $extTypeUser;
+            $this->type = $extTypeUser;
         }
     }
     
@@ -287,14 +287,14 @@ class User {
     {
         $extTypeUser = null;
         
-        if(is_int($this->extTypeUser))
+        if(is_int($this->type))
         {
-            $extTypeUser = TypeUserDAL::findById($this->extTypeUser);
-            $this->extTypeUser = $extTypeUser;
+            $extTypeUser = TypeUserDAL::findById($this->type);
+            $this->type = $extTypeUser;
         }
-        else if(is_a($this->extTypeUser, "TypeUser"))
+        else if(is_a($this->type, "TypeUser"))
         {
-            $extTypeUser = $this->extTypeUser;
+            $extTypeUser = $this->type;
         }
         return $extTypeUser;
     }
@@ -310,8 +310,8 @@ class User {
         $this->affiche = $dataSet['affiche'];
         $this->dateCreation = $dataSet['dateCreation'];
         $this->dateNaissance = $dataSet['dateNaissance'];
-        $this->extFichier = $dataSet['Fichier'];
-        $this->extTypeUser = $dataSet['TypUser'];
+        $this->avatar = $dataSet['Fichier'];
+        $this->type = $dataSet['TypUser'];
         $this->mail = $dataSet['mail'];
         $this->nom = $dataSet['nom'];
         $this->password = $dataSet['password'];
