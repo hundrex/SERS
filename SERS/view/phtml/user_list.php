@@ -1,14 +1,13 @@
-
-
 <div class="row">
     <div class="col-lg-6">
         <div class="input-group">
-            <select class="combobox">
+            <select class="form-control">
                 <option value="All">All</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
             </select>
+            <span class="input-group-addon" id="sizing-addon1">Items per page</span>
         </div>
     </div>
     <div class="col-lg-6">
@@ -20,7 +19,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="panel panel-default">
     <div class="panel-heading">User list</div>

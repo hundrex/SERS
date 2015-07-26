@@ -31,8 +31,6 @@
             <option value="Student">Student</option>
         </select>
     </div>
-
-
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
