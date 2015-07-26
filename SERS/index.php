@@ -118,5 +118,10 @@ and open the template in the editor.
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <?php
+        echo '<h1>Hello world!</h1>';
+        echo 'Je suis alexis !';
+        echo 'Lel';
+        ?>
     </body>
 </html>
