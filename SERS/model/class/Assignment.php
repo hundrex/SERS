@@ -30,14 +30,12 @@ class Assignment {
      * @var date
      */
     private $dateCreation;
-     
-    
+        
     /*
      * @var date
      */
     private $datePassage;
      
-    
     /*
      * @var string
      */
@@ -47,6 +45,11 @@ class Assignment {
      * @var int
      */
     private $annee;
+    
+    /*
+     * @var int
+     */
+    private $prixRattrapage;
 
     /*
      * @var bool
@@ -65,7 +68,7 @@ class Assignment {
            
     public function Assignment($id=-1, $label=null,$number=null,
             $description=null,$dateCreation=null,$datePassage=null,
-            $annee=null, $affiche=null, $extModule=null)
+            $annee=null, $affiche=null, $extModule=null, $prixRattrapage=null)
     {
         $this->id = $id;
         $this->label = $label;
@@ -75,6 +78,7 @@ class Assignment {
         $this->affiche = $affiche;
         $this->number = $number;
         $this->annee = $annee;
+        $this->prixRattrapage =$prixRattrapage;
         $this->extModule = $extModule;
     }
     
@@ -94,6 +98,20 @@ class Assignment {
     public function getId()
     {
         return $this->id;
+    }
+
+    //GetterSetter prixRattrapage
+    public function setPrixRattrapage($prixRattrapage)
+    {
+        if(is_int($prixRattrapage))
+        {
+            $this->prixRattrapage = $prixRattrapage;
+        }
+    }
+    
+    public function getPrixRattrapage()
+    {
+        return $this->prixRattrapage;
     }
     
     //GetterSetter number
