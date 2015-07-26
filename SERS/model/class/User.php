@@ -77,13 +77,20 @@ class User {
     // CONSTRUCTEURS //
     ///////////////////
            
-    public function classeBidon($id=-1, $nom='', $dateDeNaissance=null, $solde=0, $vivant=false)
+    public function classeBidon($id=-1, $adresse,$prenom,$mail,$nom, $dateNaissance=null, $dateCreation=null, $affiche=true, $password, $pseudo, $typeUtilisateur, $fichier)
     {
-        $this->id               = $id;
-        $this->nom              = $nom;
-        $this->dateDeNaissance  = $dateDeNaissance;
-        $this->solde            = $solde;
-        $this->vivant           = $vivant;        
+        $this->id = $id;
+        $this->adresse = $adresse;
+        $this->affiche = $affiche;
+        $this->dateCreation = $dateCreation;
+        $this->dateNaissance = $dateNaissance;
+        $this->extFichier = $fichier;
+        $this->extTypeUtilisateur = $typeUtilisateur;
+        $this->mail = $mail;
+        $this->nom = $nom;
+        $this->password = $password;
+        $this->prenom = $prenom;
+        $this->pseudo = $pseudo;
     }
     
     /////////////////////
@@ -286,5 +293,25 @@ class User {
             $extTypeUtilisateur = $this->extTypeUtilisateur;
         }
         return $extTypeUtilisateur;
+    }
+    
+    //////////////
+    // METHODES //
+    //////////////
+    
+    protected function hydrate($dataSet)
+    {
+        $this->id = $dataSet['id'];
+        $this->adresse = $dataSet['adresse'];
+        $this->affiche = $dataSet['affiche'];
+        $this->dateCreation = $dataSet['dateCreation'];
+        $this->dateNaissance = $dataSet['dateNaissance'];
+        $this->extFichier = $dataSet['Fichier'];
+        $this->extTypeUtilisateur = $dataSet['TypUtilisateur'];
+        $this->mail = $dataSet['mail'];
+        $this->nom = $dataSet['nom'];
+        $this->password = $dataSet['password'];
+        $this->prenom = $dataSet['prenom'];
+        $this->pseudo = $dataSet['pseudo'];
     }
 }
