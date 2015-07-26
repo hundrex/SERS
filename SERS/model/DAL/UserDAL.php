@@ -11,15 +11,16 @@ require_once('../model/class/User.php');
 class UserDAL extends User
 {
     /**
-     * Retourne l'objet correspondant à l'id donnée.
+     * Retourne l'objet correspondant à l'id donné.
      * 
      * @param int $id Identifiant de l'objet à trouver
      * @return User
      */
     public static function findById($id)
     {
-        $data = BaseSingleton::select('SELECT * '
-                          . 'FROM User '
+        $data = BaseSingleton::select('SELECT prenom, nom, mail, adresse, date_naissance, '
+                          . 'date_creation, pseudo, password, affiche, fichier_id, '
+                          . 'FROM user '
                           . 'WHERE id = ?', array('i', $id));
         
         $user = new User();
@@ -30,15 +31,17 @@ class UserDAL extends User
     }
     
     /**
-     * Retourne tous les user de User.
+     * Retourne tous les user enregistrer.
      * 
-     * @return mixed Tous les objets dans un tableau.
+     * @return array[User] Tous les objets dans un tableau.
      */
     public static function findAll()
     {
         $mesUsers = array();
         
-        $data = BaseSingleton::select('SELECT * '
+        $data = BaseSingleton::select('SELECT prenom, nom, mail, adresse, date_naissance, '
+                          . 'date_creation, pseudo, password, affiche, fichier_id, '
+                          . 'type_user_id '
                           . 'FROM User ');
         
         foreach($data as $row)
@@ -52,16 +55,17 @@ class UserDAL extends User
     }
     
     /**
-     * 
+     * Insère ou met à jour l'utilisateur donné en paramètre.
      * @param user
-     * @return int L'id de l'objet inséré en base. False si ça a planté.
+     * @return int 
+     * L'id de l'objet inséré en base. False si ça a planté.
      */
     public static function insertOnDuplicate($user)
     {
         $sql = 'INSERT INTO user '
             + '(prenom, nom, mail, adresse, date_naissance, '
             + 'date_creation, pseudo, password, affiche, fichier_id, type_user_id) '
-            + 'VALUES(?,?,?, ?,?,?, ?,?,?, ?,?) '
+            + 'VALUES(?,?,?,?,?, ?,?,?,?,?, ?) '
             + 'ON DUPLICATE KEY '
             + 'UPDATE prenom = VALUES(prenom), '
             + 'nom = VALUES(nom), '
