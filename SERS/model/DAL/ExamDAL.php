@@ -7,61 +7,61 @@
  */
 
 require_once('BaseSingleton.php');
-require_once('../model/class/Assignment.php');
-class AssignmentDAL extends Assignment
+require_once('../model/class/Exam.php');
+class ExamDAL extends Exam
 {
     /**
      * Retourne l'objet correspondant à l'id donné.
      * 
      * @param int $id Identifiant de l'objet à trouver
-     * @return Assignment
+     * @return Exam
      */
     public static function findById($id)
     {
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
                         . 'date_creation, annee, date_passage, affiche, prixRattrapage '
-                        . 'FROM assignment '
+                        . 'FROM exam '
                         . 'WHERE id = ?', array('i', $id));
         
-        $assignment = new Assignment();
+        $exam = new Exam();
         
-        $assignment->hydrate($data);
+        $exam->hydrate($data);
         
-        return $assignment;
+        return $exam;
     }
     
     /**
-     * Retourne tous les assignment enregistrés.
+     * Retourne tous les exam enregistrés.
      * 
-     * @return array[Assignment] Tous les objets dans un tableau.
+     * @return array[Exam] Tous les objets dans un tableau.
      */
     public static function findAll()
     {
-        $mesAssignments = array();
+        $mesExams = array();
         
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
                         . 'date_creation, annee, date_passage, affiche, prixRattrapage '
-                        . 'FROM assignment ');
+                        . 'FROM exam ');
         
         foreach($data as $row)
         {
-            $assignment = new Assignment();
-            $assignment->hydrate($row);
-            $mesAssignments[] = $assignment;
+            $exam = new Exam();
+            $exam->hydrate($row);
+            $mesExams[] = $exam;
         }
         
-        return $mesAssignments;
+        return $mesExams;
     }
     
     /**
-     * Insère ou met à jour l'assignment donné en paramètre.
-     * @param assignment
+     * Insère ou met à jour l'exam donné en paramètre.
+     * @param exam
      * @return int 
      * L'id de l'objet inséré en base. False si ça a planté.
      */
-    public static function insertOnDuplicate($assignment)
+    public static function insertOnDuplicate($exam)
     {
-        $sql = 'INSERT INTO assignment '
+        $sql = 'INSERT INTO exam '
             + '(module_id, label, description, '
             + 'date_creation, annee, date_passage, affiche, prixRattrapage) '
             + 'VALUES(?,?,?,?,?, ?,?,?) '
@@ -76,14 +76,14 @@ class AssignmentDAL extends Assignment
             + 'prixRattrapage = VALUES(prixRattrapage) ';
         
         $params = array('issdidbi', array(
-            $assignment->getModule()->getId(), //int
-            $assignment->getLabel(), //string
-            $assignment->getDescription(), //string
-            $assignment->getDateCreation(), //date
-            $assignment->getAnnee(), //int
-            $assignment->getDatePassage(), //date
-            $assignment->getAffiche(), //bool
-            $assignment->getPrixRattrapage() //int
+            $exam->getModule()->getId(), //int
+            $exam->getLabel(), //string
+            $exam->getDescription(), //string
+            $exam->getDateCreation(), //date
+            $exam->getAnnee(), //int
+            $exam->getDatePassage(), //date
+            $exam->getAffiche(), //bool
+            $exam->getPrixRattrapage() //int
         ));
         
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
@@ -99,7 +99,7 @@ class AssignmentDAL extends Assignment
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM assignment WHERE id = ?', 
+        $deleted = BaseSingleton::delete('DELETE FROM exam WHERE id = ?', 
                 array('i', $id));
         
         return $deleted;
