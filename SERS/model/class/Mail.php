@@ -146,7 +146,7 @@ class Mail {
         return $modelMail;
     }
  
-        //GetterSetter contenu
+    //GetterSetter contenu
     public function setContenu($contenu)
     {
         if(is_string($contenu))
