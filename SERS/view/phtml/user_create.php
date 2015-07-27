@@ -10,7 +10,7 @@
     <div class="form-group">
         <label for="birthDate">Birth date</label>
         <input type="date" class="form-control" id="birthDate" 
-               placeholder="e.g. For 13th september 1971 : 13-09-1971">
+               placeholder="e.g. For 13th september 1971 : 13/09/1971">
     </div>
     <div class="form-group">
         <label for="address">Address</label>
