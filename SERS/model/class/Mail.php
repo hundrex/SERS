@@ -29,24 +29,24 @@ class Mail {
     /*
      * @var User
      */
-    private $extUser;
+    private $destinataire;
 
     /*
      * @var ModelMail
      */
-    private $extModelMail;
+    private $modele;
 
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Mail($id = -1, $extModeleMail = null, $extUser = null, $dateEnvoi = null, $contenu = null)
+    public function Mail($id = -1, $modele = null, $destinataire = null, $dateEnvoi = null, $contenu = null)
     {
         $this->id = $id;
         $this->dateEnvoi = $dateEnvoi;
         $this->contenu = $contenu;
-        $this->extUser = $extUser;
-        $this->extModelMail = $extModeleMail;
+        $this->destinataire = $destinataire;
+        $this->modele = $modele;
     }
 
     /////////////////////
@@ -79,30 +79,30 @@ class Mail {
         return $this->dateEnvoi;
     }
 
-    public function setUser($user)
+    public function setDestinataire($user)
     {
         if (is_int($user))
         {
-            $this->extUser = UserDAL::findById($user);
+            $this->destinataire = UserDAL::findById($user);
         }
         else if (is_a($user, "User"))
         {
-            $this->extUser = $user;
+            $this->destinataire = $user;
         }
     }
 
-    public function getUser()
+    public function getDestinataire()
     {
         $user = null;
 
-        if (is_int($this->extUser))
+        if (is_int($this->destinataire))
         {
-            $user = UserDAL::findById($this->extUser);
-            $this->extUser = $user;
+            $user = UserDAL::findById($this->destinataire);
+            $this->destinataire = $user;
         }
-        else if (is_a($this->extUser, "User"))
+        else if (is_a($this->destinataire, "User"))
         {
-            $user = $this->extUser;
+            $user = $this->destinataire;
         }
         return $user;
     }
@@ -111,11 +111,11 @@ class Mail {
     {
         if (is_int($modelMail))
         {
-            $this->extModelMail = UserDAL::findById($modelMail);
+            $this->modele = UserDAL::findById($modelMail);
         }
         else if (is_a($modelMail, "ModelMail"))
         {
-            $this->extModelMail = $modelMail;
+            $this->modele = $modelMail;
         }
     }
 
@@ -123,14 +123,14 @@ class Mail {
     {
         $modelMail = null;
 
-        if (is_int($this->extModelMail))
+        if (is_int($this->modele))
         {
-            $modelMail = UserDAL::findById($this->extModelMail);
-            $this->extModelMail = $modelMail;
+            $modelMail = UserDAL::findById($this->modele);
+            $this->modele = $modelMail;
         }
-        else if (is_a($this->extModelMail, "ModelMail"))
+        else if (is_a($this->modele, "ModelMail"))
         {
-            $modelMail = $this->extModelMail;
+            $modelMail = $this->modele;
         }
         return $modelMail;
     }
@@ -157,8 +157,8 @@ class Mail {
         $this->id = $dataSet['id'];
         $this->dateEnvoi = $dataSet['dateEnvoi'];
         $this->contenu = $dataSet['contenu'];
-        $this->extModelMail = $dataSet['ModeleMail'];
-        $this->extUser = $dataSet['User'];
+        $this->modele = $dataSet['ModeleMail'];
+        $this->destinataire = $dataSet['User'];
     }
 
 }
