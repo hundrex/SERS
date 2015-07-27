@@ -1,15 +1,10 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 require_once('BaseSingleton.php');
 require_once('../model/class/Fichier.php');
-class FichierDAL extends Fichier
-{
+
+class FichierDAL extends Fichier {
+
     /**
      * Retourne l'objet correspondant à l'id donné.
      * 
@@ -21,14 +16,11 @@ class FichierDAL extends Fichier
         $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
                         . 'FROM fichier '
                         . 'WHERE id = ?', array('i', $id));
-        
         $fichier = new Fichier();
-        
         $fichier->hydrate($data);
-        
         return $fichier;
     }
-    
+
     /**
      * Retourne toutes les fichiers enregistrées.
      * 
@@ -37,20 +29,17 @@ class FichierDAL extends Fichier
     public static function findAll()
     {
         $mesFichiers = array();
-        
         $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
                         . 'FROM fichier ');
-        
-        foreach($data as $row)
+        foreach ($data as $row)
         {
             $fichier = new Fichier();
             $fichier->hydrate($row);
             $mesFichiers[] = $fichier;
         }
-        
         return $mesFichiers;
     }
-    
+
     /**
      * Insère ou met à jour la fichier donné en paramètre.
      * @param fichier
@@ -59,27 +48,23 @@ class FichierDAL extends Fichier
      */
     public static function insertOnDuplicate($fichier)
     {
-        $sql = 'INSERT INTO fichier '
-            + '(type_fichier_id, nom, date_creation, affiche) '
-            + 'VALUES(?,?,?,?) '
-            + 'ON DUPLICATE KEY '
-            + 'UPDATE type_fichier_id = VALUES(type_fichier_id),'
-                + 'nom = VALUES(nom),'
-                + 'date_creation = VALUES(date_creation), '
-                + 'affiche = VALUES(affiche)';
-        
+        $sql = 'INSERT INTO fichier (type_fichier_id, nom, date_creation, affiche) '
+                . 'VALUES(?,?,?,?) '
+                . 'ON DUPLICATE KEY UPDATE '
+                . 'type_fichier_id = VALUES(type_fichier_id), '
+                . 'nom = VALUES(nom), '
+                . 'date_creation = VALUES(date_creation), '
+                . 'affiche = VALUES(affiche)';
         $params = array('isdb', array(
-            $fichier->getTypeFichier()->getId(), //int
-            $fichier->getNom(), //string
-            $fichier->getDateCreation(), //date
-            $fichier->getAffiche() //bool
+                $fichier->getTypeFichier()->getId(), //int
+                $fichier->getNom(), //string
+                $fichier->getDateCreation(), //date
+                $fichier->getAffiche() //bool
         ));
-        
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
-        
         return $idInsert;
     }
-    
+
     /**
      * Delete the row corresponding to the given id.
      * 
@@ -88,9 +73,8 @@ class FichierDAL extends Fichier
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM fichier WHERE id = ?', 
-                array('i', $id));
-        
+        $deleted = BaseSingleton::delete('DELETE FROM fichier WHERE id = ?', array('i', $id));
         return $deleted;
     }
+
 }

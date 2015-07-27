@@ -1,149 +1,135 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of Fichier
  *
  * @author Alexis
  */
 class Fichier {
-    
+
     ///////////////
     // ATTRIBUTS //
     ///////////////
-    
+
     /*
      * @var int
      */
     private $id;
-    
+
     /*
      * @var string
      */
     private $nom;
-    
+
     /*
      * @var date
      */
     private $dateCreation;
-    
+
     /*
      * @var bool
      */
     private $affiche;
-    
+
     /*
      * @var TypeFichier
      */
-    private $extTypeFichier;
-    
-    
+    private $type;
+
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
-           
-    public function User($id=-1, $nom=null,
-            $dateCreation=null, $affiche=false, 
-            $typeFichier=null)
+
+    public function User($id = -1, $nom = null, $dateCreation = null, $affiche = false, $type = null)
     {
         $this->id = $id;
         $this->affiche = $affiche;
         $this->dateCreation = $dateCreation;
-        $this->extTypeFichier = $typeFichier;
+        $this->type = $type;
         $this->nom = $nom;
     }
-    
+
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////
-    
-    //GetterSetter id
+
     public function setId($id)
     {
-        if(is_int($id))
+        if (is_int($id))
         {
             $this->id = $id;
         }
     }
-    
+
     public function getId()
     {
         return $this->id;
     }
-    
-    //GetterSetter nom
+
     public function setNom($nom)
     {
-        if(is_string($nom))
+        if (is_string($nom))
         {
             $this->nom = $nom;
         }
     }
-    
+
     public function getNom()
     {
         return $this->nom;
     }
- 
-    //GetterSetter dateCreation
+
     public function setDateCreation($dateCreation)
     {
-        if(is_a($dateCreation, "Date"))
+        if (is_a($dateCreation, "Date"))
         {
             $this->dateCreation = $dateCreation;
         }
     }
-    
+
     public function getDateCreation()
     {
         return $this->dateCreation;
     }
- 
-    //GetterSetter affiche
+
     public function setAffiche($affiche)
     {
-        if(is_bool($affiche))
+        if (is_bool($affiche))
         {
             $this->affiche = $affiche;
         }
     }
-    
+
     public function getAffiche()
     {
         return $this->affiche;
     }
-    
-   //GetterSetter extTypeFichier
-    public function setTypeFichier($typeFichier)
+
+    public function setType($type)
     {
-        if(is_int($typeFichier))
+        if (is_int($type))
         {
-            $this->extTypeFichier = TypeFichierDAL::findById($typeFichier);
+            $this->type = TypeFichierDAL::findById($type);
         }
-        else if(is_a($typeFichier, "TypeFichier"))
+        else if (is_a($type, "TypeFichier"))
         {
-            $this->extTypeFichier = $typeFichier;
+            $this->type = $type;
         }
     }
-    
-    public function getTypeFichier()
+
+    public function getType()
     {
-        $typeFichier = null;
-        
-        if(is_int($this->extTypeFichier))
+        $type = null;
+        if (is_int($this->type))
         {
-            $typeFichier = TypeFichierDAL::findById($this->extTypeFichier);
-            $this->extTypeFichier = $typeFichier;
+            $type = TypeFichierDAL::findById($this->type);
+            $this->type = $type;
         }
-        else if(is_a($this->extTypeFichier, "TypeFichier"))
+        else if (is_a($this->type, "TypeFichier"))
         {
-            $typeFichier = $this->extTypeFichier;
+            $type = $this->type;
         }
-        return $typeFichier;
+        return $type;
     }
+
 }

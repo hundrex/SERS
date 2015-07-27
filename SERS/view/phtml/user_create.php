@@ -1,4 +1,4 @@
-<form>
+<form method="POST" action="/controller/page/user_create.php">
     <div class="form-group">
         <label for="lastName">Last name</label>
         <input type="text" class="form-control" id="lastName" placeholder="e.g. Anderson">
