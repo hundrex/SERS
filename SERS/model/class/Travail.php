@@ -73,6 +73,12 @@ class Travail {
         $this->prixRattrapage = $prixRattrapage;
     }
 
+    /**
+     * Méthode permettant de retrouver le module correspondant au travail en question.
+     * Doit être redéfinie dans les classes filles.
+     */
+    public abstract function getModule();
+
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////
