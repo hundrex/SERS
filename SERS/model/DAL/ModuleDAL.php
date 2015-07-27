@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 require_once('BaseSingleton.php');
 require_once('../model/class/Module.php');
 
@@ -23,11 +17,8 @@ class ModuleDAL extends Module {
                         . 'date_creation, number, affiche '
                         . 'FROM module '
                         . 'WHERE id = ?', array('i', $id));
-
         $module = new Module();
-
         $module->hydrate($data);
-
         return $module;
     }
 
@@ -81,18 +72,15 @@ class ModuleDAL extends Module {
     public static function findAll()
     {
         $mesModules = array();
-
         $data = BaseSingleton::select('SELECT id, bareme_id, label, description, '
                         . 'date_creation, number, affiche '
                         . 'FROM module ');
-
         foreach ($data as $row)
         {
             $module = new Module();
             $module->hydrate($row);
             $mesModules[] = $module;
         }
-
         return $mesModules;
     }
 
@@ -105,7 +93,6 @@ class ModuleDAL extends Module {
     public static function insertOnDuplicate($module)
     {
         $sql = 'INSERT INTO module ' + '(bareme_id, label, description, ' + 'date_creation, number, affiche) ' + 'VALUES(?,?,?,?,?, ?) ' + 'ON DUPLICATE KEY ' + 'UPDATE bareme_id = VALUES(bareme_id), ' + 'label = VALUES(label), ' + 'description = VALUES(description), ' + 'date_creation = VALUES(date_creation), ' + 'number = VALUES(number), ' + 'affiche = VALUES(affiche)';
-
         $params = array('issdib', array(
                 $module->getBareme()->getId(), //int
                 $module->getLabel(), //string
@@ -114,9 +101,7 @@ class ModuleDAL extends Module {
                 $module->getNumber(), //int
                 $module->getAffiche() //bool
         ));
-
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
-
         return $idInsert;
     }
 
@@ -129,7 +114,6 @@ class ModuleDAL extends Module {
     public static function delete($id)
     {
         $deleted = BaseSingleton::delete('DELETE FROM module WHERE id = ?', array('i', $id));
-
         return $deleted;
     }
 
