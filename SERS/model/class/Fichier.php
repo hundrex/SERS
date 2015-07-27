@@ -34,24 +34,25 @@ class Fichier {
     /*
      * @var TypeFichier
      */
-    private $extTypeFichier;
+    private $type;
 
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function User($id = -1, $nom = null, $dateCreation = null, $affiche = false, $typeFichier = null)
+    public function User($id = -1, $nom = null, $dateCreation = null, $affiche = false, $type = null)
     {
         $this->id = $id;
         $this->affiche = $affiche;
         $this->dateCreation = $dateCreation;
-        $this->extTypeFichier = $typeFichier;
+        $this->type = $type;
         $this->nom = $nom;
     }
 
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////
+
     public function setId($id)
     {
         if (is_int($id))
@@ -104,31 +105,31 @@ class Fichier {
         return $this->affiche;
     }
 
-    public function setTypeFichier($typeFichier)
+    public function setType($type)
     {
-        if (is_int($typeFichier))
+        if (is_int($type))
         {
-            $this->extTypeFichier = TypeFichierDAL::findById($typeFichier);
+            $this->type = TypeFichierDAL::findById($type);
         }
-        else if (is_a($typeFichier, "TypeFichier"))
+        else if (is_a($type, "TypeFichier"))
         {
-            $this->extTypeFichier = $typeFichier;
+            $this->type = $type;
         }
     }
 
-    public function getTypeFichier()
+    public function getType()
     {
-        $typeFichier = null;
-        if (is_int($this->extTypeFichier))
+        $type = null;
+        if (is_int($this->type))
         {
-            $typeFichier = TypeFichierDAL::findById($this->extTypeFichier);
-            $this->extTypeFichier = $typeFichier;
+            $type = TypeFichierDAL::findById($this->type);
+            $this->type = $type;
         }
-        else if (is_a($this->extTypeFichier, "TypeFichier"))
+        else if (is_a($this->type, "TypeFichier"))
         {
-            $typeFichier = $this->extTypeFichier;
+            $type = $this->type;
         }
-        return $typeFichier;
+        return $type;
     }
 
 }
