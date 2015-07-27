@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -75,7 +70,7 @@ and open the template in the editor.
                             <ul class="dropdown-menu">
                                 <li><a href="?page=module_list">All Modules</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Web Development</a></li>
+                                <li><a href="?page=module">Web Development</a></li>
                                 <li><a href="#">Web Design</a></li>
                                 <li><a href="#">Content Management System</a></li>
                                 <li><a href="#">Legal Ethical Social And Professional Issues</a></li>
