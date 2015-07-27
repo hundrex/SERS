@@ -227,7 +227,7 @@ class User {
         return $this->affiche;
     }
 
-    public function setFichier($fichier)
+    public function setAvatar($fichier)
     {
         if (is_int($fichier))
         {
@@ -239,7 +239,7 @@ class User {
         }
     }
 
-    public function getFichier()
+    public function getAvatar()
     {
         $fichier = null;
 
@@ -259,32 +259,31 @@ class User {
     // *** Getters et setters particuliers (chargement paresseux) ***
     // **************************************************************
 
-    public function setTypeUser($extTypeUser)
+    public function setType($typeUser)
     {
-        if (is_int($extTypeUser))
+        if (is_int($typeUser))
         {
-            $this->type = TypeUserDAL::findById($extTypeUser);
+            $this->type = TypeUserDAL::findById($typeUser);
         }
-        else if (is_a($extTypeUser, "TypeUser"))
+        else if (is_a($typeUser, "TypeUser"))
         {
-            $this->type = $extTypeUser;
+            $this->type = $typeUser;
         }
     }
 
-    public function getTypeUser()
+    public function getType()
     {
-        $extTypeUser = null;
-
+        $typeUser = null;
         if (is_int($this->type))
         {
-            $extTypeUser = TypeUserDAL::findById($this->type);
-            $this->type = $extTypeUser;
+            $typeUser = TypeUserDAL::findById($this->type->getId());
+            $this->type = $typeUser;
         }
         else if (is_a($this->type, "TypeUser"))
         {
-            $extTypeUser = $this->type;
+            $typeUser = $this->type;
         }
-        return $extTypeUser;
+        return $typeUser;
     }
 
     //////////////
@@ -298,8 +297,8 @@ class User {
         $this->affiche = $dataSet['affiche'];
         $this->dateCreation = $dataSet['dateCreation'];
         $this->dateNaissance = $dataSet['dateNaissance'];
-        $this->avatar = $dataSet['Fichier'];
-        $this->type = $dataSet['TypUser'];
+        $this->avatar = $dataSet['fichier'];
+        $this->type = $dataSet['typeUser'];
         $this->mail = $dataSet['mail'];
         $this->nom = $dataSet['nom'];
         $this->password = $dataSet['password'];
