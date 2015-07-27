@@ -25,7 +25,8 @@
             <div class="panel-body">
                 <label for="assignmentTitle">SERS project</label>
                 <!-- Date -->
-                <p>Description</p>
+                <p>Nam vestibulum at eros ac cursus. Sed sapien nisl, accumsan quis lacinia vel, tempor in libero. 
+                    Sed dapibus velit eu velit iaculis, eu consectetur ante auctor.</p>
             </div>
         </div>
     </div>
@@ -39,7 +40,8 @@
             <div class="panel-body">
                 <label for="assignmentTitle">Web exam</label>
                 <!-- Date -->
-                <p>Description</p>
+                <p>Nam vestibulum at eros ac cursus. Sed sapien nisl, accumsan quis lacinia vel, tempor in libero. 
+                    Sed dapibus velit eu velit iaculis, eu consectetur ante auctor.</p>
             </div>
         </div>
     </div>
@@ -52,4 +54,10 @@
         <tr><td>Durden</td><td>Taylor</td><td>18</td><td>20</td><td>19</td></tr>
         <tr><td>Rabbit</td><td>Roger</td><td>8</td><td>10</td><td>9</td></tr>
     </table>
+</div>
+<div class="center">
+    <nav>
+        <button type="button" class="btn btn-default  btn-right">Import marks (.csv) <span 
+                class="glyphicon glyphicon-open-file"></span></button>
+    </nav>
 </div>

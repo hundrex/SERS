@@ -25,17 +25,29 @@
 
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>User Type</th><th></th></tr>
-        <tr><td>Commandant</td><td>Cousteau</td><td>-104AD</td><td>Root</td><td>
-                <span class="glyphicon glyphicon-eye-open"></span></td>
+        <tr><td>Commandant</td><td>Cousteau</td><td>-104AD</td><td>Root</td>
+            <td>
+                <button type="button" class="btn btn-default  btn-right"><span 
+                        class="glyphicon glyphicon-eye-open"></span></button>
+            </td>
         </tr>
-        <tr><td>Batman</td><td>Batman</td><td>1895</td><td>Administration</td><td>
-                <span class="glyphicon glyphicon-eye-open"></span></td>
+        <tr><td>Batman</td><td>Batman</td><td>1895</td><td>Administration</td>
+            <td>
+                <button type="button" class="btn btn-default  btn-right"><span 
+                        class="glyphicon glyphicon-eye-open"></span></button>
+            </td>
         </tr>
-        <tr><td>Jones</td><td>Indiana</td><td>1910</td><td>Teacher</td><td>
-                <span class="glyphicon glyphicon-eye-open"></span></td>
+        <tr><td>Jones</td><td>Indiana</td><td>1910</td><td>Teacher</td>
+            <td>
+                <button type="button" class="btn btn-default  btn-right"><span 
+                        class="glyphicon glyphicon-eye-open"></span></button>            
+            </td>
         </tr>
-        <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>Student</td><td>
-                <span class="glyphicon glyphicon-eye-open"></span></td>
+        <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>Student</td>
+            <td>
+                <button type="button" class="btn btn-default  btn-right"><span 
+                        class="glyphicon glyphicon-eye-open"></span></button>           
+            </td>
         </tr>
     </table>
 </div>
