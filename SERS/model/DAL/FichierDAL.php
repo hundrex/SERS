@@ -54,18 +54,21 @@ class FichierDAL extends Fichier {
     public static function insertOnDuplicate($fichier)
     {
         $sql = 'INSERT INTO fichier (type_fichier_id, nom, date_creation, affiche) '
-                . 'VALUES(?,?,?,?) '
+                . 'VALUES(?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?) '
                 . 'ON DUPLICATE KEY UPDATE '
-                . 'type_fichier_id = VALUES(type_fichier_id), '
+                . 'UPDATE type_fichier_id = VALUES(type_fichier_id), '
                 . 'nom = VALUES(nom), '
-                . 'date_creation = VALUES(date_creation), '
                 . 'affiche = VALUES(affiche)';
-        $params = array('isdb', array(
-                $fichier->getTypeFichier()->getId(), //int
-                $fichier->getNom(), //string
-                $fichier->getDateCreation(), //date
-                $fichier->getAffiche() //bool
-        ));
+
+        $typeFichierId = $fichier->getTypeFichier()->getId(); //int
+        $nom = $fichier->getNom(); //string
+        $affiche = $fichier->getAffiche(); //bool
+
+        $params = array('isb',
+                &$typeFichierId, //int
+                &$nom, //string
+                &$affiche //bool
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }

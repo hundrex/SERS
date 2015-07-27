@@ -54,7 +54,7 @@ class TypeUserDAL extends TypeUser {
         $sql = 'INSERT INTO type_user (label, code, description, date_creation, affiche) '
                 . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?) '
                 . 'ON DUPLICATE KEY UPDATE '
-                . 'label = VALUES(label), '
+                . 'UPDATE label = VALUES(label), '
                 . 'code = VALUES(code), '
                 . 'description = VALUES(description), '
                 . 'affiche = VALUES(affiche) ';
