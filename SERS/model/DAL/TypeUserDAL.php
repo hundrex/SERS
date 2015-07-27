@@ -1,15 +1,10 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 require_once('BaseSingleton.php');
 require_once('../model/class/TypeUser.php');
-class TypeUserDAL extends TypeUser
-{
+
+class TypeUserDAL extends TypeUser {
+
     /**
      * Retourne l'objet correspondant à l'id donné.
      * 
@@ -22,14 +17,12 @@ class TypeUserDAL extends TypeUser
                         . ' description, date_creation, affiche '
                         . 'FROM type_user '
                         . 'WHERE id = ?', array('i', $id));
-        
+
         $typeUser = new TypeUser();
-        
         $typeUser->hydrate($data);
-        
         return $typeUser;
     }
-    
+
     /**
      * Retourne toutes les typeUsers enregistrées.
      * 
@@ -38,21 +31,18 @@ class TypeUserDAL extends TypeUser
     public static function findAll()
     {
         $mesTypeUsers = array();
-        
         $data = BaseSingleton::select('SELECT id, label, code, '
                         . ' description, date_creation, affiche '
                         . 'FROM type_user ');
-        
-        foreach($data as $row)
+        foreach ($data as $row)
         {
             $typeUser = new TypeUser();
             $typeUser->hydrate($row);
             $mesTypeUsers[] = $typeUser;
         }
-        
         return $mesTypeUsers;
     }
-    
+
     /**
      * Insère ou met à jour la typeUser donné en paramètre.
      * @param typeUser
@@ -61,29 +51,25 @@ class TypeUserDAL extends TypeUser
      */
     public static function insertOnDuplicate($typeUser)
     {
-        $sql = 'INSERT INTO type_user '
-            + '(label, code, description, date_creation, affiche ) '
-            + 'VALUES(?,?,?,?,?) '
-            + 'ON DUPLICATE KEY '
-            + 'UPDATE label = VALUES(label),'
-                + 'code = VALUES(code),'
-                + 'description = VALUES(description),'
-                + 'date_creation = VALUES(date_creation), '
-                + 'affiche = VALUES(affiche) ';
-        
+        $sql = 'INSERT INTO type_user (label, code, description, date_creation, affiche) '
+                . 'VALUES(?,?,?,?,?) '
+                . 'ON DUPLICATE KEY UPDATE '
+                . 'label = VALUES(label), '
+                . 'code = VALUES(code), '
+                . 'description = VALUES(description), '
+                . 'date_creation = VALUES(date_creation), '
+                . 'affiche = VALUES(affiche) ';
         $params = array('sisdb', array(
-            $typeUser->getLabel(), //string
-            $typeUser->getCode(), //int
-            $typeUser->getDescription(), //string
-            $typeUser->getDateCreation(), //date
-            $typeUser->getAffiche() //bool
+                $typeUser->getLabel(), //string
+                $typeUser->getCode(), //int
+                $typeUser->getDescription(), //string
+                $typeUser->getDateCreation(), //date
+                $typeUser->getAffiche() //bool
         ));
-        
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
-        
         return $idInsert;
     }
-    
+
     /**
      * Delete the row corresponding to the given id.
      * 
@@ -92,9 +78,8 @@ class TypeUserDAL extends TypeUser
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM type_user WHERE id = ?', 
-                array('i', $id));
-        
+        $deleted = BaseSingleton::delete('DELETE FROM type_user WHERE id = ?', array('i', $id));
         return $deleted;
     }
+
 }
