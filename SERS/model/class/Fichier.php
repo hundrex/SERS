@@ -132,4 +132,16 @@ class Fichier {
         return $type;
     }
 
+    //////////////
+    // METHODES //
+    //////////////
+
+    protected function hydrate($dataSet)
+    {
+        $this->id = $dataSet['id'];
+        $this->dateCreation = $dataSet['date_creation'];
+        $this->affiche = $dataSet['affiche'];
+        $this->nom = $dataSet['nom'];
+        $this->type = $dataSet['type_fichier_id'];
+    }
 }
