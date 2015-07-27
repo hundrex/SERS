@@ -35,7 +35,7 @@ class ModeleMail {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Mark($id = -1, $label = null, $description = null, $contenu = null)
+    public function Mark($id = -1, $label = "label default", $description = "description default", $contenu = "default contenu")
     {
         $this->id = $id;
         $this->description = $description;
