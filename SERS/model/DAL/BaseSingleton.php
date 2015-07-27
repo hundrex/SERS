@@ -64,6 +64,7 @@ class BaseSingleton
         {
             try
             {
+                echo self::$instance->mysqli->error;
                 // On prépare la requête.
                 self::$instance->statement = self::$instance->mysqli->prepare($sql);
                 
@@ -118,6 +119,7 @@ class BaseSingleton
         {
             try
             {
+                echo self::$instance->mysqli->error;
                 // On prépare la requête.
                 self::$instance->statement = self::$instance->mysqli->prepare($sql);
                 
@@ -169,6 +171,7 @@ class BaseSingleton
         {
             try
             {
+                echo self::$instance->mysqli->error;
                 // On prépare la requête.
                 self::$instance->statement = self::$instance->mysqli->prepare($sql);
                 
