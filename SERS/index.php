@@ -17,6 +17,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
         <!--https://eonasdan.github.io/bootstrap-datetimepicker/Installing/-->
         
+        <script type="text/javascript" src="./view/javascript/imported_libraries/dual-list-box.min.js"></script>
 
         <link rel="stylesheet" href="./view/css/main.css">
     </head>
@@ -56,7 +57,7 @@
                                aria-haspopup="true" aria-expanded="false">Student <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="?page=student_list">Student List</a></li>
-                                <li><a href="#">Module Inscription</a></li>
+                                <li><a href="?page=module_inscription">Module Inscription</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="?page=student_create">New...</a></li>
                             </ul>
