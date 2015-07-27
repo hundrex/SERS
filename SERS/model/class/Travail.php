@@ -50,6 +50,11 @@ class Travail {
      * @var bool
      */
     protected $affiche;
+    
+    /*
+     * @var Note
+     */
+    protected $note;
 
     ///////////////////
     // CONSTRUCTEURS //
@@ -175,6 +180,19 @@ class Travail {
     {
         return $this->affiche;
     }
+    
+    public function setNote($note)
+    {
+        if (is_a($note, "Note"))
+        {
+            $this->note = $note;
+        }
+    }
+
+    public function getNote()
+    {
+        return $this->note;
+    }
 
     //////////////
     // METHODES //
@@ -189,6 +207,7 @@ class Travail {
         $this->datePassage = $dataSet['datePassage'];
         $this->description = $dataSet['description'];
         $this->annee = $dataSet['annee'];
+        $this->note = $dataSet['note'];
     }
 
 }
