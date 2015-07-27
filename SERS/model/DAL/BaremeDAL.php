@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,8 +8,9 @@
 
 require_once('BaseSingleton.php');
 require_once('../model/class/Bareme.php');
-class BaremeDAL extends Bareme
-{
+
+class BaremeDAL extends Bareme {
+
     /**
      * Retourne l'objet correspondant à l'id donné.
      * 
@@ -20,15 +21,15 @@ class BaremeDAL extends Bareme
     {
         $data = BaseSingleton::select('SELECT id, label '
                         . 'FROM bareme '
-                        . 'WHERE id = ?', array('i', $id));
-        
+                        . 'WHERE id = ?', array('i', &$id));
+
         $bareme = new Bareme();
-        
-        $bareme->hydrate($data);
-        
+
+        $bareme->hydrate($data[0]);
+
         return $bareme;
     }
-    
+
     /**
      * Retourne tous les bareme enregistrés.
      * 
@@ -37,20 +38,20 @@ class BaremeDAL extends Bareme
     public static function findAll()
     {
         $mesBaremes = array();
-        
+
         $data = BaseSingleton::select('SELECT id, label '
                         . 'FROM bareme ');
-        
-        foreach($data as $row)
+
+        foreach ($data as $row)
         {
             $bareme = new Bareme();
             $bareme->hydrate($row);
             $mesBaremes[] = $bareme;
         }
-        
+
         return $mesBaremes;
     }
-    
+
     /**
      * Insère ou met à jour le module donné en paramètre.
      * @param bareme
@@ -59,21 +60,23 @@ class BaremeDAL extends Bareme
      */
     public static function insertOnDuplicate($bareme)
     {
-        $sql = 'INSERT INTO bareme '
-            + '(label '
-            + 'VALUES(?) '
-            + 'ON DUPLICATE KEY '
-            + 'UPDATE label = VALUES(label)';
+        $sql = 'INSERT INTO bareme ' 
+                . '(label ' 
+                . 'VALUES(?) ' 
+                . 'ON DUPLICATE KEY ' 
+                . 'UPDATE label = VALUES(label)';
+
+        $label = $bareme->getLabel();
         
-        $params = array('s', array(
-            $bareme->getLabel(), //string
-        ));
-        
+        $params = array('s',
+            &$label, //string
+        );
+
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
-        
+
         return $idInsert;
     }
-    
+
     /**
      * Delete the row corresponding to the given id.
      * 
@@ -82,9 +85,9 @@ class BaremeDAL extends Bareme
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM bareme WHERE id = ?', 
-                array('i', $id));
-        
+        $deleted = BaseSingleton::delete('DELETE FROM bareme WHERE id = ?', array('i', &$id));
+
         return $deleted;
     }
+
 }
