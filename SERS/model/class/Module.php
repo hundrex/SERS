@@ -183,7 +183,7 @@ class Module {
         $this->dateCreation = $dataSet['dateCreation'];
         $this->description = $dataSet['description'];
         $this->number = $dataSet['number'];
-        $this->extBareme = $dataSet['Bareme'];
+        $this->extBareme = $dataSet['bareme_id'];
     }
 
 }

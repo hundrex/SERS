@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,8 +8,9 @@
 
 require_once('BaseSingleton.php');
 require_once('../model/class/Mark.php');
-class MarkDAL extends Mark
-{
+
+class MarkDAL extends Mark {
+
     /**
      * Retourne l'objet correspondant à l'id donné.
      * 
@@ -20,15 +21,15 @@ class MarkDAL extends Mark
     {
         $data = BaseSingleton::select('SELECT id, bareme_id, maxi, mini, grade '
                         . 'FROM mark '
-                        . 'WHERE id = ?', array('i', $id));
-        
+                        . 'WHERE id = ?', array('i', &$id));
+
         $mark = new Mark();
-        
-        $mark->hydrate($data);
-        
+
+        $mark->hydrate($data[0]);
+
         return $mark;
     }
-    
+
     /**
      * Retourne toutes les marks enregistrées.
      * 
@@ -37,20 +38,20 @@ class MarkDAL extends Mark
     public static function findAll()
     {
         $mesMarks = array();
-        
+
         $data = BaseSingleton::select('SELECT id, bareme_id, maxi, mini, grade '
                         . 'FROM mark ');
-        
-        foreach($data as $row)
+
+        foreach ($data as $row)
         {
             $mark = new Mark();
             $mark->hydrate($row);
             $mesMarks[] = $mark;
         }
-        
+
         return $mesMarks;
     }
-    
+
     /**
      * Insère ou met à jour la mark donné en paramètre.
      * @param mark
@@ -59,27 +60,31 @@ class MarkDAL extends Mark
      */
     public static function insertOnDuplicate($mark)
     {
-        $sql = 'INSERT INTO mark '
-            + '(bareme_id, maxi, mini, grade '
-            + 'VALUES(?,?,?,?) '
-            + 'ON DUPLICATE KEY '
-            + 'UPDATE bareme_id = VALUES(bareme_id),'
-                + 'maxi = VALUES(maxi),'
-                + 'mini = VALUES(mini),'
-                + 'grade = VALUES(grade)';
-        
-        $params = array('iiis', array(
-            $mark->getBareme()->getId(), //int
-            $mark->getMaxi(), //int
-            $mark->getMini(), //int
-            $mark->getGrade(), //string
-        ));
-        
+        $sql = 'INSERT INTO mark ' . '(bareme_id, maxi, mini, grade ' 
+                . 'VALUES(?,?,?,?) ' 
+                . 'ON DUPLICATE KEY ' 
+                . 'UPDATE bareme_id = VALUES(bareme_id),' 
+                . 'maxi = VALUES(maxi),' 
+                . 'mini = VALUES(mini),' 
+                . 'grade = VALUES(grade)';
+
+        $baremeId = $mark->getBareme()->getId(); //int
+        $maxi = $mark->getMaxi(); //int
+        $mini = $mark->getMini(); //int
+        $grade = $mark->getGrade(); //string
+
+        $params = array('iiis',
+                &$baremeId, //int
+                &$maxi, //int
+                &$mini, //int
+                &$grade, //string
+        );
+
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
-        
+
         return $idInsert;
     }
-    
+
     /**
      * Delete the row corresponding to the given id.
      * 
@@ -88,9 +93,9 @@ class MarkDAL extends Mark
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM mark WHERE id = ?', 
-                array('i', $id));
-        
+        $deleted = BaseSingleton::delete('DELETE FROM mark WHERE id = ?', array('i', &$id));
+
         return $deleted;
     }
+
 }
