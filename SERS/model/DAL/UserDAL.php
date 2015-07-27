@@ -116,7 +116,7 @@ class UserDAL extends User {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM user WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM user WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 

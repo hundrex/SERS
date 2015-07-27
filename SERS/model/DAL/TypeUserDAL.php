@@ -52,20 +52,24 @@ class TypeUserDAL extends TypeUser {
     public static function insertOnDuplicate($typeUser)
     {
         $sql = 'INSERT INTO type_user (label, code, description, date_creation, affiche) '
-                . 'VALUES(?,?,?,?,?) '
+                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?) '
                 . 'ON DUPLICATE KEY UPDATE '
                 . 'label = VALUES(label), '
                 . 'code = VALUES(code), '
                 . 'description = VALUES(description), '
-                . 'date_creation = VALUES(date_creation), '
                 . 'affiche = VALUES(affiche) ';
-        $params = array('sisdb', array(
-                $typeUser->getLabel(), //string
-                $typeUser->getCode(), //int
-                $typeUser->getDescription(), //string
-                $typeUser->getDateCreation(), //date
-                $typeUser->getAffiche() //bool
-        ));
+
+        $label = $typeUser->getLabel(); //string
+        $code = $typeUser->getCode(); //int
+        $description = $typeUser->getDescription(); //string
+        $affiche = $typeUser->getAffiche(); //bool
+
+        $params = array('sisb',
+                &$label, //string
+                &$code, //int
+                &$description, //string
+                &$affiche //bool
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
@@ -78,7 +82,7 @@ class TypeUserDAL extends TypeUser {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM type_user WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM type_user WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 
