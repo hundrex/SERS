@@ -15,7 +15,7 @@ class TypeFichierDAL extends TypeFichier {
     {
         $data = BaseSingleton::select('SELECT id, label, description, chemin'
                         . 'FROM type_fichier '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
 
         $typeFichier = new TypeFichier();
         $typeFichier->hydrate($data);
@@ -49,7 +49,7 @@ class TypeFichierDAL extends TypeFichier {
      */
     public static function insertOnDuplicate($typeFichier)
     {
-        $sql = 'INSERT INTO type_fichier ' + '(label, description, chemin) ' + 'VALUES(?,?,?) ' + 'ON DUPLICATE KEY ' + 'UPDATE label = VALUES(label),' + 'description = VALUES(description),' + 'chemin = VALUES(chemin) ';
+        $sql = 'INSERT INTO type_fichier ' . '(label, description, chemin) ' . 'VALUES(?,?,?) ' . 'ON DUPLICATE KEY ' . 'UPDATE label = VALUES(label),' . 'description = VALUES(description),' . 'chemin = VALUES(chemin) ';
         $params = array('sss', array(
                 $typeFichier->getLabel(), //string
                 $typeFichier->getDescription(), //string

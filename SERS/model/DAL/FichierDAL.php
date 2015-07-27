@@ -15,9 +15,19 @@ class FichierDAL extends Fichier {
     {
         $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
                         . 'FROM fichier '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
         $fichier = new Fichier();
-        $fichier->hydrate($data);
+        $fichier->hydrate($data[0]);
+        return $fichier;
+    }
+    
+        public static function findAvatarDefaut()
+    {
+        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
+                        . 'FROM fichier '
+                        . 'WHERE id = ?', array('i', 1));
+        $fichier = new Fichier();
+        $fichier->hydrate($data[0]);
         return $fichier;
     }
 
@@ -73,7 +83,7 @@ class FichierDAL extends Fichier {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM fichier WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM fichier WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 

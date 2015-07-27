@@ -16,10 +16,10 @@ class TypeUserDAL extends TypeUser {
         $data = BaseSingleton::select('SELECT id, label, code, '
                         . ' description, date_creation, affiche '
                         . 'FROM type_user '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
 
         $typeUser = new TypeUser();
-        $typeUser->hydrate($data);
+        $typeUser->hydrate($data[0]);
         return $typeUser;
     }
 
