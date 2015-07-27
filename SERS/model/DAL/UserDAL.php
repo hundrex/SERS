@@ -103,13 +103,7 @@ class UserDAL extends User {
             &$avatarId,
             &$typeId,
         );
-//        $params = array('ss', array(
-//                $user->getPrenom(), //string
-//                $user->getNom(), //string
-//        ));
-        echo "<pre>";
-        var_dump($params);
-        echo "</pre>";
+
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
