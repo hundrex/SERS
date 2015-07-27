@@ -9,17 +9,17 @@
     </div>
     <div class="form-group">
         <label for="birthDate">Birth date</label>
-        <input type="date" class="form-control" id="birthDate" name="birthDate"
-               placeholder="e.g. For 13th september 1971 : 13/09/1971">
+        <input type="date" class="form-control" id="birthDate" name="birthDate" required
+               placeholder="e.g. For 13th september 1971 : 1971/09/13">
     </div>
     <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" name="address" 
+        <input type="text" class="form-control" id="address" name="address" required
                placeholder="e.g. 21 St Nicholas St Bristol BS1 1UA">
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" 
+        <input type="email" class="form-control" id="email" name="email" required 
                placeholder="e.g. thomas.anderson@skynet.com">
     </div>
     <div class="form-group">

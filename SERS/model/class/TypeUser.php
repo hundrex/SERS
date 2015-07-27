@@ -145,7 +145,7 @@ class TypeUser {
         $this->id = $dataSet['id'];
         $this->label = $dataSet['label'];
         $this->affiche = $dataSet['affiche'];
-        $this->dateCreation = $dataSet['dateCreation'];
+        $this->dateCreation = $dataSet['date_creation'];
         $this->description = $dataSet['description'];
         $this->code = $dataSet['code'];
     }

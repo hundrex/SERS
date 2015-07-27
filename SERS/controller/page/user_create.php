@@ -32,7 +32,7 @@ $user->setNom($validLastName);
 $validFisrtName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
 $user->setPrenom($validFisrtName);
 
-$myregex = "~^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$~";
+$myregex = "~^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$~";
 $validBirthDate = filter_input(INPUT_POST, 'birthDate', FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$myregex)));
 $user->setDateNaissance($validBirthDate);
 
@@ -43,7 +43,6 @@ $validEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 $user->setMail($validEmail);
 
 $validUserTypeId = filter_input(INPUT_POST, 'userType', FILTER_SANITIZE_NUMBER_INT);
-var_dump($validUserTypeId);
 $user->setType($validUserTypeId);
 
 //Insertion de l'user dans la table

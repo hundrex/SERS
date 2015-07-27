@@ -6,6 +6,8 @@
  * @author Alexis
  */
 
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/DAL/TypeUserDAL.php');
+
 class User {
 
     ///////////////
@@ -263,7 +265,8 @@ class User {
     {
         if (is_string($typeUser))
         {
-            $this->type = (int) $typeUser;
+            $typeUser = (int) $typeUser;
+            $this->type = TypeUserDAL::findById($typeUser);
         }
         else if (is_int($typeUser))
         {

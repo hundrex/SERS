@@ -55,13 +55,13 @@ class UserDAL extends User {
     {
         $sql = 'INSERT INTO user ' . '(prenom, nom, mail, adresse, date_naissance, '
                 . 'pseudo, password, affiche, fichier_id, type_user_id, date_creation) '
-                . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(),"%d/%m/%Y")) '
+                . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(),"%Y/%m/%d")) '
                 . 'ON DUPLICATE KEY '
                 . 'UPDATE prenom = VALUES(prenom), '
                 . 'nom = VALUES(nom), '
                 . 'mail = VALUES(mail), '
                 . 'adresse = VALUES(adresse), '
-                . 'date_naissance = DATE_FORMAT(VALUES(date_naissance),"%d/%m/%Y"), '
+                . 'date_naissance = DATE_FORMAT(VALUES(date_naissance),"%Y/%m/%d"), '
                 . 'pseudo = VALUES(pseudo), '
                 . 'fichier_id = VALUES(fichier_id), '
                 . 'type_user_id = VALUES(type_user_id)';
