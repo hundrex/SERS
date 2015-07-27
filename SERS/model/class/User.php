@@ -79,7 +79,9 @@ class User {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function User($id = -1, $adresse = null, $prenom = null, $mail = null, $nom = null, $dateNaissance = null, $dateCreation = null, $affiche = false, $password = null, $pseudo = null, $typeUser = null, $fichier = null)
+    public function User($id = -1, $adresse = "rue par defaut", $prenom = "prenomDefaut", $mail = "mail@defaut",
+            $nom = "nomDefaut", $dateNaissance = "0000-00-00", $dateCreation = "0000-00-00",
+            $affiche = 1, $password = "Change!_3", $pseudo = "prenomDefaut.nomDefaut", $typeUser = 4, $fichier = null)
     {
         $this->id = $id;
         $this->adresse = $adresse;
