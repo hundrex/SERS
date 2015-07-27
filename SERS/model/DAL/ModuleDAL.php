@@ -16,9 +16,9 @@ class ModuleDAL extends Module {
         $data = BaseSingleton::select('SELECT id, bareme_id, label, description, '
                         . 'date_creation, number, affiche '
                         . 'FROM module '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
         $module = new Module();
-        $module->hydrate($data);
+        $module->hydrate($data[0]);
         return $module;
     }
 
@@ -30,6 +30,7 @@ class ModuleDAL extends Module {
      */
     public static function findByAssignment($assignment)
     {
+        $assignmentId = $assignment->getId();
         $data = BaseSingleton::select('SELECT '
                         . 'module.id as id, module.bareme_id as bareme_id, '
                         . 'module.label as label, module.description as description, '
@@ -37,9 +38,9 @@ class ModuleDAL extends Module {
                         . 'module.affiche as affiche '
                         . 'FROM module, assignment '
                         . 'WHERE assignment.module_id = module.id'
-                        . 'AND assignment.id = ?', array('i', $assignment->getId()));
+                        . 'AND assignment.id = ?', array('i', &$assignmentId));
         $module = new Module();
-        $module->hydrate($data);
+        $module->hydrate($data[0]);
         return $module;
     }
 
@@ -51,6 +52,7 @@ class ModuleDAL extends Module {
      */
     public static function findByExam($exam)
     {
+        $examId = $exam->getId();
         $data = BaseSingleton::select('SELECT '
                         . 'module.id as id, module.bareme_id as bareme_id, '
                         . 'module.label as label, module.description as description, '
@@ -58,9 +60,9 @@ class ModuleDAL extends Module {
                         . 'module.affiche as affiche '
                         . 'FROM module, exam '
                         . 'WHERE exam.module_id = module.id'
-                        . 'AND exam.id = ?', array('i', $exam->getId()));
+                        . 'AND exam.id = ?', array('i', &$examId));
         $module = new Module();
-        $module->hydrate($data);
+        $module->hydrate($data[0]);
         return $module;
     }
 
@@ -92,14 +94,28 @@ class ModuleDAL extends Module {
      */
     public static function insertOnDuplicate($module)
     {
-        $sql = 'INSERT INTO module ' + '(bareme_id, label, description, ' + 'date_creation, number, affiche) ' + 'VALUES(?,?,?,?,?, ?) ' + 'ON DUPLICATE KEY ' + 'UPDATE bareme_id = VALUES(bareme_id), ' + 'label = VALUES(label), ' + 'description = VALUES(description), ' + 'date_creation = VALUES(date_creation), ' + 'number = VALUES(number), ' + 'affiche = VALUES(affiche)';
-        $params = array('issdib', array(
-                $module->getBareme()->getId(), //int
-                $module->getLabel(), //string
-                $module->getDescription(), //string
-                $module->getDateCreation(), //date
-                $module->getNumber(), //int
-                $module->getAffiche() //bool
+        $sql = 'INSERT INTO module ' . '(bareme_id, label, description, '
+                . 'date_creation, number, affiche) '
+                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?, ?) '
+                . 'ON DUPLICATE KEY '
+                . 'UPDATE bareme_id = VALUES(bareme_id), '
+                . 'label = VALUES(label), '
+                . 'description = VALUES(description), '
+                . 'number = VALUES(number), '
+                . 'affiche = VALUES(affiche)';
+
+        $baremId = $module->getBareme()->getId(); //int
+        $label = $module->getLabel(); //string
+        $descripion = $module->getDescription(); //string
+        $number = $module->getNumber(); //int
+        $affiche = $module->getAffiche(); //bool
+
+        $params = array('issib', array(
+                &$baremId, //int
+                &$label, //string
+                &$descripion, //string
+                &$number, //int
+                &$affiche //bool
         ));
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
@@ -113,7 +129,7 @@ class ModuleDAL extends Module {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM module WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM module WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 
