@@ -44,7 +44,7 @@ $user->setMail($validEmail);
 
 $validUserTypeId = filter_input(INPUT_POST, 'userType', FILTER_SANITIZE_NUMBER_INT);
 var_dump($validUserTypeId);
-$user->setType($validUserType);
+$user->setType($validUserTypeId);
 
 //Insertion de l'user dans la table
 $validInsertion = UserDAL::insertOnDuplicate($user);

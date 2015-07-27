@@ -13,22 +13,17 @@ class FichierDAL extends Fichier {
      */
     public static function findById($id)
     {
-        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
+        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche '
                         . 'FROM fichier '
                         . 'WHERE id = ?', array('i', &$id));
         $fichier = new Fichier();
         $fichier->hydrate($data[0]);
         return $fichier;
     }
-    
-        public static function findAvatarDefaut()
+
+    public static function findDefaultAvatar()
     {
-        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
-                        . 'FROM fichier '
-                        . 'WHERE id = ?', array('i', 1));
-        $fichier = new Fichier();
-        $fichier->hydrate($data[0]);
-        return $fichier;
+        return self::findById(1);
     }
 
     /**
@@ -39,7 +34,7 @@ class FichierDAL extends Fichier {
     public static function findAll()
     {
         $mesFichiers = array();
-        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
+        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche '
                         . 'FROM fichier ');
         foreach ($data as $row)
         {
