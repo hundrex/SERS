@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('../model/class/Fichier.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/Fichier.php');
 
 class FichierDAL extends Fichier {
 

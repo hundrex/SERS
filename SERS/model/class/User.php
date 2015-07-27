@@ -297,7 +297,7 @@ class User {
         $this->affiche = $dataSet['affiche'];
         $this->dateCreation = $dataSet['dateCreation'];
         $this->dateNaissance = $dataSet['dateNaissance'];
-        $this->avatar = $dataSet['fichier'];
+        $this->avatar = $dataSet['avatar'];
         $this->type = $dataSet['typeUser'];
         $this->mail = $dataSet['mail'];
         $this->nom = $dataSet['nom'];
