@@ -18,6 +18,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+require_once '../../model/class/User.php';
+require_once '../../model/DAL/UserDAL.php';
+
 //Création de l'user à insèrer
 $user = new User();
 
