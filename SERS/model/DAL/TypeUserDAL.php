@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('../model/class/TypeUser.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/TypeUser.php');
 
 class TypeUserDAL extends TypeUser {
 
