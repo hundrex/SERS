@@ -51,11 +51,6 @@ class Travail {
      */
     protected $affiche;
 
-    /*
-     * @var Module
-     */
-    protected $extModule;
-
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
@@ -71,7 +66,6 @@ class Travail {
         $this->number = $number;
         $this->annee = $annee;
         $this->prixRattrapage = $prixRattrapage;
-        $this->extModule = $extModule;
     }
 
     /////////////////////
@@ -182,35 +176,6 @@ class Travail {
         return $this->affiche;
     }
 
-    //GetterSetter module
-    public function setModule($module)
-    {
-        if (is_int($module))
-        {
-            $this->extModule = ModuleDAL::findById($module);
-        }
-        else if (is_a($module, "Module"))
-        {
-            $this->extModule = $module;
-        }
-    }
-
-    public function getModule()
-    {
-        $module = null;
-
-        if (is_int($this->extModule))
-        {
-            $module = ModuleDAL::findById($this->extModule);
-            $this->extModule = $module;
-        }
-        else if (is_a($this->extModule, "Module"))
-        {
-            $module = $this->extModule;
-        }
-        return $module;
-    }
-
     //////////////
     // METHODES //
     //////////////
@@ -224,7 +189,6 @@ class Travail {
         $this->datePassage = $dataSet['datePassage'];
         $this->description = $dataSet['description'];
         $this->annee = $dataSet['annee'];
-        $this->extModule = $dataSet['Module'];
     }
 
 }
