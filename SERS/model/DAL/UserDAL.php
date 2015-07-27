@@ -91,7 +91,7 @@ class UserDAL extends User {
         $avatarId = $avatar->getId(); //int
         $typeId = $user->getType()->getId(); //int
 
-        $params = array('sssssssiii',
+        $params = array('sssssssbii',
             &$prenom,
             &$nom,
             &$mail,
