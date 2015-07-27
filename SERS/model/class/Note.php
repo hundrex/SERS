@@ -22,11 +22,6 @@ class Note {
     private $dateRemise;
 
     /*
-     * @var Travail
-     */
-    private $travail;
-
-    /*
      * @var User
      */
     private $eleve;
@@ -41,12 +36,10 @@ class Note {
     ///////////////////
 
     public function Note($note = -1, $dateRemise = null,
-            $travail = null,
             $Eleve = null, $Enseignant = null)
     {
         $this->dateRemise = $dateRemise;
         $this->note = $note;
-        $this->travail = $travail;
         $this->eleve = $Eleve;
         $this->enseignant = $Enseignant;
     }
@@ -55,7 +48,6 @@ class Note {
     // GETTERS&SETTERS //
     /////////////////////
 
-    //GetterSetter note
     public function setNote($note)
     {
         if(is_int($note) && $note<=100 && $note>=0)
@@ -141,35 +133,7 @@ class Note {
         }
         return $enseignant;
     }
-
-    public function setTravail($travail)
-    {
-        if(is_int($travail))
-        {
-            $this->travail = TravailDAL::findById($travail); //rustine car travailDAL n'existe pas
-        }
-        else if(is_a($travail, "Travail"))
-        {
-            $this->travail = $travail;
-        }
-    }
-
-    public function getTravail()
-    {
-        $travail = null;
-
-        if(is_int($this->travail))
-        {
-            $travail = TravailDAL::findById($this->travail); //rustine car travailDAL n'existe pas
-            $this->travail = $travail;
-        }
-        else if(is_a($this->travail, "Travail"))
-        {
-            $travail = $this->travail;
-        }
-        return $travail;
-    }
-
+    
     //////////////
     // METHODES //
     //////////////
@@ -178,7 +142,6 @@ class Note {
     {
         $this->note = $dataSet['note'];
         $this->dateRemise = $dataSet['dateRemise'];
-        $this->travail = $dataSet['extTravail'];
         //$this->eleve = $dataSet['Eleve'];
         //$this->enseignant = $dataSet['Enseignant'];
     }
