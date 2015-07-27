@@ -1,66 +1,60 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of Note
  *
  * @author Alexis
  */
 class Note {
-    
+
     ///////////////
     // ATTRIBUTS //
     ///////////////
-    
+
     /*
      * @var int
      */
     private $note;
-    
+
     /*
      * @var Date
      */
-    private $dateRemise;    
-    
+    private $dateRemise;
+
     /*
      * @var Travail
      */
-    private $extTravail;
-    
+    private $travail;
+
     /*
      * @var User
      */
-    private $Eleve;
-    
+    private $eleve;
+
     /*
      * @var User
      */
-    private $Enseignant;
-  
+    private $enseignant;
+
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
-           
-    public function Note($note=-1, $dateRemise=null,
-            $extTravail=null,
-            $Eleve=null, $Enseignant=null)
+
+    public function Note($note = -1, $dateRemise = null,
+            $travail = null,
+            $Eleve = null, $Enseignant = null)
     {
         $this->dateRemise = $dateRemise;
         $this->note = $note;
-        $this->extTravail = $extTravail;
-        $this->Eleve = $Eleve;
-        $this->Enseignant = $Enseignant;
+        $this->travail = $travail;
+        $this->eleve = $Eleve;
+        $this->enseignant = $Enseignant;
     }
-    
+
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////
-    
+
     //GetterSetter note
     public function setNote($note)
     {
@@ -69,109 +63,109 @@ class Note {
             $this->note = $note;
         }
     }
-    
+
     public function getNote()
     {
         return $this->note;
     }
-    
-    //GetterSetter extDateRemise
+
     public function setDateRemise($dateRemise)
     {
         if(is_a($dateRemise, "Date"))
         {
-            $this->extDateRemise = $dateRemise;
+            $this->dateRemise = $dateRemise;
         }
     }
-    
+
     public function getDateRemise()
     {
-        return $this->extDateRemise;
-    }   
+        return $this->dateRemise;
+    }
 
-    //GetterSetter Eleve
+    // **************************************************************
+    // *** Getters et setters particuliers (chargement paresseux) ***
+    // **************************************************************
+
     public function setEleve($extEleve)
     {
         if(is_int($extEleve))
         {
-            $this->Eleve = UserDAL::findById($extEleve);
+            $this->eleve = UserDAL::findById($extEleve);
         }
         else if(is_a($extEleve, "User"))
         {
-            $this->Eleve = $extEleve;
+            $this->eleve = $extEleve;
         }
     }
-    
+
     public function getEleve()
     {
         $extEleve = null;
-        
-        if(is_int($this->Eleve))
+
+        if(is_int($this->eleve))
         {
-            $extEleve = UserDAL::findById($this->Eleve);
-            $this->Eleve = $extEleve;
+            $extEleve = UserDAL::findById($this->eleve);
+            $this->eleve = $extEleve;
         }
-        else if(is_a($this->Eleve, "User"))
+        else if(is_a($this->eleve, "User"))
         {
-            $extEleve = $this->Eleve;
+            $extEleve = $this->eleve;
         }
         return $extEleve;
     }
-    
-        //GetterSetter Enseignant
-    public function setEnseignant($extEnseignant)
+
+    public function setEnseignant($enseignant)
     {
-        if(is_int($extEnseignant))
+        if(is_int($enseignant))
         {
-            $this->Enseignant = UserDAL::findById($extEnseignant); 
+            $this->enseignant = UserDAL::findById($enseignant);
         }
-        else if(is_a($extEnseignant, "User"))
+        else if(is_a($enseignant, "User"))
         {
-            $this->Enseignant = $extEnseignant;
+            $this->enseignant = $enseignant;
         }
     }
-    
+
     public function getEnseignant()
     {
-        $extEnseignant = null;
-        
-        if(is_int($this->Enseignant))
+        $enseignant = null;
+
+        if(is_int($this->enseignant))
         {
-            $extEnseignant = UserDAL::findById($this->Enseignant);
-            $this->Enseignant = $extEnseignant;
+            $enseignant = UserDAL::findById($this->enseignant->getId());
+            $this->enseignant = $enseignant;
         }
-        else if(is_a($this->Enseignant, "User"))
+        else if(is_a($this->enseignant, "User"))
         {
-            $extEnseignant = $this->Enseignant;
+            $enseignant = $this->enseignant;
         }
-        return $extEnseignant;
+        return $enseignant;
     }
-    
-   //GetterSetter extTravail
+
     public function setTravail($travail)
     {
         if(is_int($travail))
         {
-            $this->extTravail = TravailDAL::findById($travail); //rustine car travailDAL n'existe pas
+            $this->travail = TravailDAL::findById($travail); //rustine car travailDAL n'existe pas
         }
         else if(is_a($travail, "Travail"))
         {
-            $this->extTravail = $travail;
+            $this->travail = $travail;
         }
     }
-    
+
     public function getTravail()
     {
         $travail = null;
-        
-        if(is_int($this->extTravail))
+
+        if(is_int($this->travail))
         {
-            $travail = TravailDAL::findById($this->extTravail); //rustine car travailDAL n'existe pas
-            $this->extTravail = $travail;
+            $travail = TravailDAL::findById($this->travail); //rustine car travailDAL n'existe pas
+            $this->travail = $travail;
         }
-        else if(is_a($this->extTravail, "Travail"))
+        else if(is_a($this->travail, "Travail"))
         {
-            $travail = $this->extTravail;
+            $travail = $this->travail;
         }
         return $travail;
     }
@@ -179,13 +173,13 @@ class Note {
     //////////////
     // METHODES //
     //////////////
-    
+
     protected function hydrate($dataSet)
     {
         $this->note = $dataSet['note'];
         $this->dateRemise = $dataSet['dateRemise'];
-        $this->extTravail = $dataSet['extTravail'];
-        //$this->Eleve = $dataSet['Eleve'];
-        //$this->Enseignant = $dataSet['Enseignant'];
+        $this->travail = $dataSet['extTravail'];
+        //$this->eleve = $dataSet['Eleve'];
+        //$this->enseignant = $dataSet['Enseignant'];
     }
 }
