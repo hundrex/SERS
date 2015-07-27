@@ -32,8 +32,8 @@ $user->setNom($validLastName);
 $validFisrtName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
 $user->setPrenom($validFisrtName);
 
-$myregex = "/^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$/";
-$validBirthDate = filter_input(INPUT_POST, 'birthDate', FILTER_VALIDATE_REGEXP, $myregex);
+$myregex = "~^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$~";
+$validBirthDate = filter_input(INPUT_POST, 'birthDate', FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$myregex)));
 $user->setDateNaissance($validBirthDate);
 
 $validAddress = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);

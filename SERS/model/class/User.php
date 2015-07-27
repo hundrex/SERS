@@ -164,7 +164,7 @@ class User {
 
     public function setDateNaissance($dateNaissance)
     {
-        if (is_a($dateNaissance, "Date"))
+        if (is_string($dateNaissance))
         {
             $this->dateNaissance = $dateNaissance;
         }
@@ -177,7 +177,7 @@ class User {
 
     public function setDateCreation($dateCreation)
     {
-        if (is_a($dateCreation, "Date"))
+        if (is_string($dateCreation))
         {
             $this->dateCreation = $dateCreation;
         }
@@ -261,7 +261,11 @@ class User {
 
     public function setType($typeUser)
     {
-        if (is_int($typeUser))
+        if (is_string($typeUser))
+        {
+            $this->type = (int) $typeUser;
+        }
+        else if (is_int($typeUser))
         {
             $this->type = TypeUserDAL::findById($typeUser);
         }
