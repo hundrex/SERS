@@ -35,7 +35,7 @@ class TypeFichier {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Mark($id = -1, $label = null, $description = null, $chemin = null)
+    public function Mark($id = -1, $label = "label par defaut", $description = "description par defaut", $chemin = "/")
     {
         $this->id = $id;
         $this->description = $description;

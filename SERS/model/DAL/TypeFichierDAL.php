@@ -50,11 +50,16 @@ class TypeFichierDAL extends TypeFichier {
     public static function insertOnDuplicate($typeFichier)
     {
         $sql = 'INSERT INTO type_fichier ' . '(label, description, chemin) ' . 'VALUES(?,?,?) ' . 'ON DUPLICATE KEY ' . 'UPDATE label = VALUES(label),' . 'description = VALUES(description),' . 'chemin = VALUES(chemin) ';
-        $params = array('sss', array(
-                $typeFichier->getLabel(), //string
-                $typeFichier->getDescription(), //string
-                $typeFichier->getChemin() //string
-        ));
+
+        $label = $typeFichier->getLabel(); //string
+        $description = $typeFichier->getDescription(); //string
+        $chemin = $typeFichier->getChemin(); //string
+
+        $params = array('sss',
+            $label, //string
+            $description, //string
+            $chemin //string
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
@@ -67,7 +72,7 @@ class TypeFichierDAL extends TypeFichier {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM type_fichier WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM type_fichier WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 
