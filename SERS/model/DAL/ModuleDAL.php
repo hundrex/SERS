@@ -151,6 +151,7 @@ class ModuleDAL extends Module {
         {
             self::saveInscriptionEleve((int)$idInsert, (int)$eleveId);
         }
+        $module->setId($idInsert);
         return $idInsert;
     }
 
