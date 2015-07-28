@@ -26,13 +26,13 @@
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th></th></tr>
         <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>
-                <button type="button" class="btn btn-default"><span 
-                        class="glyphicon glyphicon-eye-open"></span></button> 
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewStudentList">
+                    <span class="glyphicon glyphicon-eye-open"></span></button> 
             </td>
         </tr>
         <tr><td>Rabbit</td><td>Roger</td><td>1981</td><td>
-                <button type="button" class="btn btn-default"><span 
-                        class="glyphicon glyphicon-eye-open"></span></button> 
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewStudentList">
+                    <span class="glyphicon glyphicon-eye-open"></span></button> 
             </td>
         </tr>
     </table>
@@ -57,3 +57,23 @@
         </li>
     </ul>
 </nav>
+
+
+<!--modal--> 
+<div class="modal fade" id="modalViewStudentList" tabindex="-1" role="dialog" aria-labelledby="modalViewStudentList">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalViewStudentList">Student view</h4>
+            </div>
+            <div class="modal-body">
+                Student details
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>

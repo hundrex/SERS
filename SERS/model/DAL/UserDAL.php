@@ -76,7 +76,7 @@ class UserDAL extends User {
         }
 
         //Password
-        $passWord = "Change!_3";
+        $passWord = $user->getPassword();
 
         //Pseudo
         $pseudo = $user->getPrenom() . "." . $user->getNom();

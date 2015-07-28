@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('../model/class/Assignment.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/Assignment.php');
 
 class AssignmentDAL extends Assignment {
 
@@ -81,6 +81,7 @@ class AssignmentDAL extends Assignment {
                 &$prixRattrapage //int
         );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
+        $assignment->setId($idInsert);
         return $idInsert;
     }
 

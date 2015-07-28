@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('../model/class/Exam.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/Exam.php');
 
 class ExamDAL extends Exam {
 
@@ -80,6 +80,7 @@ class ExamDAL extends Exam {
                 &$prixRattrapage //int
         );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
+        $exam->setId($idInsert);
         return $idInsert;
     }
 

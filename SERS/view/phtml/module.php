@@ -15,10 +15,10 @@
                     <span class="glyphicon glyphicon-pencil"></span></button>
             </div>
         <?php elseif ($_GET['role'] == 'student'): ?>
-            <div class="input-group">
+            <div class="input-group pull-right">
                 <label for="finalMark">Final mark :</label>
                 <p>15</p>
-            </div>
+                </div>
         <?php endif ?>
     </div>
 </div>
@@ -35,7 +35,7 @@
                         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                     <?php elseif ($_GET['role'] == 'student'): ?>
-                        <span class="assignment-mark">Assignment mark: <span>14</span></span>
+                        <span class="panel-mark">Assignment mark: <span>14</span></span>
                     <?php endif ?>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                         <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
                     <?php elseif ($_GET['role'] == 'student'): ?>
-                        <span class="exam-mark">Exam mark: <span>14</span></span>
+                        <span class="panel-mark">Exam mark: <span>14</span></span>
                     <?php endif ?>
                 </div>
             </div>

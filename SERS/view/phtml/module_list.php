@@ -20,30 +20,29 @@
     </div>
 </div>
 
-
 <div class="panel panel-default">
     <div class="panel-heading">Module list</div>
     <table class="table">
         <tr><th>Module</th><th>Assignment</th><th>Exam</th><th>Final</th></tr>
         <tr><td>Web Development</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default "><span 
-                        class="glyphicon glyphicon-eye-open"></span></button></td>
+            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
+                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
         </tr>
         <tr><td>Web Design</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default  "><span 
-                        class="glyphicon glyphicon-eye-open"></span></button></td>
+            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
+                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
         </tr>
         <tr><td>Content Management System</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default  "><span 
-                        class="glyphicon glyphicon-eye-open"></span></button></td>
+            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
+                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
         </tr>
         <tr><td>Legal Ethical Social and Professional Issues</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default  "><span 
-                        class="glyphicon glyphicon-eye-open"></span></button></td>
+            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
+                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
         </tr>
         <tr><td>Web Development Framework</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default  "><span 
-                        class="glyphicon glyphicon-eye-open"></span></button></td>
+            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
+                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
         </tr>
     </table>
 </div>
@@ -67,3 +66,22 @@
         </li>
     </ul>
 </nav>
+
+<!--modal--> 
+<div class="modal fade" id="modalViewModule" tabindex="-1" role="dialog" aria-labelledby="modalViewModule">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalViewModule">Module view</h4>
+            </div>
+            <div class="modal-body">
+               Module details
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
