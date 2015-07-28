@@ -39,11 +39,6 @@ abstract class Travail {
     /*
      * @var int
      */
-    protected $annee;
-
-    /*
-     * @var int
-     */
     protected $prixRattrapage;
 
     /*
@@ -62,8 +57,8 @@ abstract class Travail {
 
     public function Travail($id = -1, $label = "default label", $number = 0000, 
             $description = "description default", $dateCreation = "0000-00-00", 
-            $datePassage = "0000-00-00", $annee = 0000, $affiche = 1, 
-            $extModule = 1, $prixRattrapage = 0)
+            $datePassage = "0000-00-00", $affiche = 1, 
+            $prixRattrapage = 0)
     {
         $this->id = $id;
         $this->label = $label;
@@ -72,7 +67,6 @@ abstract class Travail {
         $this->description = $description;
         $this->affiche = $affiche;
         $this->number = $number;
-        $this->annee = $annee;
         $this->prixRattrapage = $prixRattrapage;
     }
 
@@ -215,7 +209,6 @@ abstract class Travail {
         $this->dateCreation = $dataSet['date_creation'];
         $this->datePassage = $dataSet['date_passage'];
         $this->description = $dataSet['description'];
-        $this->annee = $dataSet['annee'];
         $this->note = $dataSet['note'];
     }
 

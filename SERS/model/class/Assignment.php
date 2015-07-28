@@ -12,6 +12,7 @@ class Assignment extends Travail {
 
     public function getModule()
     {
+        echo "Assignment.assignmentId: ".$this->getId()."</pre>"; //var_dump debug liaison assign<->module
         return ModuleDAL::findByAssignment($this);
     }
 

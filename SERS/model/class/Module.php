@@ -59,6 +59,11 @@ class Module {
      * @var Assignment
      */
     private $assignment;
+    
+        /*
+     * @var Exam
+     */
+    private $exam;
 
     ///////////////////
     // CONSTRUCTEURS //
@@ -83,7 +88,9 @@ class Module {
         {
             $this->bareme = $bareme;
         }
+        
         $this->assignment = new Assignment();
+        $this->exam = new Exam();
     }
 
     /////////////////////
@@ -271,6 +278,38 @@ class Module {
         }
         return $assignment;
     }
+    
+     public function setExam($exam)
+    {
+        if (is_string($exam)) {
+            $exam = (int) $exam;
+            $this->exam = ExamDAL::findById($exam);
+        }
+        else if (is_int($exam))
+        {
+            $this->exam = ExamDAL::findById($exam);
+        }
+        else if (is_a($exam, "Exam"))
+        {
+            $this->exam = $exam;
+        }
+    }
+
+    public function getExam()
+    {
+        $exam = null;
+        if (is_int($this->exam))
+        {
+            $exam = ExamDAL::findById($this->exam);
+            $this->exam = $exam;
+        }
+        else if (is_a($this->exam, "Exam"))
+        {
+            $exam = $this->exam;
+        }
+        return $exam;
+    }
+
 
     //////////////
     // METHODES //
