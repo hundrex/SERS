@@ -45,7 +45,7 @@ class TypeUser {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function TypeFichier($id = -1, $label = "label par defaut", $code = 0000, 
+    public function TypeUser($id = -1, $label = "label par defaut", $code = 0004, 
             $description = "description par defaut", 
             $dateCreation = "0000-00-00", $affiche = 1)
     {
