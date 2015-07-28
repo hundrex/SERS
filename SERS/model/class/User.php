@@ -301,7 +301,7 @@ class User {
         $typeUser = null;
         if (is_int($this->type))
         {
-            $typeUser = TypeUserDAL::findById($this->type->getId());
+            $typeUser = TypeUserDAL::findById($this->type);
             $this->type = $typeUser;
         }
         else if (is_a($this->type, "TypeUser"))
