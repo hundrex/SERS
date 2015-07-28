@@ -5,7 +5,7 @@
  *
  * @author Alexis
  */
-class Travail {
+abstract class Travail {
 
     ///////////////
     // ATTRIBUTS //

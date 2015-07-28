@@ -5,6 +5,7 @@
  *
  * @author Alexis
  */
+
 class Bareme {
 
     ///////////////
