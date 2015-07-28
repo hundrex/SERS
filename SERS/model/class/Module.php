@@ -51,6 +51,11 @@ class Module {
      */
     private $eleves = null;
 
+    /*
+     * @var Assignment
+     */
+    private $assignment;
+
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
@@ -74,11 +79,53 @@ class Module {
         {
             $this->bareme = $bareme;
         }
+        $this->assignment = new Assignment();
+    }
+
+    /////////////////////
+    //     METHODS     //
+    /////////////////////
+
+    public function inscrireEleve($eleve)
+    {
+        if (is_int($eleve))
+        {
+            if (!array_key_exists($eleve, $this->eleves))
+            {
+                $this->eleves[$eleve] = UserDAL::findById($eleve);
+            }
+        }
+        else if (is_a($eleve, "User"))
+        {
+            if (!array_key_exists($eleve->getId(), $this->eleves))
+            {
+                $this->eleves[$eleve->getId()] = $eleve;
+            }
+        }
+    }
+
+    public function desinscrireEleve($eleve)
+    {
+        if (is_int($eleve))
+        {
+            if (array_key_exists($eleve, $this->eleves))
+            {
+                unset($this->eleves[$eleve]);
+            }
+        }
+        else if (is_a($eleve, "User"))
+        {
+            if (array_key_exists($eleve->getId(), $this->eleves))
+            {
+                unset($this->eleves[$eleve->getId()]);
+            }
+        }
     }
 
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////
+
     public function setId($id)
     {
         if (is_int($id))
@@ -189,42 +236,34 @@ class Module {
     {
         return $this->eleves;
     }
-
-    public function inscrireEleve($eleve)
-    {
-        if (is_int($eleve))
-        {
-            if (!array_key_exists($eleve, $this->eleves))
-            {
-                $this->eleves[$eleve] = UserDAL::findById($eleve);
-            }
-        }
-        else if (is_a($eleve, "User"))
-        {
-            if (!array_key_exists($eleve->getId(), $this->eleves))
-            {
-                $this->eleves[$eleve->getId()] = $eleve;
-            }
-        }
-    }
-
-    public function desinscrireEleve($eleve)
-    {
-        if (is_int($eleve))
-        {
-            if (array_key_exists($eleve, $this->eleves))
-            {
-                unset($this->eleves[$eleve]);
-            }
-        }
-        else if (is_a($eleve, "User"))
-        {
-            if (array_key_exists($eleve->getId(), $this->eleves))
-            {
-                unset($this->eleves[$eleve->getId()]);
-            }
-        }
-    }
+    
+//    public function setAssignment($assignment)
+//    {
+//        if (is_int($assignment))
+//        {
+//            $this->assignment = BaremeDAL::findById($assignment);
+//        }
+//        else if (is_a($assignment, "Bareme"))
+//        {
+//            $this->assignment = $assignment;
+//        }
+//    }
+//
+//    public function getAssignment()
+//    {
+//        $assignment = null;
+//
+//        if (is_int($this->assignment))
+//        {
+//            $assignment = BaremeDAL::findById($this->assignment);
+//            $this->assignment = $assignment;
+//        }
+//        else if (is_a($this->assignment, "Bareme"))
+//        {
+//            $assignment = $this->assignment;
+//        }
+//        return $assignment;
+//    }
 
     //////////////
     // METHODES //
@@ -239,6 +278,7 @@ class Module {
         $this->description = $dataSet['description'];
         $this->number = $dataSet['number'];
         $this->bareme = $dataSet['bareme_id'];
+        $this->assignment = $dataSet['bareme_id'];
     }
 
 }
