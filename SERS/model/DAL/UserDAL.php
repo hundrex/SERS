@@ -25,6 +25,32 @@ class UserDAL extends User {
     }
 
     /**
+     * Retourne l'ensemble des student 
+     * 
+     * @param int $id Identifiant de l'objet à trouver
+     * @return User
+     */
+    public static function findAllStudent()
+    {
+        $codeStudent = self::TYPE_USER_STUDENT; //recupère une constante ce trouvant dans user, contenant le code (type_user) correspondant au student
+        $mesUsers = array();
+        $data = BaseSingleton::select('SELECT user.id, user.fichier_id, '
+                . 'user.type_user_id, user.prenom, user.nom, user.mail, '
+                . 'user.adresse, user.date_naissance, user.date_creation, '
+                . 'user.pseudo, user.password, user.affiche '
+                . 'FROM user, type_user '
+                . 'WHERE user.type_user_id = type_user.id '
+                . 'AND type_user.code = ? ', array('i', &$codeStudent));
+        foreach ($data as $row)
+        {
+            $user = new User();
+            $user->hydrate($row);
+            $mesUsers[] = $user;
+        }
+        return $mesUsers;
+    }
+
+    /**
      * Retourne tous les user enregistré.
      * 
      * @return array[User] Tous les objets dans un tableau.
