@@ -26,17 +26,18 @@
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                Assignment 
-                <?php if ($_GET['role'] == 'teacher'): ?>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-                <?php elseif ($_GET['role'] == 'student'): ?>
-                    <div class="input-group">
-                        <label for="assignmentMark">Assignment mark :</label>
-                        <p>14</p>
-                    </div>
-                <?php endif ?>
+            <div class="panel-heading clearfix">
+                <div class="title pull-left">
+                    Assignment 
+                </div>
+                <div class="option pull-right">
+                    <?php if ($_GET['role'] == 'teacher'): ?>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                    <?php elseif ($_GET['role'] == 'student'): ?>
+                        <span class="assignment-mark">Assignment mark: <span>14</span></span>
+                    <?php endif ?>
+                </div>
             </div>
             <div class="panel-body">
                 <label for="assignmentTitle">SERS project</label>
@@ -48,20 +49,21 @@
     </div>
     <div class="col-md-6">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                Exam 
-                 <?php if ($_GET['role'] == 'teacher'): ?>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-                <?php elseif ($_GET['role'] == 'student'): ?>
-                    <div class="input-group">
-                        <label for="examMark">Exam mark :</label>
-                        <p>16</p>
-                    </div>
-                <?php endif ?>
+            <div class="panel-heading clearfix">
+                <div class="title pull-left">
+                    Exam
+                </div>
+                <div class="option pull-right">
+                    <?php if ($_GET['role'] == 'teacher'): ?>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                    <?php elseif ($_GET['role'] == 'student'): ?>
+                        <span class="exam-mark">Exam mark: <span>14</span></span>
+                    <?php endif ?>
+                </div>
             </div>
             <div class="panel-body">
-                <label for="assignmentTitle">Web exam</label>
+                <label for="assignmentTitle">SERS project</label>
                 <!-- Date -->
                 <p>Nam vestibulum at eros ac cursus. Sed sapien nisl, accumsan quis lacinia vel, tempor in libero. 
                     Sed dapibus velit eu velit iaculis, eu consectetur ante auctor.</p>
@@ -71,18 +73,20 @@
 </div>
 
 <?php if ($_GET['role'] == 'teacher'): ?>
-<div class="panel panel-default">
-    <div class="panel-heading">Student marks</div>
-    <table class="table">
-        <tr><th>Last Name</th><th>First Name</th><th>Assignment mark</th><th>Exam mark</th><th>Final mark</th></tr>
-        <tr><td>Durden</td><td>Taylor</td><td>18</td><td>20</td><td>19</td></tr>
-        <tr><td>Rabbit</td><td>Roger</td><td>8</td><td>10</td><td>9</td></tr>
-    </table>
-</div>
-<div class="center">
-    <nav>
-        <button type="button" class="btn btn-default  btn-right">Import marks (.csv) <span 
-                class="glyphicon glyphicon-open-file"></span></button>
-    </nav>
-</div>
-<?php endif ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">Student marks</div>
+        <table class="table">
+            <tr><th>Last Name</th><th>First Name</th><th>Assignment mark</th><th>Exam mark</th><th>Final mark</th></tr>
+            <tr><td>Durden</td><td>Taylor</td><td>18</td><td>20</td><td>19</td></tr>
+            <tr><td>Rabbit</td><td>Roger</td><td>8</td><td>10</td><td>9</td></tr>
+        </table>
+    </div>
+    <div class="center">
+        <nav>
+            <button type="button" class="btn btn-default  btn-right">Import marks (.csv) <span 
+                    class="glyphicon glyphicon-open-file"></span></button>
+        </nav>
+    </div>
+    <?php
+
+ endif ?>

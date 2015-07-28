@@ -11,8 +11,7 @@
 
 .btn-right {
     float: right;
-    margin-left: 20px;
-
+    margin-left: 5px;
 }
 
 .input-right {
@@ -40,3 +39,12 @@
     padding-right: 20px;
     padding-left: 20px;
 }
+
+.assignment-mark {
+    text-align: right;
+}
+
+/*.title-panel-custom {
+    width: 50%;
+    float: left;
+}*/
