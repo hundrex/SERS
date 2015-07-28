@@ -163,7 +163,7 @@ class BaseSingleton {
             echo self::$instance->mysqli->connect_error;
         }
 
-        return $idInserted;
+        return (int) $idInserted;
     }
 
     /**
