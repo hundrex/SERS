@@ -88,9 +88,9 @@
                                 <li role="separator" class="divider"></li>
                                 <li><a href="?page=report_a">A</a></li>
                                 <li><a href="?page=report_b">B</a></li>
-                                <li><a href="#">C</a></li>
-                                <li><a href="#">D</a></li>
-                                <li><a href="#">E</a></li>
+                                <li><a href="?page=report_c">C</a></li>
+                                <li><a href="?page=report_d">D</a></li>
+                                <li><a href="?page=report_e">E</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">Print all</a></li>
                             </ul>
