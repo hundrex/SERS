@@ -26,12 +26,12 @@
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th></th></tr>
         <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>
-                <button type="button" class="btn btn-default  btn-right"><span 
+                <button type="button" class="btn btn-default"><span 
                         class="glyphicon glyphicon-eye-open"></span></button> 
             </td>
         </tr>
         <tr><td>Rabbit</td><td>Roger</td><td>1981</td><td>
-                <button type="button" class="btn btn-default  btn-right"><span 
+                <button type="button" class="btn btn-default"><span 
                         class="glyphicon glyphicon-eye-open"></span></button> 
             </td>
         </tr>
