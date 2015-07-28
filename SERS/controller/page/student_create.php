@@ -61,7 +61,7 @@ $module = new Module();
 $moduleId = 0;
 for ($i = 0; $i < $N; $i++)
 {
-    $moduleId = (int) $unModule[$i]; //recup l'id du module select, le pars en int
+    $moduleId = (int) $unModule[$i]; //recup l'id du module select, le cast en int et le stock  
     $module = ModuleDAL::findById($moduleId); //recherche le module correspondant à partir de son id
     $module->inscrireEleve($student); //inscrit dans ce module le student qui a était précédemment créer
     echo "Ajout de ". $student->getNom()."dans le module ".$module->getLabel()."</br>";
