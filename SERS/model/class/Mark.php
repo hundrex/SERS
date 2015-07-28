@@ -40,7 +40,7 @@ class Mark {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Mark($id = -1, $mini = null, $maxi = null, $extBareme = null, $grade = null)
+    public function Mark($id = -1, $mini = 0, $maxi = 100, $extBareme = 1, $grade = "A")
     {
         $this->id = $id;
         $this->maxi = $maxi;
@@ -143,7 +143,7 @@ class Mark {
         $this->mini = $dataSet['mini'];
         $this->maxi = $dataSet['maxi'];
         $this->grade = $dataSet['grade'];
-        $this->extBareme = $dataSet['Bareme'];
+        $this->extBareme = $dataSet['bareme_id'];
     }
 
 }

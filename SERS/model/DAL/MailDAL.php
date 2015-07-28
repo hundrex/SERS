@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,8 +8,9 @@
 
 require_once('BaseSingleton.php');
 require_once('../model/class/Mail.php');
-class MailDAL extends Mail
-{
+
+class MailDAL extends Mail {
+
     /**
      * Retourne l'objet correspondant à l'id donné.
      * 
@@ -21,15 +22,15 @@ class MailDAL extends Mail
         $data = BaseSingleton::select('SELECT id, modele_mail_id, user_id, '
                         . ' contenu, date_envoi '
                         . 'FROM mail '
-                        . 'WHERE id = ?', array('i', $id));
-        
+                        . 'WHERE id = ?', array('i', &$id));
+
         $mail = new Mail();
-        
-        $mail->hydrate($data);
-        
+
+        $mail->hydrate($data[0]);
+
         return $mail;
     }
-    
+
     /**
      * Retourne toutes les mails enregistrées.
      * 
@@ -38,21 +39,21 @@ class MailDAL extends Mail
     public static function findAll()
     {
         $mesMails = array();
-        
+
         $data = BaseSingleton::select('SELECT id, modele_mail_id, user_id, '
                         . ' contenu, date_envoi '
                         . 'FROM mail ');
-        
-        foreach($data as $row)
+
+        foreach ($data as $row)
         {
             $mail = new Mail();
             $mail->hydrate($row);
             $mesMails[] = $mail;
         }
-        
+
         return $mesMails;
     }
-    
+
     /**
      * Insère ou met à jour la mail donné en paramètre.
      * @param mail
@@ -61,27 +62,28 @@ class MailDAL extends Mail
      */
     public static function insertOnDuplicate($mail)
     {
-        $sql = 'INSERT INTO mail '
-            + '(modele_mail_id, user_id,contenu, date_envoi) '
-            + 'VALUES(?,?,?,?) '
-            + 'ON DUPLICATE KEY '
-            + 'UPDATE modele_mail_id = VALUES(modele_mail_id),'
-                + 'user_id = VALUES(user_id),'
-                + 'contenu = VALUES(contenu),'
-                + 'date_envoi = VALUES(date_envoi) ';
-        
-        $params = array('iisd', array(
-            $mail->getModeleMail()->getId(), //int
-            $mail->getUser()->getId(), //int
-            $mail->getContenu(), //string
-            $mail->getDateEnvoi(), //date
-        ));
-        
+        $sql = 'INSERT INTO mail ' . '(modele_mail_id, user_id,contenu, date_envoi) ' 
+                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d")) ' 
+                . 'ON DUPLICATE KEY ' 
+                . 'UPDATE modele_mail_id = VALUES(modele_mail_id),' 
+                . 'user_id = VALUES(user_id),' 
+                . 'contenu = VALUES(contenu)' ;
+
+        $modelMailId = $mail->getModeleMail()->getId(); //int
+        $userId = $mail->getUser()->getId(); //int
+        $contenu = $mail->getContenu(); //string
+
+        $params = array('iis',
+                &$modelMailId, //int
+                &$userId, //int
+                &$contenu, //string
+        );
+
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
-        
+
         return $idInsert;
     }
-    
+
     /**
      * Delete the row corresponding to the given id.
      * 
@@ -90,9 +92,9 @@ class MailDAL extends Mail
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM mail WHERE id = ?', 
-                array('i', $id));
-        
+        $deleted = BaseSingleton::delete('DELETE FROM mail WHERE id = ?', array('i', &$id));
+
         return $deleted;
     }
+
 }

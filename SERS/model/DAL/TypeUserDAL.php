@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('../model/class/TypeUser.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/TypeUser.php');
 
 class TypeUserDAL extends TypeUser {
 
@@ -16,10 +16,10 @@ class TypeUserDAL extends TypeUser {
         $data = BaseSingleton::select('SELECT id, label, code, '
                         . ' description, date_creation, affiche '
                         . 'FROM type_user '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
 
         $typeUser = new TypeUser();
-        $typeUser->hydrate($data);
+        $typeUser->hydrate($data[0]);
         return $typeUser;
     }
 
@@ -52,20 +52,24 @@ class TypeUserDAL extends TypeUser {
     public static function insertOnDuplicate($typeUser)
     {
         $sql = 'INSERT INTO type_user (label, code, description, date_creation, affiche) '
-                . 'VALUES(?,?,?,?,?) '
+                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?) '
                 . 'ON DUPLICATE KEY UPDATE '
-                . 'label = VALUES(label), '
+                . 'UPDATE label = VALUES(label), '
                 . 'code = VALUES(code), '
                 . 'description = VALUES(description), '
-                . 'date_creation = VALUES(date_creation), '
                 . 'affiche = VALUES(affiche) ';
-        $params = array('sisdb', array(
-                $typeUser->getLabel(), //string
-                $typeUser->getCode(), //int
-                $typeUser->getDescription(), //string
-                $typeUser->getDateCreation(), //date
-                $typeUser->getAffiche() //bool
-        ));
+
+        $label = $typeUser->getLabel(); //string
+        $code = $typeUser->getCode(); //int
+        $description = $typeUser->getDescription(); //string
+        $affiche = $typeUser->getAffiche(); //bool
+
+        $params = array('sisb',
+                &$label, //string
+                &$code, //int
+                &$description, //string
+                &$affiche //bool
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
@@ -78,7 +82,7 @@ class TypeUserDAL extends TypeUser {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM type_user WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM type_user WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 

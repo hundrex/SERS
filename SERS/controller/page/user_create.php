@@ -32,8 +32,8 @@ $user->setNom($validLastName);
 $validFisrtName = filter_input(INPUT_POST, 'firstName', FILTER_SANITIZE_STRING);
 $user->setPrenom($validFisrtName);
 
-$myregex = "/^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$/";
-$validBirthDate = filter_input(INPUT_POST, 'birthDate', FILTER_VALIDATE_REGEXP, $myregex);
+$myregex = "~^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$~";
+$validBirthDate = filter_input(INPUT_POST, 'birthDate', FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$myregex)));
 $user->setDateNaissance($validBirthDate);
 
 $validAddress = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
@@ -43,7 +43,7 @@ $validEmail = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 $user->setMail($validEmail);
 
 $validUserTypeId = filter_input(INPUT_POST, 'userType', FILTER_SANITIZE_NUMBER_INT);
-$user->setType($validUserType);
+$user->setType($validUserTypeId);
 
 //Insertion de l'user dans la table
 $validInsertion = UserDAL::insertOnDuplicate($user);

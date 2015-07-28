@@ -6,6 +6,8 @@
  * @author Alexis
  */
 
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/DAL/TypeUserDAL.php');
+
 class User {
 
     ///////////////
@@ -77,7 +79,9 @@ class User {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function User($id = -1, $adresse = null, $prenom = null, $mail = null, $nom = null, $dateNaissance = null, $dateCreation = null, $affiche = false, $password = null, $pseudo = null, $typeUser = null, $fichier = null)
+    public function User($id = -1, $adresse = "rue par defaut", $prenom = "prenomDefaut", $mail = "mail@defaut",
+            $nom = "nomDefaut", $dateNaissance = "0000-00-00", $dateCreation = "0000-00-00",
+            $affiche = 1, $password = "Change!_3", $pseudo = "prenomDefaut.nomDefaut", $typeUser = 4, $fichier = null)
     {
         $this->id = $id;
         $this->adresse = $adresse;
@@ -164,7 +168,7 @@ class User {
 
     public function setDateNaissance($dateNaissance)
     {
-        if (is_a($dateNaissance, "Date"))
+        if (is_string($dateNaissance))
         {
             $this->dateNaissance = $dateNaissance;
         }
@@ -177,7 +181,7 @@ class User {
 
     public function setDateCreation($dateCreation)
     {
-        if (is_a($dateCreation, "Date"))
+        if (is_string($dateCreation))
         {
             $this->dateCreation = $dateCreation;
         }
@@ -261,7 +265,12 @@ class User {
 
     public function setType($typeUser)
     {
-        if (is_int($typeUser))
+        if (is_string($typeUser))
+        {
+            $typeUser = (int) $typeUser;
+            $this->type = TypeUserDAL::findById($typeUser);
+        }
+        else if (is_int($typeUser))
         {
             $this->type = TypeUserDAL::findById($typeUser);
         }
@@ -295,10 +304,10 @@ class User {
         $this->id = $dataSet['id'];
         $this->adresse = $dataSet['adresse'];
         $this->affiche = $dataSet['affiche'];
-        $this->dateCreation = $dataSet['dateCreation'];
-        $this->dateNaissance = $dataSet['dateNaissance'];
-        $this->avatar = $dataSet['fichier'];
-        $this->type = $dataSet['typeUser'];
+        $this->dateCreation = $dataSet['date_creation'];
+        $this->dateNaissance = $dataSet['date_naissance'];
+        $this->avatar = $dataSet['fichier_id'];
+        $this->type = $dataSet['type_user_id'];
         $this->mail = $dataSet['mail'];
         $this->nom = $dataSet['nom'];
         $this->password = $dataSet['password'];

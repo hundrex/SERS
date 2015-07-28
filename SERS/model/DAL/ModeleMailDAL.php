@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,8 +8,9 @@
 
 require_once('BaseSingleton.php');
 require_once('../model/class/ModeleMail.php');
-class ModeleMailDAL extends ModeleMail
-{
+
+class ModeleMailDAL extends ModeleMail {
+
     /**
      * Retourne l'objet correspondant à l'id donné.
      * 
@@ -20,15 +21,13 @@ class ModeleMailDAL extends ModeleMail
     {
         $data = BaseSingleton::select('SELECT id, label, description, contenu'
                         . 'FROM modele_mail '
-                        . 'WHERE id = ?', array('i', $id));
-        
+                        . 'WHERE id = ?', array('i', &$id));
+
         $modeleMail = new ModeleMail();
-        
-        $modeleMail->hydrate($data);
-        
+        $modeleMail->hydrate($data[0]);
         return $modeleMail;
     }
-    
+
     /**
      * Retourne toutes les modeleMails enregistrées.
      * 
@@ -37,20 +36,20 @@ class ModeleMailDAL extends ModeleMail
     public static function findAll()
     {
         $mesModeleMails = array();
-        
+
         $data = BaseSingleton::select('SELECT id, label, description, contenu'
                         . 'FROM modele_mail ');
-        
-        foreach($data as $row)
+
+        foreach ($data as $row)
         {
             $modeleMail = new ModeleMail();
             $modeleMail->hydrate($row);
             $mesModeleMails[] = $modeleMail;
         }
-        
+
         return $mesModeleMails;
     }
-    
+
     /**
      * Insère ou met à jour la modeleMail donné en paramètre.
      * @param modeleMail
@@ -59,25 +58,27 @@ class ModeleMailDAL extends ModeleMail
      */
     public static function insertOnDuplicate($modeleMail)
     {
-        $sql = 'INSERT INTO modele_mail '
-            + '(label, description, contenu) '
-            + 'VALUES(?,?,?) '
-            + 'ON DUPLICATE KEY '
-            + 'UPDATE label = VALUES(label),'
-                + 'description = VALUES(description),'
-                + 'contenu = VALUES(contenu) ';
-        
-        $params = array('sss', array(
-            $modeleMail->getLabel(), //string
-            $modeleMail->getDescription(), //string
-            $modeleMail->getContenu() //string
-        ));
-        
+        $sql = 'INSERT INTO modele_mail ' . '(label, description, contenu) '
+                . 'VALUES(?,?,?) '
+                . 'ON DUPLICATE KEY '
+                . 'UPDATE label = VALUES(label),'
+                . 'description = VALUES(description),'
+                . 'contenu = VALUES(contenu) ';
+
+        $label = $modeleMail->getLabel(); //string
+        $description = $modeleMail->getDescription(); //string
+        $contenu = $modeleMail->getContenu(); //string
+
+        $params = array('sss',
+            &$label, //string
+            &$description, //string
+            &$contenu //string
+        );
+
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
-        
         return $idInsert;
     }
-    
+
     /**
      * Delete the row corresponding to the given id.
      * 
@@ -86,9 +87,9 @@ class ModeleMailDAL extends ModeleMail
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM modele_mail WHERE id = ?', 
-                array('i', $id));
-        
+        $deleted = BaseSingleton::delete('DELETE FROM modele_mail WHERE id = ?', array('i', &$id));
+
         return $deleted;
     }
+
 }

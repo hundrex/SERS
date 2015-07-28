@@ -50,7 +50,8 @@ class Module {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Module($id = -1, $label = null, $description = null, $dateCreation = null, $number = null, $affiche = null, $extBareme = null)
+    public function Module($id = -1, $label = "label default", $description = "decription default", 
+            $dateCreation = "0000-00-00", $number = 0000, $affiche = 1, $extBareme = 1)
     {
         $this->id = $id;
         $this->label = $label;
@@ -92,7 +93,7 @@ class Module {
 
     public function setDateCreation($dateCreation)
     {
-        if (is_a($dateCreation, "Date"))
+        if (is_string($dateCreation))
         {
             $this->dateCreation = $dateCreation;
         }
@@ -182,7 +183,7 @@ class Module {
         $this->dateCreation = $dataSet['dateCreation'];
         $this->description = $dataSet['description'];
         $this->number = $dataSet['number'];
-        $this->extBareme = $dataSet['Bareme'];
+        $this->extBareme = $dataSet['bareme_id'];
     }
 
 }

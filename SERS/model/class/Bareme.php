@@ -25,7 +25,7 @@ class Bareme {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Bareme($id = -1, $label = null)
+    public function Bareme($id = -1, $label = "label default")
     {
         $this->id = $id;
         $this->label = $label;

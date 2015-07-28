@@ -1,7 +1,8 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('../model/class/User.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/User.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/DAL/FichierDAL.php');
 
 class UserDAL extends User {
 
@@ -16,10 +17,10 @@ class UserDAL extends User {
         $data = BaseSingleton::select('SELECT prenom, nom, mail, adresse, date_naissance, '
                         . 'date_creation, pseudo, password, affiche, fichier_id, '
                         . 'FROM user '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
 
         $user = new User();
-        $user->hydrate($data);
+        $user->hydrate($data[0]);
         return $user;
     }
 
@@ -52,21 +53,57 @@ class UserDAL extends User {
      */
     public static function insertOnDuplicate($user)
     {
-        $sql = 'INSERT INTO user ' + '(prenom, nom, mail, adresse, date_naissance, ' + 'date_creation, pseudo, password, affiche, fichier_id, type_user_id) ' + 'VALUES(?,?,?,?,?, ?,?,?,?,?, ?) ' + 'ON DUPLICATE KEY ' + 'UPDATE prenom = VALUES(prenom), ' + 'nom = VALUES(nom), ' + 'mail = VALUES(mail), ' + 'adresse = VALUES(adresse), ' + 'date_naissance = VALUES(date_naissance), ' + 'date_creation = VALUES(date_creation), ' + 'pseudo = VALUES(pseudo), ' + 'fichier_id = VALUES(fichier_id), ' + 'type_user_id = VALUES(type_user_id)';
+        $sql = 'INSERT INTO user ' . '(prenom, nom, mail, adresse, date_naissance, '
+                . 'pseudo, password, affiche, fichier_id, type_user_id, date_creation) '
+                . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(),"%Y/%m/%d")) '
+                . 'ON DUPLICATE KEY '
+                . 'UPDATE prenom = VALUES(prenom), '
+                . 'nom = VALUES(nom), '
+                . 'mail = VALUES(mail), '
+                . 'adresse = VALUES(adresse), '
+                . 'date_naissance = DATE_FORMAT(VALUES(date_naissance),"%Y/%m/%d"), '
+                . 'pseudo = VALUES(pseudo), '
+                . 'fichier_id = VALUES(fichier_id), '
+                . 'type_user_id = VALUES(type_user_id)';
+        $avatar = null;
+        if ($user->getAvatar() !== null)
+        {
+            $avatar = $user->getAvatar();
+        }
+        else
+        {
+            $avatar = FichierDAL::findDefaultAvatar();
+        }
 
-        $params = array('ssssddssbii', array(
-                $user->getPrenom(), //string
-                $user->getNom(), //string
-                $user->getMail(), //string
-                $user->getAdresse(), //string
-                $user->getDateNaissance(), //date
-                $user->getDateCreation(), //date
-                $user->getPseudo(), //string
-                $user->getPassword(), //string
-                $user->getAffiche(), //bool
-                $user->getFichier()->getId(), //int
-                $user->getTypeUser()->getId() //int
-        ));
+        //Password
+        $passWord = "Change!_3";
+
+        //Pseudo
+        $pseudo = $user->getPrenom() . "." . $user->getNom();
+
+        //lalalala
+        $prenom = $user->getPrenom(); //string
+        $nom = $user->getNom(); //string
+        $mail = $user->getMail(); //string
+        $adresse = $user->getAdresse(); //string
+        $dateNaissance = $user->getDateNaissance(); //string
+        $affiche = $user->getAffiche(); //bool
+        $avatarId = $avatar->getId(); //int
+        $typeId = $user->getType()->getId(); //int
+
+        $params = array('sssssssbii',
+            &$prenom,
+            &$nom,
+            &$mail,
+            &$adresse,
+            &$dateNaissance,
+            &$pseudo, //string
+            &$passWord, //string
+            &$affiche,
+            &$avatarId,
+            &$typeId,
+        );
+
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
@@ -79,7 +116,7 @@ class UserDAL extends User {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM user WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM user WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 

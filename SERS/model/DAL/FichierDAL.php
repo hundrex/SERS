@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('../model/class/Fichier.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/Fichier.php');
 
 class FichierDAL extends Fichier {
 
@@ -13,12 +13,17 @@ class FichierDAL extends Fichier {
      */
     public static function findById($id)
     {
-        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
+        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche '
                         . 'FROM fichier '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
         $fichier = new Fichier();
-        $fichier->hydrate($data);
+        $fichier->hydrate($data[0]);
         return $fichier;
+    }
+
+    public static function findDefaultAvatar()
+    {
+        return self::findById(1);
     }
 
     /**
@@ -29,7 +34,7 @@ class FichierDAL extends Fichier {
     public static function findAll()
     {
         $mesFichiers = array();
-        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche'
+        $data = BaseSingleton::select('SELECT id, type_fichier_id, nom, date_creation, affiche '
                         . 'FROM fichier ');
         foreach ($data as $row)
         {
@@ -49,18 +54,21 @@ class FichierDAL extends Fichier {
     public static function insertOnDuplicate($fichier)
     {
         $sql = 'INSERT INTO fichier (type_fichier_id, nom, date_creation, affiche) '
-                . 'VALUES(?,?,?,?) '
+                . 'VALUES(?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?) '
                 . 'ON DUPLICATE KEY UPDATE '
-                . 'type_fichier_id = VALUES(type_fichier_id), '
+                . 'UPDATE type_fichier_id = VALUES(type_fichier_id), '
                 . 'nom = VALUES(nom), '
-                . 'date_creation = VALUES(date_creation), '
                 . 'affiche = VALUES(affiche)';
-        $params = array('isdb', array(
-                $fichier->getTypeFichier()->getId(), //int
-                $fichier->getNom(), //string
-                $fichier->getDateCreation(), //date
-                $fichier->getAffiche() //bool
-        ));
+
+        $typeFichierId = $fichier->getTypeFichier()->getId(); //int
+        $nom = $fichier->getNom(); //string
+        $affiche = $fichier->getAffiche(); //bool
+
+        $params = array('isb',
+                &$typeFichierId, //int
+                &$nom, //string
+                &$affiche //bool
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
@@ -73,7 +81,7 @@ class FichierDAL extends Fichier {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM fichier WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM fichier WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 

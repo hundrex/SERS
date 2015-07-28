@@ -45,7 +45,9 @@ class TypeUser {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function TypeFichier($id = -1, $label = null, $code = null, $description = null, $dateCreation = null, $affiche = null)
+    public function TypeFichier($id = -1, $label = "label par defaut", $code = 0000, 
+            $description = "description par defaut", 
+            $dateCreation = "0000-00-00", $affiche = 1)
     {
         $this->id = $id;
         $this->label = $label;
@@ -86,7 +88,7 @@ class TypeUser {
 
     public function setDateCreation($dateCreation)
     {
-        if (is_a($dateCreation, "Date"))
+        if (is_string($dateCreation))
         {
             $this->dateCreation = $dateCreation;
         }
@@ -145,7 +147,7 @@ class TypeUser {
         $this->id = $dataSet['id'];
         $this->label = $dataSet['label'];
         $this->affiche = $dataSet['affiche'];
-        $this->dateCreation = $dataSet['dateCreation'];
+        $this->dateCreation = $dataSet['date_creation'];
         $this->description = $dataSet['description'];
         $this->code = $dataSet['code'];
     }

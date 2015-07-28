@@ -2,14 +2,24 @@
     <div class="col-lg-6">
         <div class="input-group">
             <label for="title">Web Development</label>
-            <p>Description</p>
+            <p>Nam vestibulum at eros ac cursus. Sed sapien nisl, accumsan quis lacinia vel, tempor in libero. 
+                Sed dapibus velit eu velit iaculis, eu consectetur ante auctor.</p>
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="input-group input-right">
-            <button type="button" class="btn btn-danger  btn-right"><span class="glyphicon glyphicon-trash"></span></button>
-            <button type="button" class="btn btn-primary btn-right"><span class="glyphicon glyphicon-pencil"></span></button>
-        </div>
+        <?php if ($_GET['role'] == 'teacher'): ?>
+            <div class="input-group input-right">
+                <button type="button" class="btn btn-danger  btn-right">
+                    <span class="glyphicon glyphicon-trash"></span></button>
+                <button type="button" class="btn btn-primary btn-right">
+                    <span class="glyphicon glyphicon-pencil"></span></button>
+            </div>
+        <?php elseif ($_GET['role'] == 'student'): ?>
+            <div class="input-group">
+                <label for="finalMark">Final mark :</label>
+                <p>15</p>
+            </div>
+        <?php endif ?>
     </div>
 </div>
 
@@ -18,9 +28,15 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Assignment 
-                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-
+                <?php if ($_GET['role'] == 'teacher'): ?>
+                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                <?php elseif ($_GET['role'] == 'student'): ?>
+                    <div class="input-group">
+                        <label for="assignmentMark">Assignment mark :</label>
+                        <p>14</p>
+                    </div>
+                <?php endif ?>
             </div>
             <div class="panel-body">
                 <label for="assignmentTitle">SERS project</label>
@@ -34,8 +50,15 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Exam 
-                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                 <?php if ($_GET['role'] == 'teacher'): ?>
+                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                <?php elseif ($_GET['role'] == 'student'): ?>
+                    <div class="input-group">
+                        <label for="examMark">Exam mark :</label>
+                        <p>16</p>
+                    </div>
+                <?php endif ?>
             </div>
             <div class="panel-body">
                 <label for="assignmentTitle">Web exam</label>
@@ -47,6 +70,7 @@
     </div>
 </div>
 
+<?php if ($_GET['role'] == 'teacher'): ?>
 <div class="panel panel-default">
     <div class="panel-heading">Student marks</div>
     <table class="table">
@@ -61,3 +85,4 @@
                 class="glyphicon glyphicon-open-file"></span></button>
     </nav>
 </div>
+<?php endif ?>

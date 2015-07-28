@@ -60,7 +60,10 @@ class Travail {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Travail($id = -1, $label = null, $number = null, $description = null, $dateCreation = null, $datePassage = null, $annee = null, $affiche = null, $extModule = null, $prixRattrapage = null)
+    public function Travail($id = -1, $label = "default label", $number = 0000, 
+            $description = "description default", $dateCreation = "0000-00-00", 
+            $datePassage = "0000-00-00", $annee = 0000, $affiche = 1, 
+            $extModule = 1, $prixRattrapage = 0)
     {
         $this->id = $id;
         $this->label = $label;
@@ -124,7 +127,7 @@ class Travail {
 
     public function setDateCreation($dateCreation)
     {
-        if (is_a($dateCreation, "Date"))
+        if (is_string($dateCreation))
         {
             $this->dateCreation = $dateCreation;
         }
@@ -137,7 +140,7 @@ class Travail {
 
     public function setDatePassage($datePassage)
     {
-        if (is_a($datePassage, "Date"))
+        if (is_string($datePassage))
         {
             $this->datePassage = $datePassage;
         }
@@ -209,8 +212,8 @@ class Travail {
         $this->id = $dataSet['id'];
         $this->label = $dataSet['label'];
         $this->affiche = $dataSet['affiche'];
-        $this->dateCreation = $dataSet['dateCreation'];
-        $this->datePassage = $dataSet['datePassage'];
+        $this->dateCreation = $dataSet['date_creation'];
+        $this->datePassage = $dataSet['date_passage'];
         $this->description = $dataSet['description'];
         $this->annee = $dataSet['annee'];
         $this->note = $dataSet['note'];

@@ -16,9 +16,9 @@ class ExamDAL extends Exam {
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
                         . 'date_creation, annee, date_passage, affiche, prixRattrapage '
                         . 'FROM exam '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
         $exam = new Exam();
-        $exam->hydrate($data);
+        $exam->hydrate($data[0]);
         return $exam;
     }
 
@@ -50,17 +50,35 @@ class ExamDAL extends Exam {
      */
     public static function insertOnDuplicate($exam)
     {
-        $sql = 'INSERT INTO exam ' + '(module_id, label, description, ' + 'date_creation, annee, date_passage, affiche, prixRattrapage) ' + 'VALUES(?,?,?,?,?, ?,?,?) ' + 'ON DUPLICATE KEY ' + 'UPDATE module_id = VALUES(module_id), ' + 'label = VALUES(label), ' + 'description = VALUES(description), ' + 'date_creation = VALUES(date_creation), ' + 'annee = VALUES(annee), ' + 'date_passage = VALUES(date_passage), ' + 'affiche = VALUES(affiche),' + 'prixRattrapage = VALUES(prixRattrapage) ';
-        $params = array('issdidbi', array(
-                $exam->getModule()->getId(), //int
-                $exam->getLabel(), //string
-                $exam->getDescription(), //string
-                $exam->getDateCreation(), //date
-                $exam->getAnnee(), //int
-                $exam->getDatePassage(), //date
-                $exam->getAffiche(), //bool
-                $exam->getPrixRattrapage() //int
-        ));
+        $sql = 'INSERT INTO exam ' . '(module_id, label, description, '
+                . 'date_creation, annee, date_passage, affiche, prixRattrapage) '
+                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?, ?,?,?) '
+                . 'ON DUPLICATE KEY '
+                . 'UPDATE module_id = VALUES(module_id), '
+                . 'label = VALUES(label), '
+                . 'description = VALUES(description), '
+                . 'annee = VALUES(annee), '
+                . 'date_passage = DATE_FORMAT(VALUES(date_passage),"%Y/%m/%d"), '
+                . 'affiche = VALUES(affiche),'
+                . 'prixRattrapage = VALUES(prixRattrapage) ';
+
+        $moduleId = $exam->getModule()->getId(); //int
+        $label = $exam->getLabel(); //string
+        $description = $exam->getDescription(); //string
+        $annee = $exam->getAnnee(); //int
+        $datePassage = $exam->getDatePassage(); //date
+        $affiche = $exam->getAffiche(); //bool
+        $prixRattrapage = $exam->getPrixRattrapage(); //int        
+
+        $params = array('issisbi',
+                &$moduleId, //int
+                &$label, //string
+                &$description, //string
+                &$annee, //int
+                &$datePassage, //date
+                &$affiche, //bool
+                &$prixRattrapage //int
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
@@ -73,7 +91,7 @@ class ExamDAL extends Exam {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM exam WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM exam WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 

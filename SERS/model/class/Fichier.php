@@ -40,7 +40,7 @@ class Fichier {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function User($id = -1, $nom = null, $dateCreation = null, $affiche = false, $type = null)
+    public function User($id = -1, $nom = "name file default", $dateCreation = "0000-00-00", $affiche = 1, $type = 1)
     {
         $this->id = $id;
         $this->affiche = $affiche;
@@ -81,7 +81,7 @@ class Fichier {
 
     public function setDateCreation($dateCreation)
     {
-        if (is_a($dateCreation, "Date"))
+        if (is_string($dateCreation))
         {
             $this->dateCreation = $dateCreation;
         }
@@ -132,4 +132,16 @@ class Fichier {
         return $type;
     }
 
+    //////////////
+    // METHODES //
+    //////////////
+
+    protected function hydrate($dataSet)
+    {
+        $this->id = $dataSet['id'];
+        $this->dateCreation = $dataSet['date_creation'];
+        $this->affiche = $dataSet['affiche'];
+        $this->nom = $dataSet['nom'];
+        $this->type = $dataSet['type_fichier_id'];
+    }
 }
