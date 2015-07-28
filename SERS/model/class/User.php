@@ -304,10 +304,10 @@ class User {
         $this->id = $dataSet['id'];
         $this->adresse = $dataSet['adresse'];
         $this->affiche = $dataSet['affiche'];
-        $this->dateCreation = $dataSet['dateCreation'];
-        $this->dateNaissance = $dataSet['dateNaissance'];
-        $this->avatar = $dataSet['avatar'];
-        $this->type = $dataSet['typeUser'];
+        $this->dateCreation = $dataSet['date_creation'];
+        $this->dateNaissance = $dataSet['date_naissance'];
+        $this->avatar = $dataSet['fichier_id'];
+        $this->type = $dataSet['type_user_id'];
         $this->mail = $dataSet['mail'];
         $this->nom = $dataSet['nom'];
         $this->password = $dataSet['password'];
