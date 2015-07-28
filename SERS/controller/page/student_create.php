@@ -34,41 +34,36 @@ $student->setMail($validEmail);
 
 $student->setType(4); //place l'user type à 4 (correspond à l'id de student)
 
-//Gestion des module
- //$args permet de definir ce que l'on attend come valeur dans le tableau de module renvoyer par student_create.php
-echo "<pre>";
-echo $_POST['module'];
-echo "</pre>";
+/*
+  //Insertion du student dans la table user
+  $validInsertion = UserDAL::insertOnDuplicate($student);
+  if ($validInsertion != null)
+  {
+  echo "Insertion Etudiant OK";
+  }
+  else
+  {
+  echo "ECHEC insertion Etudiant, good luck";
+  }
+ */
 
-$args = array(
-    'product_id'   => FILTER_SANITIZE_NUMBER_INT,
-);
-$unModule = filter_input_array(INPUT_POST, $args);
+
+
+//Gestion des module selectionner
+$unModule = $_POST['module'];
 if (empty($unModule))
 {
     echo("You didn't select any module.");
 }
-else
-{
-    $N = count($unModule);
 
-    echo("You selected $N module(s): ");
-    for ($i = 0; $i < $N; $i++)
-    {
-        echo($unModule[$i] . " ");
-    }
+$N = count($unModule);
+$module = new Module();
+$moduleId = 0;
+for ($i = 0; $i < $N; $i++)
+{
+    $moduleId = (int) $unModule[$i]; //recup l'id du module select, le pars en int
+    $module = ModuleDAL::findById($moduleId); //recherche le module correspondant à partir de son id
+    $module->inscrireEleve($student); //inscrit dans ce module le student qui a était précédemment créer
+    echo "Ajout de ". $student->getNom()."dans le module ".$module->getLabel()."</br>";
 }
-//$student->setModuleListe($listMod); 
 
-/*
-//Insertion du student dans la table user
-$validInsertion = UserDAL::insertOnDuplicate($student);
-if ($validInsertion != null)
-{
-    echo "Insertion OK";
-}
-else
-{
-    echo "ECHEC insertion, good luck";
-}
-*/
