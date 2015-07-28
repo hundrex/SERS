@@ -12,12 +12,9 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-        <!-- Required for date picker -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
-        <!--https://eonasdan.github.io/bootstrap-datetimepicker/Installing/-->
-
-        <script type="text/javascript" src="./view/javascript/imported_libraries/dual-list-box.min.js"></script>
+        
+        <!-- Graph libraries -->
+        <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 
         <link rel="stylesheet" href="./view/css/main.css">
     </head>
