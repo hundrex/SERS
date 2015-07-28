@@ -101,7 +101,8 @@ $validModuleDescription = filter_input(INPUT_POST, 'descriptionModule', FILTER_S
 $newModule->setDescription($validModuleDescription);
 $newModule->setBareme(1); //barème par defaut
 $newModule->setAffiche(1); //visible
-
+$newModule->setAssignment($newAssignment); //lors de la creation du module dans la table, l'attribut moduleId de l'assignemnt va etre modifier a la valeur de ce module.
+$newModule>setExam($newExam); //lie l'exam à ce module
 //insertion du module dans la table
 $validInsertModule = ModuleDAL::insertOnDuplicate($newModule);
 if ($validInsertModule != null)

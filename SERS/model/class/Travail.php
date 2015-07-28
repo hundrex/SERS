@@ -58,7 +58,7 @@ abstract class Travail {
     public function Travail($id = -1, $label = "default label", $number = 0000, 
             $description = "description default", $dateCreation = "0000-00-00", 
             $datePassage = "0000-00-00", $affiche = 1, 
-            $extModule = 1, $prixRattrapage = 0)
+            $prixRattrapage = 0)
     {
         $this->id = $id;
         $this->label = $label;

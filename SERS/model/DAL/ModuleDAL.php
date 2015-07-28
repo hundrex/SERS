@@ -31,6 +31,7 @@ class ModuleDAL extends Module {
     public static function findByAssignment($assignment)
     {
         $assignmentId = $assignment->getId();
+        echo "ModuleDAL.assignmentId: ".$assignmentId; //var_dump debug liaison assign<->module
         $data = BaseSingleton::select('SELECT '
                         . 'module.id as id, module.bareme_id as bareme_id, '
                         . 'module.label as label, module.description as description, '
@@ -40,7 +41,7 @@ class ModuleDAL extends Module {
                         . 'WHERE assignment.module_id = module.id '
                         . 'AND assignment.id = ?', array('i', &$assignmentId));
         $module = new Module();
-        $module->hydrate($data[0]);
+        $module->hydrate($data);
         return $module;
     }
 
@@ -152,6 +153,7 @@ class ModuleDAL extends Module {
             self::saveInscriptionEleve($idInsert, $eleveId);
         }
         AssignmentDAL::insertOnDuplicate($module->getAssignment());
+        ExamDAL::insertOnDuplicate($module->getExam());
         $module->setId($idInsert);
         return $idInsert;
     }
