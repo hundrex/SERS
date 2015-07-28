@@ -44,7 +44,7 @@ class Module {
     /*
      * @var Bareme
      */
-    private $extBareme;
+    private $bareme;
 
     /*
      * @var array(User)
@@ -55,7 +55,10 @@ class Module {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Module($id = -1, $label = "label default", $description = "decription default", $dateCreation = "0000-00-00", $number = 0000, $affiche = 1, $extBareme = 1)
+    public function Module(
+    $id = -1, $label = "label default", $description = "description default", $dateCreation = "0000-00-00",
+    $number = 0000, $affiche = 1, $bareme = null
+    )
     {
         $this->id = $id;
         $this->label = $label;
@@ -63,7 +66,14 @@ class Module {
         $this->description = $description;
         $this->affiche = $affiche;
         $this->number = $number;
-        $this->extBareme = $extBareme;
+        if (is_null($bareme))
+        {
+            $bareme = BaremeDAL::findDefaultBareme();
+        }
+        else
+        {
+            $this->bareme = $bareme;
+        }
     }
 
     /////////////////////
@@ -151,11 +161,11 @@ class Module {
     {
         if (is_int($bareme))
         {
-            $this->extBareme = BaremeDAL::findById($bareme);
+            $this->bareme = BaremeDAL::findById($bareme);
         }
         else if (is_a($bareme, "Bareme"))
         {
-            $this->extBareme = $bareme;
+            $this->bareme = $bareme;
         }
     }
 
@@ -163,14 +173,14 @@ class Module {
     {
         $bareme = null;
 
-        if (is_int($this->extBareme))
+        if (is_int($this->bareme))
         {
-            $bareme = BaremeDAL::findById($this->extBareme);
-            $this->extBareme = $bareme;
+            $bareme = BaremeDAL::findById($this->bareme);
+            $this->bareme = $bareme;
         }
-        else if (is_a($this->extBareme, "Bareme"))
+        else if (is_a($this->bareme, "Bareme"))
         {
-            $bareme = $this->extBareme;
+            $bareme = $this->bareme;
         }
         return $bareme;
     }
@@ -197,7 +207,7 @@ class Module {
             }
         }
     }
-    
+
     public function desinscrireEleve($eleve)
     {
         if (is_int($eleve))
@@ -228,7 +238,7 @@ class Module {
         $this->dateCreation = $dataSet['dateCreation'];
         $this->description = $dataSet['description'];
         $this->number = $dataSet['number'];
-        $this->extBareme = $dataSet['bareme_id'];
+        $this->bareme = $dataSet['bareme_id'];
     }
 
 }
