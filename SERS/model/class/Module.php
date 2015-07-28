@@ -241,33 +241,36 @@ class Module {
         return $this->eleves;
     }
     
-//    public function setAssignment($assignment)
-//    {
-//        if (is_int($assignment))
-//        {
-//            $this->assignment = BaremeDAL::findById($assignment);
-//        }
-//        else if (is_a($assignment, "Bareme"))
-//        {
-//            $this->assignment = $assignment;
-//        }
-//    }
-//
-//    public function getAssignment()
-//    {
-//        $assignment = null;
-//
-//        if (is_int($this->assignment))
-//        {
-//            $assignment = BaremeDAL::findById($this->assignment);
-//            $this->assignment = $assignment;
-//        }
-//        else if (is_a($this->assignment, "Bareme"))
-//        {
-//            $assignment = $this->assignment;
-//        }
-//        return $assignment;
-//    }
+    public function setAssignment($assignment)
+    {
+        if (is_string($assignment)) {
+            $assignment = (int) $assignment;
+            $this->assignment = AssignmentDAL::findById($assignment);
+        }
+        else if (is_int($assignment))
+        {
+            $this->assignment = AssignmentDAL::findById($assignment);
+        }
+        else if (is_a($assignment, "Assignment"))
+        {
+            $this->assignment = $assignment;
+        }
+    }
+
+    public function getAssignment()
+    {
+        $assignment = null;
+        if (is_int($this->assignment))
+        {
+            $assignment = AssignmentDAL::findById($this->assignment);
+            $this->assignment = $assignment;
+        }
+        else if (is_a($this->assignment, "Assignment"))
+        {
+            $assignment = $this->assignment;
+        }
+        return $assignment;
+    }
 
     //////////////
     // METHODES //
