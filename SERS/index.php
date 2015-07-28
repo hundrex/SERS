@@ -12,11 +12,11 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        
+
         <!-- Required for date picker -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
         <!--https://eonasdan.github.io/bootstrap-datetimepicker/Installing/-->
-        
+
         <script type="text/javascript" src="./view/javascript/imported_libraries/dual-list-box.min.js"></script>
 
         <link rel="stylesheet" href="./view/css/main.css">
@@ -109,10 +109,10 @@
                             <ul class="dropdown-menu">
                                 <li><a href="?page=profile">Profile</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Resend Mark Mail</a></li>
-                                <li><a href="#">Resend payment receipt</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#mail-mark">Resend Mark Mail</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#mail-payment">Resend payment receipt</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Log Out</a></li>
+                                <li><a href=""data-toggle="modal" data-target="#log-out-modal">Log Out</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -131,6 +131,61 @@
             ?>
         </div>
         <div id="right-column" class="col-lg-2"></div>
+        
+        <div class="modal fade" id="mail-mark" tabindex="-1" role="dialog" aria-labelledby="modalMail">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalMail">Confirm email resending</h4>
+                    </div>
+                    <div class="modal-body">
+                        Do you confirm the resend request for your confirmation email?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="mail-payment" tabindex="-1" role="dialog" aria-labelledby="modalPayment">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalPayment">Confirm email resending</h4>
+                    </div>
+                    <div class="modal-body">
+                        Do you confirm the resend request for your payment receipt email?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <div class="modal fade" id="log-out-modal" tabindex="-1" role="dialog" aria-labelledby="modalLogOut">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalLogOut">Log Out</h4>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to log out?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Log out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </body>
     <footer>
         <div class="panel-footer navbar-fixed-bottom">
