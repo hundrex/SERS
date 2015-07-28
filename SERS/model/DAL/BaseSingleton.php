@@ -130,6 +130,9 @@ class BaseSingleton {
                 // Si la requête a des paramètres.
                 if (!is_null($params))
                 {
+//                    echo '<pre>';
+//                    var_dump($sql);
+//                    echo '</pre>';
                     $bindParamsMethod = new ReflectionMethod('mysqli_stmt', 'bind_param');
                     $bindParamsMethod->invokeArgs(self::$instance->statement, $params);
                 }
@@ -160,7 +163,7 @@ class BaseSingleton {
             echo self::$instance->mysqli->connect_error;
         }
 
-        return $idInserted;
+        return (int) $idInserted;
     }
 
     /**

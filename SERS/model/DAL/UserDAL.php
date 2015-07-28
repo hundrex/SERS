@@ -105,6 +105,7 @@ class UserDAL extends User {
         );
 
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
+        $user->setId($idInsert);
         return $idInsert;
     }
 

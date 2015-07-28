@@ -138,18 +138,18 @@ class ModuleDAL extends Module {
         $number = $module->getNumber(); //int
         $affiche = $module->getAffiche(); //bool
 
-        $params = array('issib', array(
+        $params = array('issib',
                 &$baremId, //int
                 &$label, //string
                 &$descripion, //string
                 &$number, //int
                 &$affiche //bool
-        ));
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $eleves = $module->getEleves();
         foreach ($eleves as $eleveId => $eleve)
         {
-            $this->saveInscriptionEleve($idInsert, $eleveId);
+            self::saveInscriptionEleve($idInsert, $eleveId);
         }
         return $idInsert;
     }
@@ -174,15 +174,15 @@ class ModuleDAL extends Module {
      */
     private function saveInscriptionEleve($moduleId, $eleveId)
     {
-        if (!$this->checkInscriptionEleve($moduleId, $eleveId))
+        if (!self::checkInscriptionEleve($moduleId, $eleveId))
         {
             $sql = 'INSERT INTO user_inscrire_module '
                     . '(user_id, module_id) '
                     . 'VALUES(?,?)';
-            $params = array('ii', array(
+            $params = array('ii',
                     &$moduleId,
                     &$eleveId
-            ));
+            );
             BaseSingleton::insertOrEdit($sql, $params);
         }
     }
@@ -200,7 +200,7 @@ class ModuleDAL extends Module {
                         'SELECT user_id, module_id '
                         . 'FROM user_inscrire_module '
                         . 'WHERE user_id = ? '
-                        . 'AND module_id = ?', $params = array('ii', array(&$moduleId, &$eleveId))
+                        . 'AND module_id = ?', $params = array('ii', &$moduleId, &$eleveId)
         );
         if (!empty($data))
         {
