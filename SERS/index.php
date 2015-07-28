@@ -107,7 +107,7 @@
                                 <img src="./view/document/picture/smile.png" class="avatar"/> Jean-Michel CtrlCV 
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Profile Edition</a></li>
+                                <li><a href="?page=profile">Profile</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">Resend Mark Mail</a></li>
                                 <li><a href="#">Resend payment receipt</a></li>
