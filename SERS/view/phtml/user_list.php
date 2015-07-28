@@ -1,3 +1,5 @@
+<?php require_once './model/DAL/UserDAL.php'; ?>
+
 <div class="row filter-bar">
     <div class="col-lg-6">
         <div class="input-group">
@@ -20,35 +22,20 @@
     </div>
 </div>
 
+<?php $users = UserDAL::findAll(); ?>
+
 <div class="panel panel-default">
     <div class="panel-heading">User list</div>
-
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>User Type</th><th></th></tr>
-        <tr><td>Commandant</td><td>Cousteau</td><td>-104AD</td><td>Root</td>
+        <?php foreach ($users as $user): ?>
+        <tr><td><?php echo $user->getNom(); ?></td><td><?php echo $user->getPrenom(); ?></td><td>-104AD</td><td>Root</td>
             <td>
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewUserList">
                     <span class="glyphicon glyphicon-eye-open"></span></button>
             </td>
         </tr>
-        <tr><td>Batman</td><td>Batman</td><td>1895</td><td>Administration</td>
-            <td>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewUserList">
-                    <span class="glyphicon glyphicon-eye-open"></span></button>
-            </td>
-        </tr>
-        <tr><td>Jones</td><td>Indiana</td><td>1910</td><td>Teacher</td>
-            <td>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewUserList">
-                    <span class="glyphicon glyphicon-eye-open"></span></button>            
-            </td>
-        </tr>
-        <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>Student</td>
-            <td>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewUserList">
-                    <span class="glyphicon glyphicon-eye-open"></span></button>           
-            </td>
-        </tr>
+        <?php endforeach; ?>
     </table>
 </div>
 

@@ -6,7 +6,7 @@
  * @author Alexis
  */
 
-require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/DAL/TypeUserDAL.php');
+require_once('./model/DAL/TypeUserDAL.php');
 
 class User {
 

@@ -1,8 +1,8 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/User.php');
-require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/DAL/FichierDAL.php');
+require_once('./model/class/User.php');
+require_once('./model/DAL/FichierDAL.php');
 
 class UserDAL extends User {
 
@@ -14,7 +14,7 @@ class UserDAL extends User {
      */
     public static function findById($id)
     {
-        $data = BaseSingleton::select('SELECT prenom, nom, mail, adresse, date_naissance, '
+        $data = BaseSingleton::select('SELECT id, prenom, nom, mail, adresse, date_naissance, '
                         . 'date_creation, pseudo, password, affiche, fichier_id, '
                         . 'FROM user '
                         . 'WHERE id = ?', array('i', &$id));
@@ -32,7 +32,7 @@ class UserDAL extends User {
     public static function findAll()
     {
         $mesUsers = array();
-        $data = BaseSingleton::select('SELECT prenom, nom, mail, adresse, date_naissance, '
+        $data = BaseSingleton::select('SELECT id, prenom, nom, mail, adresse, date_naissance, '
                         . 'date_creation, pseudo, password, affiche, fichier_id, '
                         . 'type_user_id '
                         . 'FROM User ');
