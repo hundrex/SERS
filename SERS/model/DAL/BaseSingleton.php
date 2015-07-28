@@ -1,4 +1,5 @@
 <?php
+
 /* 
  * Copyright (C) 2015 lucile
  *
@@ -16,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 class BaseSingleton
 {
     private static $instance;
@@ -77,6 +79,10 @@ class BaseSingleton
                 // Récupération des résultats.
                 self::$instance->statement->execute();
                 $resultat = self::$instance->statement->get_result();
+                
+                if ($resultat === false) {
+                    echo self::$instance->mysqli->error;
+                }
             }
             catch (Exception $e)
             {
@@ -92,7 +98,7 @@ class BaseSingleton
         }
         else
         {
-            echo 'La connexion a échouée.';
+            echo 'La connexion a échoué.';
             echo self::$instance->mysqli->connect_error;
         }
         
@@ -131,6 +137,10 @@ class BaseSingleton
                 // Execution de la requête
                 self::$instance->statement->execute();
                 $idInserted = self::$instance->statement->insert_id;
+                
+                if ($idInserted === false) {
+                    echo self::$instance->mysqli->error;
+                }
             }
             catch (Exception $e)
             {
@@ -144,7 +154,7 @@ class BaseSingleton
         }
         else
         {
-            echo 'La connexion a échouée.';
+            echo 'La connexion a échoué.';
             echo self::$instance->mysqli->connect_error;
         }
         
@@ -181,6 +191,10 @@ class BaseSingleton
                 
                 // Execution de la requête
                 $deleted = self::$instance->statement->execute();
+                
+                if ($deleted === false) {
+                    echo self::$instance->mysqli->error;
+                }
             }
             catch (Exception $e)
             {
@@ -194,7 +208,7 @@ class BaseSingleton
         }
         else
         {
-            echo 'La connexion a échouée.';
+            echo 'La connexion a échoué.';
             echo self::$instance->mysqli->connect_error;
         }
         
