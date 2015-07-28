@@ -77,7 +77,7 @@
                                 <li><a href="#">Legal Ethical Social And Professional Issues</a></li>
                                 <li><a href="#">Web Development Frameworks</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">New...</a></li>
+                                <li><a href="?page=module_create">New...</a></li>
                             </ul>
                         </li>
                     </ul>
