@@ -16,9 +16,9 @@ class AssignmentDAL extends Assignment {
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
                         . 'date_creation, annee, date_passage, affiche, prixRattrapage '
                         . 'FROM assignment '
-                        . 'WHERE id = ?', array('i', $id));
+                        . 'WHERE id = ?', array('i', &$id));
         $assignment = new Assignment();
-        $assignment->hydrate($data);
+        $assignment->hydrate($data[0]);
         return $assignment;
     }
 
@@ -50,17 +50,36 @@ class AssignmentDAL extends Assignment {
      */
     public static function insertOnDuplicate($assignment)
     {
-        $sql = 'INSERT INTO assignment ' + '(module_id, label, description, ' + 'date_creation, annee, date_passage, affiche, prixRattrapage) ' + 'VALUES(?,?,?,?,?, ?,?,?) ' + 'ON DUPLICATE KEY ' + 'UPDATE module_id = VALUES(module_id), ' + 'label = VALUES(label), ' + 'description = VALUES(description), ' + 'date_creation = VALUES(date_creation), ' + 'annee = VALUES(annee), ' + 'date_passage = VALUES(date_passage), ' + 'affiche = VALUES(affiche),' + 'prixRattrapage = VALUES(prixRattrapage) ';
-        $params = array('issdidbi', array(
-                $assignment->getModule()->getId(), //int
-                $assignment->getLabel(), //string
-                $assignment->getDescription(), //string
-                $assignment->getDateCreation(), //date
-                $assignment->getAnnee(), //int
-                $assignment->getDatePassage(), //date
-                $assignment->getAffiche(), //bool
-                $assignment->getPrixRattrapage() //int
-        ));
+        $sql = 'INSERT INTO assignment '
+                . '(module_id, label, description, '
+                . 'date_creation, annee, date_passage, affiche, prixRattrapage) '
+                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?, ?,?,?) '
+                . 'ON DUPLICATE KEY '
+                . 'UPDATE module_id = VALUES(module_id), '
+                . 'label = VALUES(label), '
+                . 'description = VALUES(description), '
+                . 'annee = VALUES(annee), '
+                . 'date_passage = DATE_FORMAT(VALUES(date_passage),"%Y/%m/%d"), '
+                . 'affiche = VALUES(affiche),'
+                . 'prixRattrapage = VALUES(prixRattrapage) ';
+
+        $moduleId = $assignment->getModule()->getId(); //int
+        $label = $assignment->getLabel(); //string
+        $description = $assignment->getDescription(); //string
+        $annee = $assignment->getAnnee(); //int
+        $datePassage = $assignment->getDatePassage(); //date
+        $affiche = $assignment->getAffiche(); //bool
+        $prixRattrapage = $assignment->getPrixRattrapage(); //int
+
+        $params = array('issisbi',
+                &$moduleId, //int
+                &$label, //string
+                &$description, //string
+                &$annee, //int
+                &$datePassage, //date
+                &$affiche, //bool
+                &$prixRattrapage //int
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         return $idInsert;
     }
@@ -73,7 +92,7 @@ class AssignmentDAL extends Assignment {
      */
     public static function delete($id)
     {
-        $deleted = BaseSingleton::delete('DELETE FROM assignment WHERE id = ?', array('i', $id));
+        $deleted = BaseSingleton::delete('DELETE FROM assignment WHERE id = ?', array('i', &$id));
         return $deleted;
     }
 
