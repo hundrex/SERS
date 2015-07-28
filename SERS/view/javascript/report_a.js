@@ -21,18 +21,29 @@ function chargerGraph(data) {
         title: {
             text: 'Student marks'
         },
+        colors: [
+            'green',
+            '#72AE00',
+            '#72AE00'
+        ],
         xAxis: {
             categories: ['Web Dev', 'M2', 'M3', 'M4']
         },
         yAxis: {
             title: {
-                text: 'Fruit eaten'
-            }
+                text: 'Marks'
+            },
+            max: 100
         },
         tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}:   </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+            headerFormat: '<span style="font-size:12px; font-weight:bold">{point.key}</span><table>',
+            pointFormat: '' + 
+                    '<tr> ' + 
+                        '<th style="color:{series.color};padding:3">{series.name}: </th>' +
+                        '<td style="padding:3">' + 
+                            '<span style="color:{series.color}; font-weight:bold">{point.y:.1f}</span>%' + 
+                        '</td>' + 
+                    '</tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
