@@ -40,7 +40,9 @@ class Mail {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Mail($id = -1, $modele = null, $destinataire = null, $dateEnvoi = null, $contenu = null)
+    public function Mail($id = -1, $modele = 1, 
+            $destinataire = null, $dateEnvoi = "0000-00-00", 
+            $contenu = "corp mail defaut")
     {
         $this->id = $id;
         $this->dateEnvoi = $dateEnvoi;
@@ -68,7 +70,7 @@ class Mail {
 
     public function setDateEnvoi($dateEnvoi)
     {
-        if (is_a($dateEnvoi, "Date"))
+        if (is_string($dateEnvoi))
         {
             $this->dateEnvoi = $dateEnvoi;
         }
@@ -155,10 +157,10 @@ class Mail {
     protected function hydrate($dataSet)
     {
         $this->id = $dataSet['id'];
-        $this->dateEnvoi = $dataSet['dateEnvoi'];
+        $this->dateEnvoi = $dataSet['date_envoi'];
         $this->contenu = $dataSet['contenu'];
-        $this->modele = $dataSet['ModeleMail'];
-        $this->destinataire = $dataSet['User'];
+        $this->modele = $dataSet['modele_mail_id'];
+        $this->destinataire = $dataSet['user_id'];
     }
 
 }
