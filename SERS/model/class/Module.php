@@ -49,7 +49,7 @@ class Module {
     /*
      * @var array(User)
      */
-    private $eleves = null;
+    private $eleves = array();
 
     /*
      * @var Assignment
@@ -274,7 +274,7 @@ class Module {
         $this->id = $dataSet['id'];
         $this->label = $dataSet['label'];
         $this->affiche = $dataSet['affiche'];
-        $this->dateCreation = $dataSet['dateCreation'];
+        $this->dateCreation = $dataSet['date_creation'];
         $this->description = $dataSet['description'];
         $this->number = $dataSet['number'];
         $this->bareme = $dataSet['bareme_id'];
