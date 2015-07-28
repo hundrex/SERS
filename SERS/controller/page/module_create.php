@@ -21,28 +21,7 @@ $newExam = new Exam();
 //regex opur les date format YYYY/MM/DD
 $myregex = "~^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$~";
 
-//Vérifie ce qui est renvoyer par le POST de /view/phtml/module_create.php
-//et set de l'objet newModule au fur et à mesure
-$validModuleLabel = filter_input(INPUT_POST, 'label', FILTER_SANITIZE_STRING);
-$newModule->setLabel($validModuleLabel);
-$validModuleNumber = filter_input(INPUT_POST, 'moduleNumber', FILTER_SANITIZE_NUMBER_INT);
-$newModule->setNumber($validModuleNumber);
-$validModuleDescription = filter_input(INPUT_POST, 'descriptionModule', FILTER_SANITIZE_STRING);
-$newModule->setDescription($validModuleDescription);
-$newModule->setBareme(1); //barème par defaut
-$newModule->setAffiche(1); //visible
-//insertion du module dans la table
-$validInsertModule = ModuleDAL::insertOnDuplicate($newModule);
-if ($validInsertModule != null)
-{
-    $moduleId = $newModule->getId();
-    echo "Insertion Module OK (id:" . $moduleId . ")";
-}
-else
-{
-    echo "ECHEC insertion module, good luck";
-}
-
+//***********CREATION ASSIGNMENT**********
 //création de l'assignement (qu'il faudra liée au module créer plutot),
 //set les champs s'ils ont été remplis.
 $validAssignmentLabel = filter_input(INPUT_POST, 'assignmentLabel', FILTER_SANITIZE_STRING); //supprime les caractère pas gentil, 
@@ -66,7 +45,6 @@ if ($validAssignmentPrixRetry != null)
     $newAssignment->setPrixRattrapage($validAssignmentPrixRetry);
 }
 $newAssignment->setAffiche(1);
-$newAssignment->setModule($moduleId); //relie cet assignment au module qui vient d'être créer
 //insertion du module dans la table
 $validInsertAssignment = AssignmentDAL::insertOnDuplicate($newAssignment);
 if ($validInsertionAssignment != null)
@@ -78,6 +56,7 @@ else
     echo "ECHEC insertion assignment, good luck";
 }
 
+//********CREATION EXAM**********
 //création de l'exam (qu'il faudra liée au module créer plutot)
 $validExamLabel = filter_input(INPUT_POST, 'examLabel', FILTER_SANITIZE_STRING);
 if ($validExamLabel != null)
@@ -100,7 +79,6 @@ if ($validExamPrixRetry != null)
     $newExam->setPrixRattrapage($validExamPrixRetry);
 }
 $newExam->setAffiche(1);
-$newExam->setModule($moduleId); //relie cet exam au module qui vient d'être créer
 //insertion de l'exam dans la table
 $validInsertExam = ExamDAL::insertOnDuplicate($newExam);
 if ($validInsertionExam != null)
@@ -112,4 +90,26 @@ else
     echo "ECHEC insertion exam, good luck";
 }
 
-//set module_id de newAssignment et newExam
+//********CREATION MODULE *******
+//Vérifie ce qui est renvoyer par le POST de /view/phtml/module_create.php
+//et set de l'objet newModule au fur et à mesure
+$validModuleLabel = filter_input(INPUT_POST, 'label', FILTER_SANITIZE_STRING);
+$newModule->setLabel($validModuleLabel);
+$validModuleNumber = filter_input(INPUT_POST, 'moduleNumber', FILTER_SANITIZE_NUMBER_INT);
+$newModule->setNumber($validModuleNumber);
+$validModuleDescription = filter_input(INPUT_POST, 'descriptionModule', FILTER_SANITIZE_STRING);
+$newModule->setDescription($validModuleDescription);
+$newModule->setBareme(1); //barème par defaut
+$newModule->setAffiche(1); //visible
+
+//insertion du module dans la table
+$validInsertModule = ModuleDAL::insertOnDuplicate($newModule);
+if ($validInsertModule != null)
+{
+    $moduleId = $newModule->getId();
+    echo "Insertion Module OK (id:" . $moduleId . ")";
+}
+else
+{
+    echo "ECHEC insertion module, good luck";
+}
