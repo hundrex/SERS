@@ -138,13 +138,13 @@ class ModuleDAL extends Module {
         $number = $module->getNumber(); //int
         $affiche = $module->getAffiche(); //bool
 
-        $params = array('issib', array(
+        $params = array('issib',
                 &$baremId, //int
                 &$label, //string
                 &$descripion, //string
                 &$number, //int
                 &$affiche //bool
-        ));
+        );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $eleves = $module->getEleves();
         foreach ($eleves as $eleveId => $eleve)
