@@ -11,6 +11,7 @@
 
 .btn-right {
     float : right;
+    margin-left: 20px;
     
 }
 
@@ -26,3 +27,4 @@
     color : #A0A0A0 ;
     font-weight : normal;
 }
+

@@ -89,8 +89,8 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Overview</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">A</a></li>
-                                <li><a href="#">B</a></li>
+                                <li><a href="?page=report_a">A</a></li>
+                                <li><a href="?page=report_b">B</a></li>
                                 <li><a href="#">C</a></li>
                                 <li><a href="#">D</a></li>
                                 <li><a href="#">E</a></li>
