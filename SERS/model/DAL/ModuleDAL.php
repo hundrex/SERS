@@ -151,6 +151,7 @@ class ModuleDAL extends Module {
         {
             self::saveInscriptionEleve($idInsert, $eleveId);
         }
+        AssignmentDAL::insertOnDuplicate($module->getAssignment());
         $module->setId($idInsert);
         return $idInsert;
     }
