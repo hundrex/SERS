@@ -27,27 +27,27 @@
         <div class="panel-heading">Modules</div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="1"> Web Development
+                <input type="checkbox" value="1" name="module[]"> Web Development
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="2"> Web Design
+                <input type="checkbox" value="2" name="module[]"> Web Design
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="3"> Content Management System
+                <input type="checkbox" value="3" name="module[]"> Content Management System
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="4"> Legal Ethical Social and Professional Issues
+                <input type="checkbox" value="4" name="module[]"> Legal Ethical Social and Professional Issues
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="5"> Web Development Framework
+                <input type="checkbox" value="5" name="module[]"> Web Development Framework
             </label>
         </div>
     </div>

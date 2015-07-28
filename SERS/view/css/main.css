@@ -17,3 +17,12 @@
 .input-right {
     width: 100%;
 }
+
+#content {
+    margin-bottom: 100px;
+}
+
+.form-comment {
+    color : #A0A0A0 ;
+    font-weight : normal;
+}
