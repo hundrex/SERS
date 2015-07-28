@@ -29,6 +29,11 @@ class BaremeDAL extends Bareme {
 
         return $bareme;
     }
+    
+    public static function findDefaultBareme()
+    {
+        return self::findById(1);
+    }
 
     /**
      * Retourne tous les bareme enregistrés.
