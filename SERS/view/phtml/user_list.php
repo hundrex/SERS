@@ -83,7 +83,7 @@
                 <h4 class="modal-title" id="modalViewUserList">User view</h4>
             </div>
             <div class="modal-body">
-               User details
+                User details
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -18,7 +18,7 @@
             <div class="input-group pull-right">
                 <label for="finalMark">Final mark :</label>
                 <p>15</p>
-            </div>
+                </div>
         <?php endif ?>
     </div>
 </div>

@@ -27,7 +27,7 @@
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th></th></tr>
         <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewStudentList">
-                        <span class="glyphicon glyphicon-eye-open"></span></button> 
+                    <span class="glyphicon glyphicon-eye-open"></span></button> 
             </td>
         </tr>
         <tr><td>Rabbit</td><td>Roger</td><td>1981</td><td>
@@ -68,7 +68,7 @@
                 <h4 class="modal-title" id="modalViewStudentList">Student view</h4>
             </div>
             <div class="modal-body">
-               Student details
+                Student details
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

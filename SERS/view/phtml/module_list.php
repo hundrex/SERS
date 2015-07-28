@@ -20,7 +20,6 @@
     </div>
 </div>
 
-
 <div class="panel panel-default">
     <div class="panel-heading">Module list</div>
     <table class="table">

@@ -131,7 +131,7 @@
             ?>
         </div>
         <div id="right-column" class="col-lg-2"></div>
-        
+
         <div class="modal fade" id="mail-mark" tabindex="-1" role="dialog" aria-labelledby="modalMail">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -149,7 +149,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="mail-payment" tabindex="-1" role="dialog" aria-labelledby="modalPayment">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -167,8 +167,8 @@
                 </div>
             </div>
         </div>
-        
-         <div class="modal fade" id="log-out-modal" tabindex="-1" role="dialog" aria-labelledby="modalLogOut">
+
+        <div class="modal fade" id="log-out-modal" tabindex="-1" role="dialog" aria-labelledby="modalLogOut">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -185,7 +185,7 @@
                 </div>
             </div>
         </div>
-        
+
     </body>
     <footer>
         <div class="panel-footer navbar-fixed-bottom">
