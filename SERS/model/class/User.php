@@ -10,6 +10,8 @@ require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/DAL/TypeUserDAL.php');
 
 class User {
 
+    const TYPE_USER_STUDENT = 3;
+
     ///////////////
     // ATTRIBUTS //
     ///////////////
@@ -79,9 +81,11 @@ class User {
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function User($id = -1, $adresse = "rue par defaut", $prenom = "prenomDefaut", $mail = "mail@defaut",
-            $nom = "nomDefaut", $dateNaissance = "0000-00-00", $dateCreation = "0000-00-00",
-            $affiche = 1, $password = "Change!_3", $pseudo = "prenomDefaut.nomDefaut", $typeUser = 4, $fichier = null)
+    public function User(
+    $id = -1, $adresse = "rue par defaut", $prenom = "prenomDefaut", $mail = "mail@defaut", $nom = "nomDefaut",
+    $dateNaissance = "0000-00-00", $dateCreation = "0000-00-00", $affiche = 1, $password = "Change!_3",
+    $pseudo = "prenomDefaut.nomDefaut", $typeUser = 4, $fichier = null
+    )
     {
         $this->id = $id;
         $this->adresse = $adresse;
@@ -95,6 +99,16 @@ class User {
         $this->password = $password;
         $this->prenom = $prenom;
         $this->pseudo = $pseudo;
+    }
+
+    /**
+     * Fonction permettant de savoir si l'utilisateur est un étudiant.
+     * 
+     * @return boolean true si c'est un étudiant, false sinon
+     */
+    public function isStudent()
+    {
+        return $this->getType()->getCode() === self::TYPE_USER_STUDENT;
     }
 
     /////////////////////
