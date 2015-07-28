@@ -149,7 +149,7 @@ class ModuleDAL extends Module {
         $eleves = $module->getEleves();
         foreach ($eleves as $eleveId => $eleve)
         {
-            self::saveInscriptionEleve((int)$idInsert, (int)$eleveId);
+            self::saveInscriptionEleve($idInsert, $eleveId);
         }
         return $idInsert;
     }
