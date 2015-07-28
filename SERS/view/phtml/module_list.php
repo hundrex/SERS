@@ -24,26 +24,21 @@
     <div class="panel-heading">Module list</div>
     <table class="table">
         <tr><th>Module</th><th>Assignment</th><th>Exam</th><th>Final</th></tr>
-        <tr><td>Web Development</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
+        <?php foreach ($modules as $module): ?>
+        <tr>
+            <?php $modulId = $module->getId(); ?>
+            <?php $nbAssign = ModuleDAL::findNbAssign($modulId); ?>
+            <?php $nbExam = ModuleDAL::findNbExam($modulId); ?>
+            <?php $nbFinal = $nbAssign + $nbExam; ?>
+            <td><?php echo $module->getLabel(); ?></td>
+            <td><?php echo $nbAssign; ?></td>
+            <td><?php echo $nbExam; ?></td>
+            <td><?php echo $nbFinal; ?></td>
+            <td>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
                     <span class="glyphicon glyphicon-eye-open"></span></button></td>
         </tr>
-        <tr><td>Web Design</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
-                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
-        </tr>
-        <tr><td>Content Management System</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
-                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
-        </tr>
-        <tr><td>Legal Ethical Social and Professional Issues</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
-                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
-        </tr>
-        <tr><td>Web Development Framework</td><td>15</td><td>13</td><td>14</td>
-            <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
-                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
-        </tr>
+        <?php endforeach; ?>
     </table>
 </div>
 
@@ -76,7 +71,7 @@
                 <h4 class="modal-title" id="modalViewModule">Module view</h4>
             </div>
             <div class="modal-body">
-               Module details
+                Module details
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
