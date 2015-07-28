@@ -37,7 +37,7 @@ class ModuleDAL extends Module {
                         . 'module.date_creation as date_creation, module.number as number, '
                         . 'module.affiche as affiche '
                         . 'FROM module, assignment '
-                        . 'WHERE assignment.module_id = module.id'
+                        . 'WHERE assignment.module_id = module.id '
                         . 'AND assignment.id = ?', array('i', &$assignmentId));
         $module = new Module();
         $module->hydrate($data[0]);
@@ -59,11 +59,39 @@ class ModuleDAL extends Module {
                         . 'module.date_creation as date_creation, module.number as number, '
                         . 'module.affiche as affiche '
                         . 'FROM module, exam '
-                        . 'WHERE exam.module_id = module.id'
+                        . 'WHERE exam.module_id = module.id '
                         . 'AND exam.id = ?', array('i', &$examId));
         $module = new Module();
         $module->hydrate($data[0]);
         return $module;
+    }
+
+    /**
+     * Retourne le ou les modules correspondant à l'élève donné.
+     *
+     * @param User $eleve L'élève pour lequel on cherche les modules.
+     * @return array(Module)
+     */
+    public static function findAllByEleve($eleve)
+    {
+        $eleveId = $eleve->getId();
+        $mesModules = array();
+        $data = BaseSingleton::select('SELECT '
+                        . 'module.id as id, module.bareme_id as bareme_id, '
+                        . 'module.label as label, module.description as description, '
+                        . 'module.date_creation as date_creation, module.number as number, '
+                        . 'module.affiche as affiche '
+                        . 'FROM module, user_inscrire_module, user '
+                        . 'WHERE user.id = user_inscrire_module.user_id '
+                        . 'AND user_inscrire_module.module_id = module.id '
+                        . 'AND user.id = ?', array('i', &$eleveId));
+        foreach ($data as $row)
+        {
+            $module = new Module();
+            $module->hydrate($row);
+            $mesModules[] = $module;
+        }
+        return $mesModules;
     }
 
     /**
@@ -118,6 +146,11 @@ class ModuleDAL extends Module {
                 &$affiche //bool
         ));
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
+        $eleves = $module->getEleves();
+        foreach ($eleves as $eleveId => $eleve)
+        {
+            $this->saveInscriptionEleve($idInsert, $eleveId);
+        }
         return $idInsert;
     }
 
@@ -131,6 +164,49 @@ class ModuleDAL extends Module {
     {
         $deleted = BaseSingleton::delete('DELETE FROM module WHERE id = ?', array('i', &$id));
         return $deleted;
+    }
+
+    /**
+     * Méthode enregistrant l'insription de l'élève au module
+     * 
+     * @param int $moduleId L'id du module
+     * @param int $eleveId L'id de l'élève
+     */
+    private function saveInscriptionEleve($moduleId, $eleveId)
+    {
+        if (!$this->checkInscriptionEleve($moduleId, $eleveId))
+        {
+            $sql = 'INSERT INTO user_inscrire_module '
+                    . '(user_id, module_id) '
+                    . 'VALUES(?,?)';
+            $params = array('ii', array(
+                    &$moduleId,
+                    &$eleveId
+            ));
+            BaseSingleton::insertOrEdit($sql, $params);
+        }
+    }
+
+    /**
+     * Méthode vérifiant que l'élève est déjà inscrit au module
+     * 
+     * @param int $moduleId L'id du module
+     * @param int $eleveId L'id de l'élève
+     */
+    private function checkInscriptionEleve($moduleId, $eleveId)
+    {
+        $estInscrit = false;
+        $data = BaseSingleton::select(
+                        'SELECT user_id, module_id '
+                        . 'FROM user_inscrire_module '
+                        . 'WHERE user_id = ? '
+                        . 'AND module_id = ?', $params = array('ii', array(&$moduleId, &$eleveId))
+        );
+        if (!empty($data))
+        {
+            $estInscrit = true;
+        }
+        return $estInscrit;
     }
 
 }

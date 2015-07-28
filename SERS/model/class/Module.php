@@ -46,12 +46,16 @@ class Module {
      */
     private $extBareme;
 
+    /*
+     * @var array(User)
+     */
+    private $eleves = null;
+
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
 
-    public function Module($id = -1, $label = "label default", $description = "decription default", 
-            $dateCreation = "0000-00-00", $number = 0000, $affiche = 1, $extBareme = 1)
+    public function Module($id = -1, $label = "label default", $description = "decription default", $dateCreation = "0000-00-00", $number = 0000, $affiche = 1, $extBareme = 1)
     {
         $this->id = $id;
         $this->label = $label;
@@ -169,6 +173,47 @@ class Module {
             $bareme = $this->extBareme;
         }
         return $bareme;
+    }
+
+    public function getEleves()
+    {
+        return $this->eleves;
+    }
+
+    public function inscrireEleve($eleve)
+    {
+        if (is_int($eleve))
+        {
+            if (!array_key_exists($eleve, $this->eleves))
+            {
+                $this->eleves[$eleve] = UserDAL::findById($eleve);
+            }
+        }
+        else if (is_a($eleve, "User"))
+        {
+            if (!array_key_exists($eleve->getId(), $this->eleves))
+            {
+                $this->eleves[$eleve->getId()] = $eleve;
+            }
+        }
+    }
+    
+    public function desinscrireEleve($eleve)
+    {
+        if (is_int($eleve))
+        {
+            if (array_key_exists($eleve, $this->eleves))
+            {
+                unset($this->eleves[$eleve]);
+            }
+        }
+        else if (is_a($eleve, "User"))
+        {
+            if (array_key_exists($eleve->getId(), $this->eleves))
+            {
+                unset($this->eleves[$eleve->getId()]);
+            }
+        }
     }
 
     //////////////
