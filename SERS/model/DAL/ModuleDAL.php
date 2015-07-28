@@ -21,7 +21,44 @@ class ModuleDAL extends Module {
         $module->hydrate($data[0]);
         return $module;
     }
-
+    
+    
+    /**
+     * Retourne le nombre d'exam liéer à un module
+     *
+     * @param int $id Identifiant du module où compter le nb Exam
+     * @return int
+     */
+    public static function findNbExam($id)
+    {
+        $nbExam = 0;
+        $data = BaseSingleton::select('SELECT id, bareme_id, label, description, '
+                        . 'date_creation, number, affiche '
+                        . 'FROM module '
+                        . 'WHERE id = ?', array('i', &$id));
+        
+        $nbExam = $data[0];
+        return $nbExam;
+    }    
+    
+    /**
+     * Retourne le nombre d'assignment liéer à un module
+     *
+     * @param int $id Identifiant du module où compter le nb Assign
+     * @return int
+     */
+    public static function findNbAssign($id)
+    {
+        $nbAssign = 0;
+        $data = BaseSingleton::select('SELECT id, bareme_id, label, description, '
+                        . 'date_creation, number, affiche '
+                        . 'FROM module '
+                        . 'WHERE id = ?', array('i', &$id));
+        
+        $nbAssign = $data[0];
+        return $nbAssign;
+    }
+    
     /**
      * Retourne le module correspondant à l'assignment donné.
      *

@@ -1,3 +1,6 @@
+<?php require_once './model/DAL/UserDAL.php'; ?>
+<?php require_once './model/DAL/ModuleDAL.php'; ?>
+
 <div class="row filter-bar">
     <div class="col-lg-6">
         <div class="input-group">
@@ -19,6 +22,8 @@
         </div>
     </div>
 </div>
+
+<?php $modules = ModuleDAL::findAll(); ?>
 
 <div class="panel panel-default">
     <div class="panel-heading">Module list</div>
