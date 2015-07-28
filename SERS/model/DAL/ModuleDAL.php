@@ -149,7 +149,7 @@ class ModuleDAL extends Module {
         $eleves = $module->getEleves();
         foreach ($eleves as $eleveId => $eleve)
         {
-            self::saveInscriptionEleve($idInsert, $eleveId);
+            self::saveInscriptionEleve((int)$idInsert, (int)$eleveId);
         }
         return $idInsert;
     }
@@ -179,7 +179,7 @@ class ModuleDAL extends Module {
             $sql = 'INSERT INTO user_inscrire_module '
                     . '(user_id, module_id) '
                     . 'VALUES(?,?)';
-            $params = array('ii'
+            $params = array('ii',
                     &$moduleId,
                     &$eleveId
             );

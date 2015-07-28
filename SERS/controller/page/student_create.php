@@ -34,7 +34,7 @@ $student->setMail($validEmail);
 
 $student->setType(4); //place l'user type à 4 (correspond à l'id de student)
 
-/*
+
   //Insertion du student dans la table user
   $validInsertion = UserDAL::insertOnDuplicate($student);
   if ($validInsertion != null)
@@ -45,12 +45,10 @@ $student->setType(4); //place l'user type à 4 (correspond à l'id de student)
   {
   echo "ECHEC insertion Etudiant, good luck";
   }
- */
-
-
 
 //Gestion des module selectionner
 $unModule = $_POST['module'];
+
 if (empty($unModule))
 {
     echo("You didn't select any module.");
@@ -64,7 +62,7 @@ for ($i = 0; $i < $N; $i++)
     $moduleId = (int) $unModule[$i]; //recup l'id du module select, le cast en int et le stock  
     $module = ModuleDAL::findById($moduleId); //recherche le module correspondant à partir de son id
     $module->inscrireEleve($student); //inscrit dans ce module le student qui a était précédemment créer
-    ModuleDAL::insertOnDuplicate($module); //met a jout le module avec son nouveau etudiant inscrit
+    ModuleDAL::insertOnDuplicate($module); //met a jout le module avec son nouveau etudiant
     echo "Ajout de ". $student->getNom()."dans le module ".$module->getLabel()."</br>";
 }
 
