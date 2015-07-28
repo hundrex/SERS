@@ -12,7 +12,7 @@
 .btn-right {
     float : right;
     margin-left: 20px;
-    
+
 }
 
 .input-right {
@@ -24,7 +24,14 @@
 }
 
 .form-comment {
-    color : #A0A0A0 ;
-    font-weight : normal;
+    color: #A0A0A0 ;
+    font-weight: normal;
 }
 
+.filter-bar {
+    margin-bottom: 20px ;
+}
+
+.small-combobox {
+    width: 25% ;
+}

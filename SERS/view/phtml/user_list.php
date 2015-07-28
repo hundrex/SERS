@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row filter-bar">
     <div class="col-lg-6">
         <div class="input-group">
             <select class="form-control">

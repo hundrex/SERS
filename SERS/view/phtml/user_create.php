@@ -24,7 +24,7 @@
     </div>
     <div class="form-group">
         <label for="userType">User type</label>
-        <select class="combobox" id="userType" name="userType">
+        <select class="form-control small-combobox" id="userType" name="userType">
             <option value="1">Root</option>
             <option value="2">Administration</option>
             <option value="3">Teacher</option>
