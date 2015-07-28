@@ -10,7 +10,7 @@
 }
 
 .btn-right {
-    float : right;
+    float: right;
     margin-left: 20px;
 
 }
@@ -24,14 +24,19 @@
 }
 
 .form-comment {
-    color: #A0A0A0 ;
+    color: #A0A0A0;
     font-weight: normal;
 }
 
 .filter-bar {
-    margin-bottom: 20px ;
+    margin-bottom: 20px;
 }
 
 .small-combobox {
-    width: 25% ;
+    max-width: 25%;
+}
+
+.panel-list {
+    padding-right: 20px;
+    padding-left: 20px;
 }

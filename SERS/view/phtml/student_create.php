@@ -25,33 +25,34 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">Modules</div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="1" name="module[]"> Web Development
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="2" name="module[]"> Web Design
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="3" name="module[]"> Content Management System
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="4" name="module[]"> Legal Ethical Social and Professional Issues
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="5" name="module[]"> Web Development Framework
-            </label>
+        <div class="panel-list">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="1" name="module[]"> Web Development
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="2" name="module[]"> Web Design
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="3" name="module[]"> Content Management System
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="4" name="module[]"> Legal Ethical Social and Professional Issues
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="5" name="module[]"> Web Development Framework
+                </label>
+            </div>
         </div>
     </div>
-
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
