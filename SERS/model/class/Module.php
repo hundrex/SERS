@@ -65,6 +65,16 @@ class Module {
      * @var Exam
      */
     private $exam;
+    
+        /*
+     * @var Assignment
+     */
+    private $retryAsignment;
+    
+        /*
+     * @var Exam
+     */
+    private $retryExam;
 
     ///////////////////
     // CONSTRUCTEURS //

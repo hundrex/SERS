@@ -83,10 +83,11 @@ class ModuleDAL extends Module {
                         . 'module.id as id, module.bareme_id as bareme_id, '
                         . 'module.label as label, module.description as description, '
                         . 'module.date_creation as date_creation, module.number as number, '
-                        . 'module.affiche as affiche '
-                        . 'FROM module, user_inscrire_module, user '
+                        . 'module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
+                        . 'FROM module, user_inscrire_module, user, exam, assignment '
                         . 'WHERE user.id = user_inscrire_module.user_id '
                         . 'AND user_inscrire_module.module_id = module.id '
+                        . 'AND module.id = assignment.module_id AND module.id = exam.module_id '
                         . 'AND user.id = ?', array('i', &$eleveId));
         foreach ($data as $row)
         {
