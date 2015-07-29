@@ -1,6 +1,6 @@
 <?php
-
-require_once '../../model/class/Serie.php';
+var_dump($_SERVER['DOCUMENT_ROOT']);
+require_once $_SERVER['DOCUMENT_ROOT'].'/SERS/SERS/model/class/Serie.php';
 
 $data = array();
 $finalMarks = array();
