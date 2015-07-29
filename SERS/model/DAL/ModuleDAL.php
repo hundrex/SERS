@@ -327,4 +327,13 @@ class ModuleDAL extends Module {
         
         return (int)$moyenneExam;
     }    
+    
+//    
+//    SELECT AVG(user_participe_assignment.note)
+//FROM user_participe_assignment, assignment, user, module
+//WHERE user.id = 2 AND module.id = 1
+//	AND user_participe_assignment.user_id = user.id
+//    AND user_participe_assignment.assignment_id = assignment.id
+//    AND assignment.module_id = module.id
+    
 }

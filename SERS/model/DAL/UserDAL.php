@@ -165,4 +165,44 @@ class UserDAL extends User {
         return $deleted;
     }
 
+    /**
+     * Methode qui retourne la moyenne de l'ensemble des assignment d'un student 
+     * @param int $studentId
+     * @return int Moyenne de l'etudiant dont l'id es ten param dans l'ensemble des assignment où il a été noté.
+     */
+    public function moyenneAssignment($studentId)
+    {
+        $moyenneAssignmentEleve=0;
+        $sql = 'SELECT AVG(user_participe_assignment.note) as MoyAssignStud'
+            .'FROM user_participe_assignment, assignment, user '
+            .'WHERE user.id = ? '
+                .'AND user_participe_assignment.user_id = user.id '
+                .'AND user_participe_assignment.assignment_id = assignment.id ';
+        $param = array('i', &$studentId);
+        $data = BaseSingleton::select($sql, $param);
+        
+        $moyenneAssignmentEleve = $data[0]["MoyAssignStud"];
+        return (int)$moyenneAssignmentEleve;
+    }
+    
+    /**
+     * Methode qui retourne la moyenne de l'ensemble des exam d'un student 
+     * @param int $studentId
+     * @return int Moyenne de l'etudiant dont l'id est en param dans l'ensemble des exam où il a été noté.
+     */
+    public function moyenneExam($studentId)
+    {
+        $moyenneExamEleve=0;
+        $sql = 'SELECT AVG(user_participe_exam.note) as MoyExamStud'
+            .'FROM user_participe_exam, exam, user '
+            .'WHERE user.id = ? '
+                .'AND user_participe_exam.user_id = user.id '
+                .'AND user_participe_exam.exam_id = exam.id ';
+        $param = array('i', &$studentId);
+        $data = BaseSingleton::select($sql, $param);
+        
+        $moyenneExamEleve = $data[0]["MoyExamStud"];
+        return (int)$moyenneExamEleve;
+    }
+
 }

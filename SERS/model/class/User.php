@@ -110,6 +110,59 @@ class User {
         return $this->getType()->getCode() === self::TYPE_USER_STUDENT;
     }
 
+    /**
+     * Retourne la moyenne d'un student de l'ensemble de ses assignment
+     * @return int
+     */
+    public function getMoyenneAssignment()
+    {
+        if($this->isStudent()) //si le code de l'user correspond a celui d'un student
+        {
+            return UserDAL::moyenneAssignment($this->id);
+        }
+        else
+        {
+            echo "User.getMoyenneAssignment: Vous demandez la moyenne d'un User qui n'est pas un student";
+        }
+    }
+
+    /**
+     * Retourne la moyenne d'un student de l'ensemble de ses exam
+     * @return int
+     */
+    public function getMoyenneExam()
+    {
+        if($this->isStudent()) //si le code de l'user correspond a celui d'un student
+        {
+            return UserDAL::moyenneExam($this->id);
+        }
+        else
+        {
+            echo "User.getMoyenneExam: Vous demandez la moyenne d'un User qui n'est pas un student";
+        }
+    }
+    
+    /**
+     * Retourne la moyenne final d'un student
+     * @return int 
+     */
+    public function  getMoyenneFinal()
+    {
+        if($this->isStudent()){
+            $moyExam = $this->getMoyenneExam();
+            $moyAssign = $this->getMoyenneAssignment();
+            $moyFinal = ($moyAssign+$moyExam)/2;
+            return $moyFinal;
+        }
+        else
+        {
+            echo "User.getMoyenneFinal: Vous demandez la moyenne d'un User qui n'est pas un student";
+        }
+    }
+
+
+
+
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////
