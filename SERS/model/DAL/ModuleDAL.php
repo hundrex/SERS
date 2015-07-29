@@ -13,10 +13,11 @@ class ModuleDAL extends Module {
      */
     public static function findById($id)
     {
-        $data = BaseSingleton::select('SELECT id, bareme_id, label, description, '
-                        . 'date_creation, number, affiche '
-                        . 'FROM module '
-                        . 'WHERE id = ?', array('i', &$id));
+        $data = BaseSingleton::select('SELECT module.id as id, module.bareme_id as bareme_id, module.label as label, module.description as description, '
+                        . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
+                        . 'FROM module, assignment, exam '
+                        . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id AND '
+                . 'module.id = ?', array('i', &$id));
         $module = new Module();
         $module->hydrate($data[0]);
         return $module;
@@ -104,9 +105,10 @@ class ModuleDAL extends Module {
     public static function findAll()
     {
         $mesModules = array();
-        $data = BaseSingleton::select('SELECT id, bareme_id, label, description, '
-                        . 'date_creation, number, affiche '
-                        . 'FROM module ');
+        $data = BaseSingleton::select('SELECT module.id as id, module.bareme_id as bareme_id, module.label as label, module.description as description, '
+                        . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
+                        . 'FROM module, assignment, exam '
+                        . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id');
         foreach ($data as $row)
         {
             $module = new Module();
