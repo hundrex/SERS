@@ -210,6 +210,22 @@ class User {
             return $noteStdFinal;
         }
     }
+    
+    /**
+     * Méthode return True si l'user a réussi son module (passer en param)
+     * False s'il a échoué
+     * cdtFail: moyModul<50 || noteAssign<40 || noteExam<40
+     * cdtSuccess: moyModul>=50 && noteAssign>=40 && noteExam>=40
+     * @param int $moduleId
+     * @return bool 
+     */
+    public function getSuccessModule($moduleId){
+        $succes;
+        if($this->isStudent()){
+            $succes = UserDAL::haveModule($moduleId);
+            return $succes;
+        }
+    }
 
     /////////////////////
     // GETTERS&SETTERS //
