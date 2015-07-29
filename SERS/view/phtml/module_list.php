@@ -36,7 +36,7 @@
                 <?php $modulId = $module->getId(); ?>
                 <?php $nbAssign = AssignmentDAL::findNbAssign($modulId); ?>
                 <?php $nbExam = ExamDAL::findNbExam($modulId); ?>
-                <?php $nbFinal = ($nbAssign + $nbExam) / 2; ?>
+                <?php $nbFinal = ($nbAssign + $nbExam); ?>
                 <td><?php echo $module->getLabel(); ?></td>
                 <td><?php echo $module->getDescription(); ?></td>
                 <td><?php echo $nbAssign; ?></td>
@@ -104,77 +104,84 @@
                             </dl>
                         </li>
                         <li>
-                            <dl class="dl-horizontal">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        Assignment: <?php echo $module->getAssignment()->getLabel(); ?></div>
-                                    <div class="panel-body">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Description: </dt>
-                                                    <dd><?php echo $module->getAssignment()->getDescription(); ?></dd>
-                                                </dl>
-                                            </li>
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Due date: </dt>
-                                                    <dd><?php echo $module->getAssignment()->getDatePassage(); ?></dd>
-                                                </dl>
-                                            </li>
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Retry price: </dt>
-                                                    <dd><?php echo $module->getAssignment()->getPrixRattrapage(); ?></dd>
-                                                </dl>
-                                            </li>
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Mark: </dt>
-                                                    <dd><?php echo $module->getAssignment()->getNote(); ?></dd>
-                                                </dl>
-                                            </li>
-                                        </ul>
-                                    </div>
-
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Assignment: <?php echo $module->getAssignment()->getLabel(); ?></div>
+                                <div class="panel-body">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Description: </dt>
+                                                <dd><?php echo $module->getAssignment()->getDescription(); ?></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Due date: </dt>
+                                                <dd><?php echo $module->getAssignment()->getDatePassage(); ?></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Retry price: </dt>
+                                                <dd><?php echo $module->getAssignment()->getPrixRattrapage(); ?></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Mark: </dt>
+                                                <dd><?php echo $module->getAssignment()->getNote(); ?></dd>
+                                            </dl>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </dl>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Exam: <?php echo $module->getExam()->getLabel(); ?></div>
+                                <div class="panel-body">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Description: </dt>
+                                                <dd><?php echo $module->getExam()->getDescription(); ?></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Due date: </dt>
+                                                <dd><?php echo $module->getExam()->getDatePassage(); ?></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Retry price: </dt>
+                                                <dd><?php echo $module->getExam()->getPrixRattrapage(); ?></dd>
+                                            </dl>
+                                        </li>
+                                        <li>
+                                            <dl class="dl-horizontal">
+                                                <dt>Mark: </dt>
+                                                <dd><?php echo $module->getExam()->getNote(); ?></dd>
+                                            </dl>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <dl class="dl-horizontal">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        Exam: <?php echo $module->getExam()->getLabel(); ?></div>
-                                    <div class="panel-body">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Description: </dt>
-                                                    <dd><?php echo $module->getExam()->getDescription(); ?></dd>
-                                                </dl>
-                                            </li>
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Due date: </dt>
-                                                    <dd><?php echo $module->getExam()->getDatePassage(); ?></dd>
-                                                </dl>
-                                            </li>
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Retry price: </dt>
-                                                    <dd><?php echo $module->getExam()->getPrixRattrapage(); ?></dd>
-                                                </dl>
-                                            </li>
-                                            <li>
-                                                <dl class="dl-horizontal">
-                                                    <dt>Mark: </dt>
-                                                    <dd><?php echo $module->getExam()->getNote(); ?></dd>
-                                                </dl>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div>
+                                <dt>Final: </dt>
+                                <dd>
+                                    <?php 
+                                    $noteAssignment = $module->getAssignment()->getNote(); 
+                                    $noteExam = $module->getExam()->getNote(); 
+                                    $noteFinal = ($noteAssignment + $noteExam)/2;
+                                    echo $noteFinal;
+                                    ?>
+                                </dd>
                             </dl>
                         </li>
 

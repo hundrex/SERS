@@ -29,30 +29,29 @@
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>Module Associated</th></tr>
         <?php foreach ($students as $student): ?>
-            <tr>
-                <td><?php echo $student->getNom(); ?></td>
-                <td><?php echo $student->getPrenom(); ?></td>
-                <td><?php echo $student->getDateNaissance(); ?></td>
-                <td><?php $modules = $student->getModule(); ?>
-                    <?php
-                    if (sizeof($modules) > 0)
-                    {
-                        foreach ($modules as $module):
-                            echo $module->getLabel() . "; ";
-                        endforeach;
-                    }
-                    else
-                    {
-                        echo "User is not registered any Module.";
-                    }
-                    ?>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewStudentList">
-                        <span class="glyphicon glyphicon-eye-open"></span></button> 
-                </td>
-            </tr>
-<?php endforeach; ?>
+        <tr>
+            <td><?php echo $student->getNom(); ?></td>
+            <td><?php echo $student->getPrenom(); ?></td>
+            <td><?php echo $student->getDateNaissance(); ?></td>
+            <td><?php $modules = $student->getModule(); ?>
+                <?php
+                if (sizeof($modules) > 0) {
+                foreach ($modules as $module):
+                echo $module->getLabel() . "; ";
+                endforeach;
+                }
+                else {
+                echo "User is not registered in any module.";
+                }
+                ?>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default" data-toggle="modal" 
+                        data-target=<?php echo '"#modalViewUserList-' . $student->getId() . '"' ?>>
+                    <span class="glyphicon glyphicon-eye-open"></span></button> 
+            </td>
+        </tr>
+        <?php endforeach; ?>
     </table>
 </div>
 
@@ -78,15 +77,96 @@
 
 
 <!--modal--> 
-<div class="modal fade" id="modalViewStudentList" tabindex="-1" role="dialog" aria-labelledby="modalViewStudentList">
+<?php foreach ($students as $student): ?>
+<div class="modal fade" id=<?php echo '"modalViewUserList-' . $student->getId() . '"' ?> 
+     tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalViewUserList-' . $student->getId() . '"' ?> >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalViewStudentList">Student view</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalViewStudentList">
+                    <?php
+                    echo $student->getNom();
+                    echo ' ';
+                    echo $student->getPrenom();
+                    ?>
+                </h4>
             </div>
             <div class="modal-body">
-                Student details
+                <ul class="list-unstyled">
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt>Pseudo: </dt>
+                            <dd><?php echo $student->getPseudo(); ?></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt>Email: </dt>
+                            <dd><?php echo $student->getMail(); ?></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt>Address: </dt>
+                            <dd><?php echo $student->getAdresse(); ?></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt>Birth date: </dt>
+                            <dd><?php echo $student->getDateNaissance(); ?></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt>Creation date: </dt>
+                            <dd><?php echo $student->getDateCreation(); ?></dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Module(s) followed
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <?php
+                                        if (sizeof($modules) > 0) {
+                                        foreach ($modules as $module):
+                                        ?>
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                <?php echo $module->getLabel() . "; "; ?>
+                                            </dt>
+                                            <dd>
+                                                <?php echo $module->getDescription() . "; "; ?>
+                                            </dd>
+                                        </dl>
+                                        <?php endforeach; 
+                                        }
+                                        else {
+                                        echo "User is not registered in any module.";
+                                        }
+                                        ?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt>Avatar: </dt>
+                            <dd><img src=<?php
+                                echo '".' . $student->getAvatar()->getType()->getChemin() .
+                                '/' . $student->getAvatar()->getNom() . '"';
+                                ?> ></dd>
+                        </dl>
+                    </li>
+                </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -95,3 +175,5 @@
         </div>
     </div>
 </div>
+<?php
+endforeach;
