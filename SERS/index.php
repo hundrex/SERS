@@ -17,6 +17,8 @@
         <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 
         <link rel="stylesheet" href="./view/css/main.css">
+        
+        <link rel="icon" type="image/png" href="./view/document/picture/favicon.png" />
     </head>
     <body>
 
