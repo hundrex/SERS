@@ -67,18 +67,6 @@ class AssignmentDAL extends Assignment {
      */
     public static function insertOnDuplicate($assignment, $moduleId = null)
     {
-        $sql = 'INSERT INTO assignment '
-                . '(module_id, label, description, '
-                . 'date_creation, date_passage, affiche, prixRattrapage) '
-                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"), ?,?,?) '
-                . 'ON DUPLICATE KEY '
-                . 'UPDATE module_id = VALUES(module_id), '
-                . 'label = VALUES(label), '
-                . 'description = VALUES(description), '
-                . 'date_passage = DATE_FORMAT(VALUES(date_passage),"%Y/%m/%d"), '
-                . 'affiche = VALUES(affiche),'
-                . 'prixRattrapage = VALUES(prixRattrapage) ';
-
         if (is_null($moduleId))
         {
             $moduleId = $assignment->getModule()->getId(); //int
@@ -89,14 +77,42 @@ class AssignmentDAL extends Assignment {
         $affiche = $assignment->getAffiche(); //bool
         $prixRattrapage = $assignment->getPrixRattrapage(); //int
 
-        $params = array('isssbi',
-            &$moduleId, //int
-            &$label, //string
-            &$description, //string
-            &$datePassage, //date
-            &$affiche, //bool
-            &$prixRattrapage //int
-        );
+        $assignId = $assignment->getId();
+        if ($assignId < 0) //s'il y a pas d'id transmis avec l'asignment
+        { //on insert un nouvel assignment
+            $sql = 'INSERT INTO assignment '
+                    . '(module_id, label, description, '
+                    . 'date_creation, date_passage, affiche, prixRattrapage) '
+                    . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"), ?,?,?) ';
+            $params = array('isssbi',
+                &$moduleId, //int
+                &$label, //string
+                &$description, //string
+                &$datePassage, //date
+                &$affiche, //bool
+                &$prixRattrapage //int
+            );
+        }
+        else //s'il y a un id avec l'assignment (id>0)
+        { //on l'update
+            $sql = 'UPDATE assignment '
+                    . ' SET module_id = ? '
+                    . 'label = ? '
+                    . 'description = ? '
+                    . 'date_passage = ? '
+                    . 'affiche = ? '
+                    . 'prixRattrapage = ?'
+                    . ' WHERE id=?';
+            $params = array('isssbii',
+                &$moduleId, //int
+                &$label, //string
+                &$description, //string
+                &$datePassage, //date
+                &$affiche, //bool
+                &$prixRattrapage, //int
+                &$assignId
+            );
+        }
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $assignment->setId($idInsert);
         return $idInsert;

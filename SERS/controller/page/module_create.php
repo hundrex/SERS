@@ -47,7 +47,7 @@ if ($validAssignmentPrixRetry != null)
 $newAssignment->setAffiche(1);
 //insertion du module dans la table
 $validInsertAssignment = AssignmentDAL::insertOnDuplicate($newAssignment);
-if ($validInsertionAssignment != null)
+if ($validInsertAssignment != null)
 {
     echo "Insertion Assignment OK (id:" . $newAssignment->getId() . ", label:" . $newAssignment->getLabel() . ")";
 }
@@ -81,7 +81,7 @@ if ($validExamPrixRetry != null)
 $newExam->setAffiche(1);
 //insertion de l'exam dans la table
 $validInsertExam = ExamDAL::insertOnDuplicate($newExam);
-if ($validInsertionExam != null)
+if ($validInsertExam != null)
 {
     echo "Insertion Exam OK (id:" . $newExam->getId() . ", label:" . $newExam->getLabel() . ")";
 }
@@ -102,7 +102,7 @@ $newModule->setDescription($validModuleDescription);
 $newModule->setBareme(1); //barème par defaut
 $newModule->setAffiche(1); //visible
 $newModule->setAssignment($newAssignment); //lors de la creation du module dans la table, l'attribut moduleId de l'assignemnt va etre modifier a la valeur de ce module.
-$newModule>setExam($newExam); //lie l'exam à ce module
+$newModule->setExam($newExam); //lie l'exam à ce module
 //insertion du module dans la table
 $validInsertModule = ModuleDAL::insertOnDuplicate($newModule);
 if ($validInsertModule != null)
