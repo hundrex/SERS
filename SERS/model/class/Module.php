@@ -280,7 +280,7 @@ class Module {
         return $this->eleves;
     }
     
-    public function setEleves($eleves)
+    private function setEleves($eleves)
     {
         $this->eleves = $eleves;
     }

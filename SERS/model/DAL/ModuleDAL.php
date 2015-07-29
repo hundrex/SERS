@@ -23,7 +23,10 @@ class ModuleDAL extends Module {
 //        var_dump($data);
         $module->hydrate($data[0]);
         $eleves = UserDAL::findAllByModule($module);
-        $module->setEleves($eleves);
+        foreach ($eleves as $eleve)
+        {
+            $module->inscrireEleve($eleve);
+        }
         return $module;
     }
 
