@@ -35,7 +35,8 @@
                 <td><?php echo $user->getDateNaissance(); ?></td>
                 <td><?php echo $user->getType()->getLabel(); ?></td>
                 <td>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewUserList">
+                    <button type="button" class="btn btn-default" data-toggle="modal" 
+                            data-target=<?php echo '"#modalViewUserList-' . $user->getId() . '"' ?>>
                         <span class="glyphicon glyphicon-eye-open"></span></button>
                 </td>
             </tr>
@@ -66,7 +67,8 @@
 <!--modal-->
 
 <?php foreach ($users as $user): ?>
-    <div class="modal fade" id=<?php echo '"modalViewUserList-' . $user->getId() . '"' ?> tabindex="-1" role="dialog" 
+    <div class="modal fade" id=<?php echo '"modalViewUserList-' . $user->getId() . '"' ?> 
+         tabindex="-1" role="dialog" 
          aria-labelledby=<?php echo '"modalViewUserList-' . $user->getId() . '"' ?> >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
