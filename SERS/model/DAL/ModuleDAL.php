@@ -91,7 +91,7 @@ class ModuleDAL extends Module {
                         . 'WHERE user.id = user_inscrire_module.user_id '
                         . 'AND user_inscrire_module.module_id = module.id '
                         . 'AND module.id = assignment.module_id AND module.id = exam.module_id '
-                        . 'AND user.id = ?'
+                        . 'AND user.id = ? '
                 . 'GROUP BY module.id', array('i', &$eleveId));
         foreach ($data as $row)
         {
