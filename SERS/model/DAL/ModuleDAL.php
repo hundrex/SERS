@@ -101,27 +101,61 @@ class ModuleDAL extends Module {
         return $mesModules;
     }
 
+    
     /**
-     * Retourne tous les modules enregistrés.
+     * Retourne tous les exam avec rattrapage à .
      *
-     * @return array[Module] Tous les objets dans un tableau.
+     * @return array[Exam] Tous les objets dans un tableau.
      */
-    public static function findAllRattrapage()
+    public static function findAllRattrapageExam($moduleId)
     {
-        $mesRattrapages = array();
-        $data = BaseSingleton::select('SELECT module.id as id, module.bareme_id as bareme_id, module.label as label, module.description as description, '
-                        . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_retry, exam.id as exam_retry, '
-                . ' assignment.prixRattrapage as prixRattrapage_assignment, exam.prixRattrapage as prixRattrapage_exam '
-                        . 'FROM module, assignment, exam '
-                        . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id '
-                        . ' AND assignment.rattrapage = 1 AND exam.rattrapage = 1 '
-                        . 'GROUP BY module.id');
+        $mesRattrapagesExam = array();
+        $data = BaseSingleton::select('SELECT exam.id, exam.module_id, '
+                        . 'exam.label, '
+                        . 'exam.description, exam.date_creation, '
+                        . 'exam.date_passage, exam.affiche, '
+                        . 'exam.prixRattrapage, exam.rattrapage '
+                        . 'FROM module, assignemnt, exam '
+                        . 'WHERE module.id = exam.module_id AND module.id = exam.module_id '
+                        . ' AND exam.rattrapage = 1'
+                        . ' AND module.id = ? '
+                        . 'GROUP BY module.id', array('i', &$moduleId));
         foreach ($data as $row)
         {
-            $rattrapage = new Module();
-            $rattrapage->hydrateRattrapage($row);
-            $mesRattrapages[] = $rattrapage;
+            $rattrapageExam = new Exam();
+
+            $rattrapageExam->hydrate($row);
+            $mesRattrapagesExam[] = $rattrapageExam;
         }
+        return $mesRattrapagesExam;
+    }
+    
+    /**
+     * Retourne tous les assign avec rattrapage à .
+     *
+     * @return array[Assignment] Tous les objets dans un tableau.
+     */
+    public static function findAllRattrapageAssign($moduleId)
+    {
+        $mesRattrapagesAssign = array();
+        $data = BaseSingleton::select('SELECT assignment.id, assignment.module_id, '
+                        . 'assignment.label, '
+                        . 'assignment.description, assignment.date_creation, '
+                        . 'assignment.date_passage, assignment.affiche, '
+                        . 'assignment.prixRattrapage, assignment.rattrapage '
+                        . 'FROM module, assignment, exam '
+                        . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id '
+                        . ' AND assignment.rattrapage = 1'
+                        . ' AND module.id = ? '
+                        . 'GROUP BY module.id', array('i', &$moduleId));
+        foreach ($data as $row)
+        {
+            $rattrapageAssign = new Assignment();
+
+            $rattrapageAssign->hydrate($row);
+            $mesRattrapagesAssign[] = $rattrapageAssign;
+        }
+        return $mesRattrapagesAssign;
     }
 
     /**
