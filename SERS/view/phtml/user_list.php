@@ -124,7 +124,31 @@
                         <li>
                             <dl class="dl-horizontal">
                                 <dt>Module(s) followed: </dt>
-                                <dd></dd>
+                                <dd>
+
+                                    <?php
+                                    $modules = ModuleDAL::findAllByEleve($user);
+                                    if (sizeof($modules) === 0)
+                                    {
+                                        echo 'This user has not entered any module.';
+                                    }
+                                    else
+                                    {
+                                        ?>
+                                        <ul>
+                                            <?php
+                                            foreach ($modules as $module):
+                                                ?>
+                                                <li>
+                                                    <?php echo $module->getLabel(); ?>
+                                                </li>
+                                            <?php endforeach;
+                                            ?>
+                                        </ul>
+                                        <?php
+                                    }
+                                    ?>
+                                </dd>
                             </dl>
                         </li>
                         <li>
