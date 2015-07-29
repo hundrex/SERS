@@ -163,8 +163,8 @@ class User {
 
     /**
      * Methode retourne la note d'un assignment d'un eleve, dans un module donnée
-     * @param type $moduleId
-     * @return type
+     * @param int $moduleId
+     * @return int (-1 si pas évalué pour cette assignment)
      */
     public function getNoteStudentAssignment($moduleId)
     {
@@ -179,8 +179,8 @@ class User {
 
     /**
      *  Methode retourne la note d'un exam d'un eleve, dans un module donnée
-     * @param type $moduleId
-     * @return type
+     * @param int $moduleId
+     * @return int (-1 si pas évalué pour cette assignment)
      */
     public function getNoteStudentExam($moduleId)
     {
