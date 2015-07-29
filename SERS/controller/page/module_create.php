@@ -21,6 +21,33 @@ $newExam = new Exam();
 //regex opur les date format YYYY/MM/DD
 $myregex = "~^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$~";
 
+//********CREATION MODULE *******
+//Vérifie ce qui est renvoyer par le POST de /view/phtml/module_create.php
+//et set de l'objet newModule au fur et à mesure
+$validModuleLabel = filter_input(INPUT_POST, 'label', FILTER_SANITIZE_STRING);
+$newModule->setLabel($validModuleLabel);
+$validModuleNumber = filter_input(INPUT_POST, 'moduleNumber', FILTER_SANITIZE_NUMBER_INT);
+$newModule->setNumber($validModuleNumber);
+$validModuleDescription = filter_input(INPUT_POST, 'descriptionModule', FILTER_SANITIZE_STRING);
+$newModule->setDescription($validModuleDescription);
+$newModule->setBareme(1); //barème par defaut
+$newModule->setAffiche(1); //visible
+//$newModule->setAssignment($newAssignment); //lors de la creation du module dans la table, l'attribut moduleId de l'assignemnt va etre modifier a la valeur de ce module.
+//$newModule->setExam($newExam); //lie l'exam à ce module
+//insertion du module dans la table
+$validInsertModule = ModuleDAL::insertOnDuplicate($newModule);
+$moduleId = $newModule->getId();
+if ($validInsertModule != null)
+{
+    $moduleId = $newModule->getId();
+    echo "Insertion Module OK (id:" . $moduleId . ")";
+}
+else
+{
+    echo "ECHEC insertion module, good luck";
+}
+
+
 //***********CREATION ASSIGNMENT**********
 //création de l'assignement (qu'il faudra liée au module créer plutot),
 //set les champs s'ils ont été remplis.
@@ -46,7 +73,7 @@ if ($validAssignmentPrixRetry != null)
 }
 $newAssignment->setAffiche(1);
 //insertion du module dans la table
-$validInsertAssignment = AssignmentDAL::insertOnDuplicate($newAssignment);
+$validInsertAssignment = AssignmentDAL::insertOnDuplicate($newAssignment, $moduleId);
 if ($validInsertAssignment != null)
 {
     echo "Insertion Assignment OK (id:" . $newAssignment->getId() . ", label:" . $newAssignment->getLabel() . ")";
@@ -80,7 +107,7 @@ if ($validExamPrixRetry != null)
 }
 $newExam->setAffiche(1);
 //insertion de l'exam dans la table
-$validInsertExam = ExamDAL::insertOnDuplicate($newExam);
+$validInsertExam = ExamDAL::insertOnDuplicate($newExam, $moduleId);
 if ($validInsertExam != null)
 {
     echo "Insertion Exam OK (id:" . $newExam->getId() . ", label:" . $newExam->getLabel() . ")";
@@ -88,29 +115,4 @@ if ($validInsertExam != null)
 else
 {
     echo "ECHEC insertion exam, good luck";
-}
-
-//********CREATION MODULE *******
-//Vérifie ce qui est renvoyer par le POST de /view/phtml/module_create.php
-//et set de l'objet newModule au fur et à mesure
-$validModuleLabel = filter_input(INPUT_POST, 'label', FILTER_SANITIZE_STRING);
-$newModule->setLabel($validModuleLabel);
-$validModuleNumber = filter_input(INPUT_POST, 'moduleNumber', FILTER_SANITIZE_NUMBER_INT);
-$newModule->setNumber($validModuleNumber);
-$validModuleDescription = filter_input(INPUT_POST, 'descriptionModule', FILTER_SANITIZE_STRING);
-$newModule->setDescription($validModuleDescription);
-$newModule->setBareme(1); //barème par defaut
-$newModule->setAffiche(1); //visible
-$newModule->setAssignment($newAssignment); //lors de la creation du module dans la table, l'attribut moduleId de l'assignemnt va etre modifier a la valeur de ce module.
-$newModule->setExam($newExam); //lie l'exam à ce module
-//insertion du module dans la table
-$validInsertModule = ModuleDAL::insertOnDuplicate($newModule);
-if ($validInsertModule != null)
-{
-    $moduleId = $newModule->getId();
-    echo "Insertion Module OK (id:" . $moduleId . ")";
-}
-else
-{
-    echo "ECHEC insertion module, good luck";
 }

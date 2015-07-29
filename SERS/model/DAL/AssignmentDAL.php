@@ -71,13 +71,15 @@ class AssignmentDAL extends Assignment {
         {
             $moduleId = $assignment->getModule()->getId(); //int
         }
+        
         $label = $assignment->getLabel(); //string
         $description = $assignment->getDescription(); //string
         $datePassage = $assignment->getDatePassage(); //date
         $affiche = $assignment->getAffiche(); //bool
         $prixRattrapage = $assignment->getPrixRattrapage(); //int
-
+        echo "AssignmentDAL.insertOnDuplicate: Avant recherche assignId </br>";
         $assignId = $assignment->getId();
+        echo "AssignmentDAL.insertOnDuplicate: assignId = ". $assignId."</br>";
         if ($assignId < 0) //s'il y a pas d'id transmis avec l'asignment
         { //on insert un nouvel assignment
             $sql = 'INSERT INTO assignment '
