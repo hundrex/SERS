@@ -17,14 +17,13 @@ class ModuleDAL extends Module {
                         . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
                         . 'FROM module, assignment, exam '
                         . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id AND '
-                . 'module.id = ? '
-                . 'GROUP BY module.id', array('i', &$id));
+                        . 'module.id = ? '
+                        . 'GROUP BY module.id', array('i', &$id));
         $module = new Module();
         $module->hydrate($data[0]);
         return $module;
     }
-    
-      
+
     /**
      * Retourne le module correspondant à l'assignment donné.
      *
@@ -34,7 +33,7 @@ class ModuleDAL extends Module {
     public static function findByAssignment($assignment)
     {
         $assignmentId = $assignment->getId();
-        echo "ModuleDAL.assignmentId: ".$assignmentId; //var_dump debug liaison assign<->module
+        echo "ModuleDAL.assignmentId: " . $assignmentId; //var_dump debug liaison assign<->module
         $data = BaseSingleton::select('SELECT '
                         . 'module.id as id, module.bareme_id as bareme_id, '
                         . 'module.label as label, module.description as description, '
@@ -43,7 +42,7 @@ class ModuleDAL extends Module {
                         . 'FROM module, assignment, exam '
                         . 'WHERE assignment.module_id = module.id AND module.id = exam.module_id '
                         . 'AND assignment.id = ? '
-                . 'GROUP BY module.id', array('i', &$assignmentId));
+                        . 'GROUP BY module.id', array('i', &$assignmentId));
         $module = new Module();
         $module->hydrate($data);
         return $module;
@@ -66,7 +65,7 @@ class ModuleDAL extends Module {
                         . 'FROM module, exam, assignment '
                         . 'WHERE exam.module_id = module.id AND assignment.module_id = module.id '
                         . 'AND exam.id = ? '
-                . 'GROUP BY module.id', array('i', &$examId));
+                        . 'GROUP BY module.id', array('i', &$examId));
         $module = new Module();
         $module->hydrate($data[0]);
         return $module;
@@ -92,7 +91,7 @@ class ModuleDAL extends Module {
                         . 'AND user_inscrire_module.module_id = module.id '
                         . 'AND module.id = assignment.module_id AND module.id = exam.module_id '
                         . 'AND user.id = ? '
-                . 'GROUP BY module.id', array('i', &$eleveId));
+                        . 'GROUP BY module.id', array('i', &$eleveId));
         foreach ($data as $row)
         {
             $module = new Module();
@@ -107,6 +106,29 @@ class ModuleDAL extends Module {
      *
      * @return array[Module] Tous les objets dans un tableau.
      */
+    public static function findAllRattrapage()
+    {
+        $mesRattrapages = array();
+        $data = BaseSingleton::select('SELECT module.id as id, module.bareme_id as bareme_id, module.label as label, module.description as description, '
+                        . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_retry, exam.id as exam_retry, '
+                . ' assignment.prixRattrapage as prixRattrapage_assignment, exam.prixRattrapage as prixRattrapage_exam '
+                        . 'FROM module, assignment, exam '
+                        . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id '
+                        . ' AND assignment.rattrapage = 1 AND exam.rattrapage = 1 '
+                        . 'GROUP BY module.id');
+        foreach ($data as $row)
+        {
+            $rattrapage = new Module();
+            $rattrapage->hydrateRattrapage($row);
+            $mesRattrapages[] = $rattrapage;
+        }
+    }
+
+    /**
+     * Retourne tous les modules enregistrés.
+     *
+     * @return array[Module] Tous les objets dans un tableau.
+     */
     public static function findAll()
     {
         $mesModules = array();
@@ -114,7 +136,7 @@ class ModuleDAL extends Module {
                         . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
                         . 'FROM module, assignment, exam '
                         . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id '
-                . 'GROUP BY module.id');
+                        . 'GROUP BY module.id');
         foreach ($data as $row)
         {
             $module = new Module();
@@ -149,11 +171,11 @@ class ModuleDAL extends Module {
         $affiche = $module->getAffiche(); //bool
 
         $params = array('issib',
-                &$baremId, //int
-                &$label, //string
-                &$descripion, //string
-                &$number, //int
-                &$affiche //bool
+            &$baremId, //int
+            &$label, //string
+            &$descripion, //string
+            &$number, //int
+            &$affiche //bool
         );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $eleves = $module->getEleves();
@@ -193,8 +215,8 @@ class ModuleDAL extends Module {
                     . '(user_id, module_id) '
                     . 'VALUES(?,?)';
             $params = array('ii',
-                    &$moduleId,
-                    &$eleveId
+                &$moduleId,
+                &$eleveId
             );
             BaseSingleton::insertOrEdit($sql, $params);
         }
