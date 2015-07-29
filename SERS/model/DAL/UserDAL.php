@@ -71,7 +71,7 @@ class UserDAL extends User {
         }
         return $mesUsers;
     }
-    
+
     /**
      * Retourne le ou les élèves inscrits à un module
      *
@@ -235,12 +235,12 @@ class UserDAL extends User {
      * Méthode permettant de requêter la note d'un assignment pour un eleve donnée dans un modele
      * @param int $studentId
      * @param int $moduleId
-     * @return int
+     * @return int (-1 si pas noté dans ce module)
      */
     public static function noteAssign($studentId, $moduleId)
     {
-        $noteAssign = 0;
-        $sql = 'SELECT AVG(user_participe_assignment.note) as noteAssign
+        $noteAssign = -1;
+        $sql = 'SELECT user_participe_assignment.note as noteAssign
             FROM user_participe_assignment, assignment, user, module
             WHERE user.id = ? AND module.id = ?
                 AND user_participe_assignment.user_id = user.id
@@ -248,7 +248,10 @@ class UserDAL extends User {
                 AND assignment.module_id = module.id';
         $param = array('ii', &$studentId, &$moduleId);
         $data = BaseSingleton::select($sql, $param);
-        $noteAssign = $data[0]["noteAssign"];
+        if (!empty(($data)))
+        {
+            $noteAssign = $data[0]['noteAssign'];
+        }
         return (int) $noteAssign;
     }
 
@@ -256,12 +259,12 @@ class UserDAL extends User {
      * Méthode permettant de requêter la note d'un exam pour un eleve donnée dans un modele
      * @param int $studentId
      * @param int $moduleId
-     * @return int
+     * @return int (-1 si pas noté dans ce module)
      */
     public static function noteExam($studentId, $moduleId)
     {
-        $noteExam = 0;
-        $sql = 'SELECT AVG(user_participe_exam.note) as noteExam
+        $noteExam = -1;
+        $sql = 'SELECT user_participe_exam.note as noteExam
             FROM user_participe_exam, exam, user, module
             WHERE user.id = ? AND module.id = ?
                 AND user_participe_exam.user_id = user.id
@@ -269,8 +272,11 @@ class UserDAL extends User {
                 AND exam.module_id = module.id';
         $param = array('ii', &$studentId, &$moduleId);
         $data = BaseSingleton::select($sql, $param);
-        $noteExam = $data[0]["noteExam"];
+        if (!empty(($data)))
+        {
+            $noteExam = $data[0]['noteExam'];
+        }
         return (int) $noteExam;
     }
-    
+
 }

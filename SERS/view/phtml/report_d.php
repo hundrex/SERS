@@ -31,15 +31,58 @@ foreach ($mesModules as $module):
             </tr>
             <?php
             foreach ($mesStudents as $student):
-                if (!$student->getSuccessModule($moduleId))
+                if ($student->getSuccessModule($moduleId)==0)
                 {
                     ?>
                     <tr>
                         <td><?php echo $student->getNom(); ?></td>
                         <td><?php echo $student->getPrenom(); ?></td>
-                        <td><?php echo $student->getNoteStudentAssignment($moduleId); ?></td>
-                        <td><?php echo $student->getNoteStudentExam($moduleId); ?></td>
-                        <td><?php echo $student->getNoteStudentFinal($moduleId); ?></td>
+                        <?php $noteAssign = $student->getNoteStudentAssignment($moduleId); ?>
+                        <?php $noteExam = $student->getNoteStudentExam($moduleId); ?>
+                        <?php $noteFinal = $student->getNoteStudentFinal($moduleId); ?>
+                        <td>
+                            <?php
+                            //Affiche note Assignment
+                            if ($noteAssign === 0)
+                            {
+                                echo "--";
+                            }
+                            else
+                            {
+                                echo $noteAssign;
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            //Affiche note Exam
+                            if ($noteExam === 0)
+                            {
+                                echo "--";
+                            }
+                            else
+                            {
+                                echo $noteExam;
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            //Affiche Moyenne Final
+                            if ($noteAssign === 0 && $noteExam === 0)
+                            {
+                                echo "--";
+                            }
+                            else if ($noteAssign === 0 || $noteExam === 0)
+                            {
+                                echo $noteFinal;
+                            }
+                            else
+                            {
+                                echo $noteFinal;
+                            }
+                            ?>
+                        </td>
                     </tr>
                     <?php
                 }
