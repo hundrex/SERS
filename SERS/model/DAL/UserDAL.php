@@ -71,6 +71,32 @@ class UserDAL extends User {
         }
         return $mesUsers;
     }
+    
+    /**
+     * Retourne le ou les élèves inscrits à un module
+     *
+     * @param Module $module Le module pour lequel on cherche les élèves.
+     * @return array(Module)
+     */
+    public static function findAllByModule($module)
+    {
+        $moduleId = $module->getId();
+        $mesEleves = array();
+        $data = BaseSingleton::select('SELECT user.id, user.fichier_id, '
+                        . 'user.type_user_id, user.prenom, user.nom, user.mail, '
+                        . 'user.adresse, user.date_naissance, user.date_creation, '
+                        . 'user.pseudo, user.password, user.affiche '
+                        . 'FROM user_inscrire_module, user '
+                        . 'WHERE user.id = user_inscrire_module.user_id '
+                        . 'AND user_inscrire_module.module_id = ? ', array('i', &$moduleId));
+        foreach ($data as $row)
+        {
+            $eleve = new User();
+            $eleve->hydrate($row);
+            $mesEleves[] = $eleve;
+        }
+        return $mesEleves;
+    }
 
     /**
      * Insère ou met à jour l'utilisateur donné en paramètre.
