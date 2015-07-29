@@ -60,9 +60,9 @@ class ModuleDAL extends Module {
                         . 'module.id as id, module.bareme_id as bareme_id, '
                         . 'module.label as label, module.description as description, '
                         . 'module.date_creation as date_creation, module.number as number, '
-                        . 'module.affiche as affiche '
-                        . 'FROM module, exam '
-                        . 'WHERE exam.module_id = module.id '
+                        . 'module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
+                        . 'FROM module, exam, assignment '
+                        . 'WHERE exam.module_id = module.id AND assignment.module_id = module.id '
                         . 'AND exam.id = ?', array('i', &$examId));
         $module = new Module();
         $module->hydrate($data[0]);
