@@ -347,5 +347,26 @@ class ModuleDAL extends Module {
         $noteAssign = $data[0]["noteAssign"];
         return (int) $noteAssign;
     }
+    
+    /**
+     * Méthode permettant de requêter la note d'un exam pour un eleve donnée dans un modele
+     * @param int $studentId
+     * @param int $moduleId
+     * @return int
+     */
+    public function noteExam($studentId, $moduleId)
+    {
+        $noteExam = 0;
+        $sql = 'SELECT AVG(user_participe_exam.note) as noteExam
+            FROM user_participe_exam, exam, user, module
+            WHERE user.id = ? AND module.id = ?
+                AND user_participe_exam.user_id = user.id
+                AND user_participe_exam.exam_id = exam.id
+                AND exam.module_id = module.id';
+        $param = array('ii', &$studentId, &$moduleId);
+        $data = BaseSingleton::select($sql, $param);
+        $noteExam = $data[0]["noteExam"];
+        return (int) $noteExam;
+    }
 
 }
