@@ -20,63 +20,63 @@ class User {
     /*
      * @var int
      */
-    private $id;
+    protected $id;
 
     /*
      * @var string
      */
-    private $prenom;
+    protected $prenom;
 
     /*
      * @var string
      */
-    private $nom;
+    protected $nom;
 
     /*
      * @var string
      */
-    private $mail;
+    protected $mail;
 
     /*
      * @var string
      */
-    private $adresse;
+    protected $adresse;
 
     /*
      * @var date
      */
-    private $dateNaissance;
+    protected $dateNaissance;
 
     /*
      * @var date
      */
-    private $dateCreation;
+    protected $dateCreation;
 
 
     /*
      * @var string
      */
-    private $pseudo;
+    protected $pseudo;
 
     /*
      * @var string
      */
-    private $password;
+    protected $password;
 
     /*
      * @var bool
      */
-    private $affiche;
+    protected $affiche;
 
     /*
      * @var Fichier
      */
-    private $avatar;
+    protected $avatar;
 
     /*
      * @var TypeUser
      */
-    private $type;
+    protected $type;
 
     ///////////////////
     // CONSTRUCTEURS //

@@ -113,7 +113,7 @@ class ModuleDAL extends Module {
                         . 'exam.description, exam.date_creation, '
                         . 'exam.date_passage, exam.affiche, '
                         . 'exam.prixRattrapage, exam.rattrapage '
-                        . 'FROM module, assignemnt, exam '
+                        . 'FROM module, assignment, exam '
                         . 'WHERE module.id = exam.module_id AND module.id = exam.module_id '
                         . ' AND exam.rattrapage = 1'
                         . ' AND module.id = ? '
@@ -206,8 +206,8 @@ class ModuleDAL extends Module {
         {
             self::saveInscriptionEleve($idInsert, $eleveId);
         }
-        AssignmentDAL::insertOnDuplicate($module->getAssignment(), $idInsert);
-        ExamDAL::insertOnDuplicate($module->getExam(), $idInsert);
+        //AssignmentDAL::insertOnDuplicate($module->getAssignment(), $idInsert);
+        //ExamDAL::insertOnDuplicate($module->getExam(), $idInsert);
         $module->setId($idInsert);
         return $idInsert;
     }

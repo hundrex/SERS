@@ -45,12 +45,12 @@ abstract class Travail {
      * @var bool
      */
     protected $affiche;
-    
+
     /*
      * @var Note
      */
     protected $note;
-    
+
     /*
      * @var bool
      */
@@ -62,8 +62,7 @@ abstract class Travail {
 
     public function Travail($id = -1, $label = "default label", $number = 0000, 
             $description = "description default", $dateCreation = "0000-00-00", 
-            $datePassage = "0000-00-00", $affiche = 1, 
-            $prixRattrapage = 0, $rattrapage = 0)
+            $datePassage = "0000-00-00", $affiche = 1, $prixRattrapage = 0, $rattrapage = 0)
     {
         $this->id = $id;
         $this->label = $label;
@@ -101,7 +100,12 @@ abstract class Travail {
 
     public function setPrixRattrapage($prixRattrapage)
     {
-        if (is_int($prixRattrapage))
+        if (is_string($prixRattrapage))
+        {
+            $prixRattrapage = (int) $prixRattrapage;
+            $this->prixRattrapage = $prixRattrapage;
+        }
+        else if (is_int($prixRattrapage))
         {
             $this->prixRattrapage = $prixRattrapage;
         }
@@ -114,7 +118,12 @@ abstract class Travail {
 
     public function setNumber($number)
     {
-        if (is_int($number))
+        if (is_string($number))
+        {
+            $number = (int) $number;
+            $this->number = $number;
+        }
+        else if (is_int($number))
         {
             $this->number = $number;
         }
@@ -179,7 +188,18 @@ abstract class Travail {
 
     public function setAffiche($affiche)
     {
-        if (is_bool($affiche))
+        if (is_string($affiche))
+        {
+            if ($affiche === '1')
+            {
+                $this->affiche = true;
+            }
+            else
+            {
+                $this->affiche = false;
+            }
+        }
+        else if (is_bool($affiche))
         {
             $this->affiche = $affiche;
         }
@@ -189,10 +209,21 @@ abstract class Travail {
     {
         return $this->affiche;
     }
-    
-        public function setRattrapage($retry)
+
+    public function setRattrapage($retry)
     {
-        if (is_bool($retry))
+        if (is_string($retry))
+        {
+            if ($retry == '1')
+            {
+                $this->rattrapage = 1;
+            }
+            else
+            {
+                $this->rattrapage = 0;
+            }
+        }
+        else if (is_bool($retry))
         {
             $this->rattrapage = $retry;
         }
@@ -202,7 +233,7 @@ abstract class Travail {
     {
         return $this->rattrapage;
     }
-    
+
     public function setNote($note)
     {
         if (is_a($note, "Note"))
@@ -220,7 +251,7 @@ abstract class Travail {
     // METHODES //
     //////////////
 
-    protected function hydrate($dataSet)
+    public function hydrate($dataSet)
     {
         $this->id = $dataSet['id'];
         $this->label = $dataSet['label'];
@@ -228,7 +259,7 @@ abstract class Travail {
         $this->dateCreation = $dataSet['date_creation'];
         $this->datePassage = $dataSet['date_passage'];
         $this->description = $dataSet['description'];
-        $this->note = $dataSet['note'];
+//        $this->note = $dataSet['note'];
         $this->rattrapage = $dataSet['rattrapage'];
     }
 
