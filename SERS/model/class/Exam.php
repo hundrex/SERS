@@ -6,7 +6,7 @@
  * @author Alexis
  */
 
-require_once('./model/class/Travail.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Travail.php');
 
 class Exam extends Travail {
 

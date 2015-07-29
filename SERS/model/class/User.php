@@ -6,8 +6,8 @@
  * @author Alexis
  */
 
-require_once('./model/DAL/TypeUserDAL.php');
-require_once('./model/DAL/ModuleDAL.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/TypeUserDAL.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ModuleDAL.php');
 
 class User {
 

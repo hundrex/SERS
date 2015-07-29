@@ -1,5 +1,5 @@
 <?php 
-require_once './model/DAL/TypeFichierDAL.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/TypeFichierDAL.php');
 
 /**
  * Description of Fichier
