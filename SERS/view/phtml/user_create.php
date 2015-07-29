@@ -1,3 +1,4 @@
+<?php require_once './model/DAL/TypeUserDAL.php'; ?>
 <form method=POST action="./controller/page/user_create.php">
     <div class="form-group">
         <label for="lastName">Last name</label>
@@ -22,13 +23,15 @@
         <input type="email" class="form-control" id="email" name="email" required 
                placeholder="e.g. thomas.anderson@skynet.com">
     </div>
+    
+<?php $typeUsers = TypeUserDAL::findAll(); ?>
+    
     <div class="form-group">
         <label for="userType">User type</label>
         <select class="form-control small-combobox" id="userType" name="userType">
-            <option value="1">Root</option>
-            <option value="2">Administration</option>
-            <option value="3">Teacher</option>
-            <option value="4">Student</option>
+            <?php foreach ($typeUsers as $typeUser): ?>
+            <option value="<?php echo $typeUser->getId();?>"><?php echo $typeUser->getLabel(); ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
