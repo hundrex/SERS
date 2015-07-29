@@ -193,6 +193,24 @@ class User {
         }
     }
 
+    /**
+     * Methode retournant la moyenne d'un étudiant donnée dans un module donnée
+     * (note Exam + note Assignment) / 2
+     * @param int $moduleId
+     * @return int $noteStdFinal
+     */
+    public function getNoteStudentFinal($moduleId)
+    {
+        $noteStdFinal;
+        if ($this->isStudent())
+        {
+            $noteAssign = $this->getNoteStudentAssignment($moduleId);
+            $noteExam = $this->getNoteStudentExam($moduleId);
+            $noteStdFinal = ($noteAssign + $noteExam) / 2;
+            return $noteStdFinal;
+        }
+    }
+
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////
