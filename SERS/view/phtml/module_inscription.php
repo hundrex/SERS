@@ -8,7 +8,9 @@
                 <label for="descriptionModule">Select a module</label>
                 <select class="form-control" id="module-inscription-selecter">
                     <?php foreach ($modules as $module): ?>
-                        <option value="<?php echo $module->getId(); ?>" id="<?php echo $module->getId(); ?>"><?php echo $module->getLabel(); ?></option>
+                        <option value="<?php echo $module->getId(); ?>" id="<?php echo $module->getId(); ?>">
+                            <?php echo $module->getLabel(); ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -17,14 +19,15 @@
 
     <?php $students = UserDAL::findAllStudent(); ?>
 
-    <div class="panel panel-default">
+    <div id="panel-students-module" class="panel panel-default hidden">
         <div class="panel-heading">Student list</div>
         <div class="panel-list">
             <ul class="list-unstyled">
                 <?php foreach ($students as $student): ?>
                     <li><div class="checkbox">
                             <label>
-                                <input type="checkbox" name="student[]" id="<?php echo $student->getId(); ?>"> <?php echo $student->getPrenom() . " " . $student->getNom(); ?>
+                                <input type="checkbox" name="student[]" 
+                                       id="checkbox-eleve-<?php echo $student->getId(); ?>"> <?php echo $student->getPrenom() . " " . $student->getNom(); ?>
                             </label>
                         </div>
                     </li>

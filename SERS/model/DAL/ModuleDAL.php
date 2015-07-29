@@ -20,7 +20,7 @@ class ModuleDAL extends Module {
                         . 'module.id = ? '
                         . 'GROUP BY module.id', array('i', &$id));
         $module = new Module();
-        var_dump($data);
+//        var_dump($data);
         $module->hydrate($data[0]);
         $eleves = UserDAL::findAllByModule($module);
         $module->setEleves($eleves);
