@@ -14,7 +14,7 @@ class AssignmentDAL extends Assignment {
     public static function findById($id)
     {
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
-                        . 'date_creation, annee, date_passage, affiche, prixRattrapage, 1 as note ' //to do: verifier la rustine
+                        . 'date_creation, date_passage, affiche, prixRattrapage, 1 as note ' //to do: verifier la rustine
                         . 'FROM assignment '
                         . 'WHERE id = ?', array('i', &$id));
         $assignment = new Assignment();
@@ -48,7 +48,7 @@ class AssignmentDAL extends Assignment {
     {
         $mesAssignments = array();
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
-                        . 'date_creation, annee, date_passage, affiche, prixRattrapage '
+                        . 'date_creation, date_passage, affiche, prixRattrapage '
                         . 'FROM assignment ');
         foreach ($data as $row)
         {
@@ -69,13 +69,12 @@ class AssignmentDAL extends Assignment {
     {
         $sql = 'INSERT INTO assignment '
                 . '(module_id, label, description, '
-                . 'date_creation, annee, date_passage, affiche, prixRattrapage) '
-                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?, ?,?,?) '
+                . 'date_creation, date_passage, affiche, prixRattrapage) '
+                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"), ?,?,?) '
                 . 'ON DUPLICATE KEY '
                 . 'UPDATE module_id = VALUES(module_id), '
                 . 'label = VALUES(label), '
                 . 'description = VALUES(description), '
-                . 'annee = VALUES(annee), '
                 . 'date_passage = DATE_FORMAT(VALUES(date_passage),"%Y/%m/%d"), '
                 . 'affiche = VALUES(affiche),'
                 . 'prixRattrapage = VALUES(prixRattrapage) ';
@@ -86,16 +85,14 @@ class AssignmentDAL extends Assignment {
         }
         $label = $assignment->getLabel(); //string
         $description = $assignment->getDescription(); //string
-        $annee = $assignment->getAnnee(); //int
         $datePassage = $assignment->getDatePassage(); //date
         $affiche = $assignment->getAffiche(); //bool
         $prixRattrapage = $assignment->getPrixRattrapage(); //int
 
-        $params = array('issisbi',
+        $params = array('isssbi',
             &$moduleId, //int
             &$label, //string
             &$description, //string
-            &$annee, //int
             &$datePassage, //date
             &$affiche, //bool
             &$prixRattrapage //int

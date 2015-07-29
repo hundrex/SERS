@@ -340,4 +340,19 @@ class Module {
         //to do: retourner les id assign et exam dans le dataSet
     }
 
+        protected function hydrateRattrapage($dataSet)
+    {
+        $this->id = $dataSet['id'];
+        $this->label = $dataSet['label'];
+        $this->affiche = $dataSet['affiche'];
+        $this->dateCreation = $dataSet['date_creation'];
+        $this->description = $dataSet['description'];
+        $this->number = $dataSet['number'];
+        $this->bareme = $dataSet['bareme_id'];
+        $this->assignment = $dataSet['assignment_id'];
+        $this->exam = $dataSet['exam_id'];
+        $this->retryAsignment = $dataSet['assignment_retry'];
+        $this->retryExam = $dataSet['exam_retry'];
+        //to do: retourner les id assign et exam dans le dataSet
+    }
 }
