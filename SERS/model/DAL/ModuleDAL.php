@@ -326,47 +326,4 @@ class ModuleDAL extends Module {
 
         return (int) $moyenneExam;
     }
-
-    /**
-     * Méthode permettant de requêter la note d'un assignment pour un eleve donnée dans un modele
-     * @param int $studentId
-     * @param int $moduleId
-     * @return int
-     */
-    public function noteAssign($studentId, $moduleId)
-    {
-        $noteAssign = 0;
-        $sql = 'SELECT AVG(user_participe_assignment.note) as noteAssign
-            FROM user_participe_assignment, assignment, user, module
-            WHERE user.id = ? AND module.id = ?
-                AND user_participe_assignment.user_id = user.id
-                AND user_participe_assignment.assignment_id = assignment.id
-                AND assignment.module_id = module.id';
-        $param = array('ii', &$studentId, &$moduleId);
-        $data = BaseSingleton::select($sql, $param);
-        $noteAssign = $data[0]["noteAssign"];
-        return (int) $noteAssign;
-    }
-    
-    /**
-     * Méthode permettant de requêter la note d'un exam pour un eleve donnée dans un modele
-     * @param int $studentId
-     * @param int $moduleId
-     * @return int
-     */
-    public function noteExam($studentId, $moduleId)
-    {
-        $noteExam = 0;
-        $sql = 'SELECT AVG(user_participe_exam.note) as noteExam
-            FROM user_participe_exam, exam, user, module
-            WHERE user.id = ? AND module.id = ?
-                AND user_participe_exam.user_id = user.id
-                AND user_participe_exam.exam_id = exam.id
-                AND exam.module_id = module.id';
-        $param = array('ii', &$studentId, &$moduleId);
-        $data = BaseSingleton::select($sql, $param);
-        $noteExam = $data[0]["noteExam"];
-        return (int) $noteExam;
-    }
-
 }

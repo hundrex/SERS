@@ -116,7 +116,7 @@ class User {
      */
     public function getMoyenneAssignment()
     {
-        if($this->isStudent()) //si le code de l'user correspond a celui d'un student
+        if ($this->isStudent()) //si le code de l'user correspond a celui d'un student
         {
             return UserDAL::moyenneAssignment($this->id);
         }
@@ -132,7 +132,7 @@ class User {
      */
     public function getMoyenneExam()
     {
-        if($this->isStudent()) //si le code de l'user correspond a celui d'un student
+        if ($this->isStudent()) //si le code de l'user correspond a celui d'un student
         {
             return UserDAL::moyenneExam($this->id);
         }
@@ -141,17 +141,18 @@ class User {
             echo "User.getMoyenneExam: Vous demandez la moyenne d'un User qui n'est pas un student";
         }
     }
-    
+
     /**
      * Retourne la moyenne final d'un student
      * @return int 
      */
-    public function  getMoyenneFinal()
+    public function getMoyenneFinal()
     {
-        if($this->isStudent()){
+        if ($this->isStudent())
+        {
             $moyExam = $this->getMoyenneExam();
             $moyAssign = $this->getMoyenneAssignment();
-            $moyFinal = ($moyAssign+$moyExam)/2;
+            $moyFinal = ($moyAssign + $moyExam) / 2;
             return $moyFinal;
         }
         else
@@ -160,8 +161,37 @@ class User {
         }
     }
 
+    /**
+     * Methode retourne la note d'un assignment d'un eleve, dans un module donnée
+     * @param type $moduleId
+     * @return type
+     */
+    public function getNoteStudentAssignment($moduleId)
+    {
+        $noteStdAssign;
+        if ($this->isStudent())
+        {
+            $studentId = $this->getId();
+            $noteStdAssign = $this->getNoteStudentAssignment($studentId, $moduleId);
+            return $noteStdAssign;
+        }
+    }
 
-
+    /**
+     *  Methode retourne la note d'un exam d'un eleve, dans un module donnée
+     * @param type $moduleId
+     * @return type
+     */
+    public function getNoteStudentExam($moduleId)
+    {
+        $noteStdExam;
+        if ($this->isStudent())
+        {
+            $studentId = $this->getId();
+            $noteStdExam = $this->getNoteStudentExam($studentId, $moduleId);
+            return $noteStdExam;
+        }
+    }
 
     /////////////////////
     // GETTERS&SETTERS //
