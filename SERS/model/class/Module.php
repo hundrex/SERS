@@ -83,12 +83,12 @@ class Module {
     $id = -1, $label = "label default", $description = "description default", $dateCreation = "0000-00-00", $number = 0000, $affiche = 1, $bareme = null
     )
     {
-        $this->id = $id;
-        $this->label = $label;
+        $this->id           = $id;
+        $this->label        = $label;
         $this->dateCreation = $dateCreation;
-        $this->description = $description;
-        $this->affiche = $affiche;
-        $this->number = $number;
+        $this->description  = $description;
+        $this->affiche      = $affiche;
+        $this->number       = $number;
         if (is_null($bareme))
         {
             $bareme = BaremeDAL::findDefaultBareme();
@@ -99,7 +99,7 @@ class Module {
         }
 
         $this->assignment = new Assignment();
-        $this->exam = new Exam();
+        $this->exam       = new Exam();
     }
 
     /////////////////////
@@ -141,22 +141,29 @@ class Module {
             }
         }
     }
-    
-    public function getMoyenneAssignment(){
-        return ModuleDAL::moyenneAssignment($this->id);
-    }
-    
-    public function getMoyenneExam(){
-        return ModuleDAL::moyenneExam($this->id);
-    }
-    
-    public function getMoyenneFinal(){
-        $moyAssignment = $this->getMoyenneAssignment();//ModuleDAL::moyenneAssignment($this->id);
-        $moyExam = $this->getMoyenneExam();//ModuleDAL::moyenneExam($this->id);
-        $moyFinal = ($moyAssignment+$moyExam)/2;
-        return $moyFinal;
+
+    public function isInscrit($eleve)
+    {
+        return array_key_exists($eleve->getId(), $this->eleves);
     }
 
+    public function getMoyenneAssignment()
+    {
+        return ModuleDAL::moyenneAssignment($this->id);
+    }
+
+    public function getMoyenneExam()
+    {
+        return ModuleDAL::moyenneExam($this->id);
+    }
+
+    public function getMoyenneFinal()
+    {
+        $moyAssignment = $this->getMoyenneAssignment(); //ModuleDAL::moyenneAssignment($this->id);
+        $moyExam       = $this->getMoyenneExam(); //ModuleDAL::moyenneExam($this->id);
+        $moyFinal      = ($moyAssignment + $moyExam) / 2;
+        return $moyFinal;
+    }
 
     /////////////////////
     // GETTERS&SETTERS //
@@ -258,7 +265,7 @@ class Module {
 
         if (is_int($this->bareme))
         {
-            $bareme = BaremeDAL::findById($this->bareme);
+            $bareme       = BaremeDAL::findById($this->bareme);
             $this->bareme = $bareme;
         }
         else if (is_a($this->bareme, "Bareme"))
@@ -272,12 +279,17 @@ class Module {
     {
         return $this->eleves;
     }
+    
+    public function setEleves($eleves)
+    {
+        $this->eleves = $eleves;
+    }
 
     public function setAssignment($assignment)
     {
         if (is_string($assignment))
         {
-            $assignment = (int) $assignment;
+            $assignment       = (int) $assignment;
             $this->assignment = AssignmentDAL::findById($assignment);
         }
         else if (is_int($assignment))
@@ -295,7 +307,7 @@ class Module {
         $assignment = null;
         if (is_int($this->assignment))
         {
-            $assignment = AssignmentDAL::findById($this->assignment);
+            $assignment       = AssignmentDAL::findById($this->assignment);
             $this->assignment = $assignment;
         }
         else if (is_a($this->assignment, "Assignment"))
@@ -309,7 +321,7 @@ class Module {
     {
         if (is_string($exam))
         {
-            $exam = (int) $exam;
+            $exam       = (int) $exam;
             $this->exam = ExamDAL::findById($exam);
         }
         else if (is_int($exam))
@@ -327,7 +339,7 @@ class Module {
         $exam = null;
         if (is_int($this->exam))
         {
-            $exam = ExamDAL::findById($this->exam);
+            $exam       = ExamDAL::findById($this->exam);
             $this->exam = $exam;
         }
         else if (is_a($this->exam, "Exam"))
@@ -341,7 +353,7 @@ class Module {
     {
         if (is_string($retryAssign))
         {
-            $retryAssign = (int) $retryAssign;
+            $retryAssign          = (int) $retryAssign;
             $this->retryAsignment = AssignmentDAL::findById($retryAssign);
         }
         else if (is_int($retryAssign))
@@ -358,7 +370,7 @@ class Module {
     {
         if (is_string($retryExam))
         {
-            $retryExam = (int) $retryExam;
+            $retryExam       = (int) $retryExam;
             $this->retryExam = ExamDAL::findById($retryExam);
         }
         else if (is_int($retryExam))
@@ -377,15 +389,15 @@ class Module {
 
     protected function hydrate($dataSet)
     {
-        $this->id = $dataSet['id'];
-        $this->label = $dataSet['label'];
-        $this->affiche = $dataSet['affiche'];
+        $this->id           = $dataSet['id'];
+        $this->label        = $dataSet['label'];
+        $this->affiche      = $dataSet['affiche'];
         $this->dateCreation = $dataSet['date_creation'];
-        $this->description = $dataSet['description'];
-        $this->number = $dataSet['number'];
-        $this->bareme = $dataSet['bareme_id'];
-        $this->assignment = $dataSet['assignment_id'];
-        $this->exam = $dataSet['exam_id'];
+        $this->description  = $dataSet['description'];
+        $this->number       = $dataSet['number'];
+        $this->bareme       = $dataSet['bareme_id'];
+        $this->assignment   = $dataSet['assignment_id'];
+        $this->exam         = $dataSet['exam_id'];
         //to do: retourner les id assign et exam dans le dataSet
     }
 
