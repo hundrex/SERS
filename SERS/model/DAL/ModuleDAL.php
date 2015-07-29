@@ -281,9 +281,15 @@ class ModuleDAL extends Module {
         return $estInscrit;
     }
 
+    /**
+     * Methode permettant de retourne rla moyenne des assignment lié a un module
+     * 
+     * @param int $moduleId id du module dont on veut la moyenne des assignment
+     * @return int 
+     */
     public function moyenneAssignment($moduleId)
     {
-        $moyenneAssign = null;
+        $moyenneAssign=0;
 
         $sql = 'SELECT AVG(user_participe_assignment.note) as MoyenneAssign '
                 . ' FROM user_participe_assignment, assignment, module '
@@ -293,15 +299,32 @@ class ModuleDAL extends Module {
         $param = array('i', &$moduleId);
         $data = BaseSingleton::select($sql, $param);
         
-        echo "<pre>";
-        var_dump($data);
-        echo "</pre>";
-        $moyenneAssign = $data[0];
+        $moyenneAssign = $data[0]["MoyenneAssign"];
         
-        echo "<pre>MoyenneAssignment: ";
-        var_dump($data[0]);
-        echo "</pre>";
-        return $moyenneAssign;
+        return (int)$moyenneAssign;
     }
 
+    
+    /**
+     * Methode permettant de retourne rla moyenne des exams lié a un module
+     * 
+     * @param int $moduleId id du module dont on veut la moyenne des exams
+     * @return int 
+     */
+    public function moyenneExam($moduleId)
+    {
+        $moyenneExam=0;
+
+        $sql = 'SELECT AVG(user_participe_exam.note) as MoyenneExam '
+                . ' FROM user_participe_exam, exam, module '
+                . ' WHERE module.id = ? '
+                . 'AND user_participe_exam.exam_id = exam.id '
+                . 'AND exam.module_id = module.id';
+        $param = array('i', &$moduleId);
+        $data = BaseSingleton::select($sql, $param);
+        
+        $moyenneExam = $data[0]["MoyenneExam"];
+        
+        return (int)$moyenneExam;
+    }    
 }
