@@ -7,6 +7,7 @@
  */
 
 require_once('./model/DAL/TypeUserDAL.php');
+require_once('./model/DAL/ModuleDAL.php');
 
 class User {
 
@@ -309,6 +310,38 @@ class User {
             $typeUser = $this->type;
         }
         return $typeUser;
+    }
+
+    public function getModule()
+    {
+        $mesModules = array();
+        if (is_int($this->type)) //si type est bien un int (id de typeUser)
+        {
+            if (TypeUserDAL::findById($this->type)->getCode() == self::TYPE_USER_STUDENT) //si le code de typUser == celui du type de student
+            {
+                $mesModules = ModuleDAL::findAllByEleve($this); //retourne un array des module auquel l'éléve est inscrit
+            }
+            else
+            {
+                echo "User.php_getModule(int): methode appeler sur un User qui n'est pas de type Student</br>";
+            }
+        }
+        else if (is_a($this->type, "TypeUser"))
+        {
+            if ($this->type->getCode() == self::TYPE_USER_STUDENT)
+            {
+                $mesModules = ModuleDAL::findAllByEleve($this);
+            }
+            else
+            {
+                echo "User.php_getModule(typeUser): methode appeler sur un User qui n'est pas de type Student";
+            }
+        }
+        else
+        {
+            echo "User.php_getModule: methode appeler avec un User de type qui n'est ni un TypeUser ni un Int...";
+        }
+        return $mesModules;
     }
 
     //////////////

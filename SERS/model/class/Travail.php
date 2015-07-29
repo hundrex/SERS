@@ -50,6 +50,11 @@ abstract class Travail {
      * @var Note
      */
     protected $note;
+    
+    /*
+     * @var bool
+     */
+    protected $rattrapage;
 
     ///////////////////
     // CONSTRUCTEURS //
