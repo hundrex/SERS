@@ -196,7 +196,7 @@ class UserDAL extends User {
      * @param int $studentId
      * @return int Moyenne de l'etudiant dont l'id es ten param dans l'ensemble des assignment où il a été noté.
      */
-    public function moyenneAssignment($studentId)
+    public static function moyenneAssignment($studentId)
     {
         $moyenneAssignmentEleve = 0;
         $sql = 'SELECT AVG(user_participe_assignment.note) as MoyAssignStud'
@@ -216,7 +216,7 @@ class UserDAL extends User {
      * @param int $studentId
      * @return int Moyenne de l'etudiant dont l'id est en param dans l'ensemble des exam où il a été noté.
      */
-    public function moyenneExam($studentId)
+    public static function moyenneExam($studentId)
     {
         $moyenneExamEleve = 0;
         $sql = 'SELECT AVG(user_participe_exam.note) as MoyExamStud'
@@ -237,7 +237,7 @@ class UserDAL extends User {
      * @param int $moduleId
      * @return int
      */
-    public function noteAssign($studentId, $moduleId)
+    public static function noteAssign($studentId, $moduleId)
     {
         $noteAssign = 0;
         $sql = 'SELECT AVG(user_participe_assignment.note) as noteAssign
@@ -258,7 +258,7 @@ class UserDAL extends User {
      * @param int $moduleId
      * @return int
      */
-    public function noteExam($studentId, $moduleId)
+    public static function noteExam($studentId, $moduleId)
     {
         $noteExam = 0;
         $sql = 'SELECT AVG(user_participe_exam.note) as noteExam
