@@ -36,7 +36,7 @@ class AssignmentDAL extends Assignment {
                         . 'WHERE module_id = ?', array('i', &$moduleId));
         
         $nbAssign = $data[0];
-        return $nbAssign;
+        return $nbAssign[0];
     }
 
     /**

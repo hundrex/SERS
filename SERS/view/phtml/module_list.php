@@ -1,5 +1,7 @@
 <?php require_once './model/DAL/UserDAL.php'; ?>
 <?php require_once './model/DAL/ModuleDAL.php'; ?>
+<?php require_once './model/DAL/AssignmentDAL.php'; ?>
+<?php require_once './model/DAL/ExamDAL.php'; ?>
 
 <div class="row filter-bar">
     <div class="col-lg-6">
@@ -28,14 +30,15 @@
 <div class="panel panel-default">
     <div class="panel-heading">Module list</div>
     <table class="table">
-        <tr><th>Module</th><th>Assignment</th><th>Exam</th><th>Final</th></tr>
+        <tr><th>Module</th><th>Description</th><th>Assignment</th><th>Exam</th><th>Final</th></tr>
         <?php foreach ($modules as $module): ?>
         <tr>
             <?php $modulId = $module->getId(); ?>
-            <?php $nbAssign = ModuleDAL::findNbAssign($modulId); ?>
-            <?php $nbExam = ModuleDAL::findNbExam($modulId); ?>
+            <?php $nbAssign = AssignmentDAL::findNbAssign($modulId); ?>
+            <?php $nbExam = ExamDAL::findNbExam($modulId); ?>
             <?php $nbFinal = $nbAssign + $nbExam; ?>
             <td><?php echo $module->getLabel(); ?></td>
+            <td><?php echo $module->getDescription(); ?></td>
             <td><?php echo $nbAssign; ?></td>
             <td><?php echo $nbExam; ?></td>
             <td><?php echo $nbFinal; ?></td>
