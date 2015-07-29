@@ -28,7 +28,7 @@ class ExamDAL extends Exam {
      * @param int $id Identifiant du module où compter le nb Exam
      * @return int
      */
-    public static function findNbExam($id)
+    public static function findNbExam($moduleId)
     {
         $nbExam = 0;
         $data = BaseSingleton::select('SELECT count(*) '
