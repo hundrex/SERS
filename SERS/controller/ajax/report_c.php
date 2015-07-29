@@ -1,61 +1,61 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/SERS/SERS/model/class/SerieStack.php';
 
-//$categories = array();
-//$categories[] = 'Web Development';
-//$categories[] = 'Module2';
-//$categories[] = 'Module3';
-//$categories[] = 'Module4';
-//$categories[] = 'Module5';
-//$categories[] = 'Module6';
-//
-//$data = array();
-//$passAssignmentPercent = array();
-//$passAssignmentPercent[] = array('name'=> 'AssignmentPassPercent', 'data' => [40,50,60,70,80], 'stack' => 'Assignment', 'color' => 'green');
-//$passAssignement = new Serie('AssignmentPassPercent', $passAssignmentPercent);
-//
-//$failAssignmentPercent = array();
-//$failAssignmentPercent[] = array('name'=> 'AssignmentFailPercent', 'data' => [60,50,40,30,20], 'stack' => 'Assignment', 'color' => 'red');
-//$failAssignment = new Serie('Fail', $failAssignmentPercent);
-//
-//$passExamPercent = array();
-//$passExamPercent[] = array('name'=> 'ExamPassPercent', 'data' => [40,50,60,70,80], 'stack' => 'Exam', 'color' => 'green');
-//$passExam = new Serie('ExamPassPercent', $passExamPercent);
-//
-//$failExamPercent = array();
-//$failExamPercent[] = array('name'=> 'ExamFailPercent', 'data' => [60,50,40,30,20], 'stack' => 'Exam', 'color' => 'red');
-//$failExam = new Serie('ExamFailPercent', $failExamPercent);
-//
-//
-//$data[] = $passAssignement;
-//$data[] = $failAssignment;
-//$data[] = $passExam;
-//$data[] = $failExam;
+$categories = array();
+$categories[] = 'Web Development';
+$categories[] = 'Web Design';
+$categories[] = 'Content Management System';
+$categories[] = 'Legal Ethical Social and Professional Issues';
+$categories[] = 'Web Development Framework ';
 
 $data = array();
-$passAssignmentData = array(40, 20);
-$passAssignement = new SerieStack('AssignmentPassPercent', $passAssignmentData, 'Assignment', 'green');
 
-$failAssignmentData = array(60, 80);
-$failAssignement = new SerieStack('AssignmentFailPercent', $failAssignmentData, 'Assignment', 'red');
+$databaseData = array();
+$databaseData[] = array(40,90);
+$databaseData[] = array(50,80);
+$databaseData[] = array(60,70);
+$databaseData[] = array(70,60);
+$databaseData[] = array(80,50);
 
+$passAssignmentData = array();
+$failAssignmentData = array();
+$passExamData = array();
+$failExamData = array();
+$passFinalData = array();
+$failFinalData = array();
+foreach ($databaseData as $row) {
+    $passAssign = $row[0];
+    $passAssignmentData[] = $passAssign;
+    $failAssignmentData[] = 100 - $passAssign;
+    
+    $passExam = $row[1];
+    $passExamData[] = $passExam;
+    $failExamData[] = 100 - $passExam;
+    
+    $passFinal = ($passAssign + $passExam)/2;
+    $passFinalData[] = $passFinal;
+    $failFinalData[] = 100 - $passFinal;
+}
 
-$passExamtData = array(60, 80);
-$passExam = new SerieStack('ExamPassPercent', $passExamtData, 'Exam', 'green');
+$passAssignement    = new SerieStack('AssignmentPassPercent', $passAssignmentData, 'Assignment', '#72AE00');
+$failAssignement    = new SerieStack('AssignmentFailPercent', $failAssignmentData, 'Assignment', '#FF5454');
+$passExam           = new SerieStack('ExamPassPercent', $passExamData, 'Exam', '#72AE00');
+$failExam           = new SerieStack('ExamFailPercent', $failExamData, 'Exam', '#FF5454');
+$passFinal          = new SerieStack('FinalPassPercent', $passFinalData, 'Final', 'green');
+$failFinal          = new SerieStack('FinalFailPercent', $failFinalData, 'Final', 'red');
 
-$failExamtData = array(40, 20);
-$failExam = new SerieStack('ExamFailPercent', $failExamtData, 'Exam', 'red');
-
-$data[] = $passAssignement;
+$data[] = $failFinal;
+$data[] = $passFinal;
 $data[] = $failAssignement;
-$data[] = $passExam;
+$data[] = $passAssignement;
 $data[] = $failExam;
+$data[] = $passExam;
 
-//$bigdata = array($categories, $data);
 
 
-$data_json = json_encode($data);
+$bigdata = array($categories, $data);
+
+
+$data_json = json_encode($bigdata);
 
 echo $data_json;
-//echo '***********************';
-//echo "[{name: 'AssignPass',data: [40,20],stack: 'Assignement',color: 'green'}, {name: 'AssignFail',data: [60,80],stack: 'Assignement',color: 'red'}, {name: 'ExamPass',data: [60,80],stack: 'Exam',color: 'green'}, {name: 'ExamFail',data: [40,20],stack: 'Exam',color: 'red'}]";

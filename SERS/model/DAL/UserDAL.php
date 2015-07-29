@@ -61,7 +61,7 @@ class UserDAL extends User {
         $data = BaseSingleton::select('SELECT id, prenom, nom, mail, adresse, date_naissance, '
                         . 'date_creation, pseudo, password, affiche, fichier_id, '
                         . 'type_user_id '
-                        . 'FROM User ');
+                        . 'FROM user ');
 
         foreach ($data as $row)
         {

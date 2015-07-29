@@ -13,59 +13,6 @@ $(document).ready(function () {
 
 function chargerGraph(data) {
     $('#report_c-container').highcharts({
-//        chart: {
-//            type: 'column'
-//        },
-//        title: {
-//            text: 'Total fruit consumtion, grouped by gender'
-//        },
-//        xAxis: {
-//            categories: ['Module1', 'Module2']
-//        },
-//        yAxis: {
-//            allowDecimals: false,
-//            min: 0,
-//            title: {
-//                text: 'Number of fruits'
-//            }
-//        },
-//        tooltip: {
-//            formatter: function () {
-//                return '<b>' + this.x + '</b><br/>' +
-//                        this.series.name + ': ' + this.y + '<br/>' +
-//                        'Total: ' + this.point.stackTotal;
-//            }
-//        },
-//        plotOptions: {
-//            column: {
-//                stacking: 'normal'
-//            }
-//        },
-//        series: [
-//            {
-//                name: 'AssignPass',
-//                data: [40,20],
-//                stack: 'Assignement',
-//                color: 'green'
-//            }, {
-//                name: 'AssignFail',
-//                data: [60,80],
-//                stack: 'Assignement',
-//                color: 'red'
-//            }, {
-//                name: 'ExamPass',
-//                data: [60,80],
-//                stack: 'Exam',
-//                color: 'green'
-//            }, {
-//                name: 'ExamFail',
-//                data: [40,20],
-//                stack: 'Exam',
-//                color: 'red'
-//            }
-//        ]
-
-
         chart: {
             type: 'column',
             backgroundColor: '#ffffff'
@@ -79,13 +26,16 @@ function chargerGraph(data) {
             '#72AE00'
         ],
         xAxis: {
-//            categories: data[0]
+            categories: data[0]
         },
         yAxis: {
             title: {
                 text: 'Marks'
             }
 //            max: 100
+        },
+        legend: {
+            enabled: false
         },
         tooltip: {
             borderColor: '#AAAAAA',
@@ -98,7 +48,8 @@ function chargerGraph(data) {
                     '</td>' +
                     '</tr>',
             footerFormat: '</table>',
-            shared: true,
+            hideDelay: 200,
+            shared: false,
             useHTML: true
         },
          plotOptions: {
@@ -107,7 +58,7 @@ function chargerGraph(data) {
             }
         },
         series:
-                data
+                data[1]
     });
 }
 ;
