@@ -172,7 +172,7 @@ class User {
         if ($this->isStudent())
         {
             $studentId = $this->getId();
-            $noteStdAssign = $this->getNoteStudentAssignment($studentId, $moduleId);
+            $noteStdAssign = UserDAL::noteAssign($studentId, $moduleId);
             return $noteStdAssign;
         }
     }
@@ -188,7 +188,7 @@ class User {
         if ($this->isStudent())
         {
             $studentId = $this->getId();
-            $noteStdExam = $this->getNoteStudentExam($studentId, $moduleId);
+            $noteStdExam = UserDAL::noteExam($studentId, $moduleId);
             return $noteStdExam;
         }
     }
@@ -212,28 +212,34 @@ class User {
     }
 
     /**
-     * Méthode return True si l'user a réussi son module (passer en param)
-     * False s'il a échoué
+     * Méthode return 1 si l'user a réussi son module (passer en param)
+     * 0 s'il a échoué
+     * 2 s'il n'a pas encore de note
      * cdtFail: moyModul<50 || noteAssign<40 || noteExam<40
      * cdtSuccess: moyModul>=50 && noteAssign>=40 && noteExam>=40
      * @param int $moduleId
-     * @return bool 
+     * @return int
      */
     public function getSuccessModule($moduleId)
     {
-        $succes = false;
+        $succes = 0;
         if ($this->isStudent())
         {
             $studentId = $this->getId();
             $noteAssign = $this->getNoteStudentAssignment($moduleId); //note du devoir Assignment de ce module
             $noteExam = $this->getNoteStudentExam($moduleId); //note du devoir Exam de ce odule
             $moyModule = $this->getNoteStudentFinal($moduleId); //moyenne du module
+            echo "Note assign = ".$noteAssign ." note Exam = ".$noteExam." =>";
             if ($moyModule >= 50 && $noteAssign >= 40 && $noteExam >= 40)
             {
-                $succes = true;
+                $succes = 1;
             }
-            return $succes;
+            if($noteAssign==-1 || $noteExam==-1){
+                $succes = 2;
+            }
         }
+        echo "success = ".$succes."</br>";
+        return $succes;
     }
 
     /**
