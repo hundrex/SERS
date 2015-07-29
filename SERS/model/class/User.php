@@ -311,6 +311,38 @@ class User {
         return $typeUser;
     }
 
+    public function getModule()
+    {
+        $mesModules = array();
+        if (is_int($this->type)) //si type est bien un int (id de typeUser)
+        {
+            if ($this->type === self::TYPE_USER_STUDENT) //si l'id de typUser == celui du type de student
+            {
+                $mesModules = ModuleDAL::findAllByEleve($this); //retourne un array des module auquel l'éléve est inscrit
+            }
+            else
+            {
+                echo "User.php_getModule: methode appeler sur un User qui n'est pas de type Student";
+            }
+        }
+        else if (is_a($this->type, "TypeUser"))
+        {
+            if ($this->type->getId() === self::TYPE_USER_STUDENT)
+            {
+                $mesModules = ModuleDAL::findAllByEleve($this);
+            }
+            else
+            {
+                echo "User.php_getModule: methode appeler sur un User qui n'est pas de type Student";
+            }
+        }
+        else
+        {
+            echo "User.php_getModule: methode appeler avec un User de type qui n'est ni un TypeUser ni un Int...";
+        }
+        return $mesModules;
+    }
+
     //////////////
     // METHODES //
     //////////////
