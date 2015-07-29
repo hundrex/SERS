@@ -229,7 +229,7 @@ class User {
             $noteAssign = $this->getNoteStudentAssignment($moduleId); //note du devoir Assignment de ce module
             $noteExam = $this->getNoteStudentExam($moduleId); //note du devoir Exam de ce odule
             $moyModule = $this->getNoteStudentFinal($moduleId); //moyenne du module
-            echo "Note assign = ".$noteAssign ." note Exam = ".$noteExam." =>";
+           // echo "Note assign = ".$noteAssign ." note Exam = ".$noteExam." =>";
             if ($moyModule >= 50 && $noteAssign >= 40 && $noteExam >= 40)
             {
                 $succes = 1;
@@ -238,7 +238,7 @@ class User {
                 $succes = 2;
             }
         }
-        echo "success = ".$succes."</br>";
+        //echo "success = ".$succes."</br>";
         return $succes;
     }
 

@@ -31,7 +31,7 @@ foreach ($mesModules as $module):
             </tr>
             <?php
             foreach ($mesStudents as $student):
-                if ($student->getSuccessModule($moduleId)==0)
+                if ($student->getSuccessModule($moduleId) == 0)
                 {
                     ?>
                     <tr>
@@ -43,27 +43,13 @@ foreach ($mesModules as $module):
                         <td>
                             <?php
                             //Affiche note Assignment
-                            if ($noteAssign === 0)
-                            {
-                                echo "--";
-                            }
-                            else
-                            {
-                                echo $noteAssign;
-                            }
+                            echo $noteAssign;
                             ?>
                         </td>
                         <td>
                             <?php
                             //Affiche note Exam
-                            if ($noteExam === 0)
-                            {
-                                echo "--";
-                            }
-                            else
-                            {
                                 echo $noteExam;
-                            }
                             ?>
                         </td>
                         <td>
