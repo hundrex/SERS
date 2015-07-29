@@ -27,7 +27,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">Student list</div>
     <table class="table">
-        <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>Module</th></tr>
+        <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>Module Associated</th></tr>
         <?php foreach ($students as $student): ?>
             <tr>
                 <td><?php echo $student->getNom(); ?></td>
@@ -35,9 +35,16 @@
                 <td><?php echo $student->getDateNaissance(); ?></td>
                 <td><?php $modules = $student->getModule(); ?>
                     <?php
-                    foreach ($modules as $module):
-                        echo $module->getLabel();
-                    endforeach;
+                    if (sizeof($modules) > 0)
+                    {
+                        foreach ($modules as $module):
+                            echo $module->getLabel() . "; ";
+                        endforeach;
+                    }
+                    else
+                    {
+                        echo "User is not registered any Module.";
+                    }
                     ?>
                 </td>
                 <td>
