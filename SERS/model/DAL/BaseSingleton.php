@@ -66,6 +66,11 @@ class BaseSingleton {
             {
                 // On prépare la requête.
                 self::$instance->statement = self::$instance->mysqli->prepare($sql);
+                if (self::$instance->statement === false)
+                {
+                    echo '<p>' . $sql . '</p>';
+                    echo self::$instance->mysqli->error;
+                }
 
                 // Si la requête a des paramètres.
                 if (!is_null($params))

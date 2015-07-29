@@ -29,13 +29,14 @@
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>User Type</th><th></th></tr>
         <?php foreach ($users as $user): ?>
-        <tr><td><?php echo $user->getNom(); ?></td><td><?php echo $user->getPrenom(); ?></td>
-            <td><?php echo $user->getDateNaissance(); ?></td><td><?php echo $user->getType()->getLabel(); ?></td>
-            <td>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewUserList">
-                    <span class="glyphicon glyphicon-eye-open"></span></button>
-            </td>
-        </tr>
+            <tr><td><?php echo $user->getNom(); ?></td><td><?php echo $user->getPrenom(); ?></td>
+                <td><?php echo $user->getDateNaissance(); ?></td><td><?php echo $user->getType()->getLabel(); ?></td>
+                <td>
+                    <button type="button" class="btn btn-default" data-toggle="modal" 
+                            data-target=<?php echo '"#modalViewUserList-' . $user->getId() . '"' ?>>
+                        <span class="glyphicon glyphicon-eye-open"></span></button>
+                </td>
+            </tr>
         <?php endforeach; ?>
     </table>
 </div>
@@ -62,21 +63,87 @@
 
 <!--modal-->
 
-
-<div class="modal fade" id="modalViewUserList" tabindex="-1" role="dialog" aria-labelledby="modalViewUserList">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalViewUserList">User view</h4>
-            </div>
-            <div class="modal-body">
-                User details
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+<?php foreach ($users as $user): ?>
+    <div class="modal fade" id=<?php echo '"modalViewUserList-' . $user->getId() . '"' ?> tabindex="-1" role="dialog" 
+         aria-labelledby=<?php echo '"modalViewUserList-' . $user->getId() . '"' ?> >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalViewUserList">
+                        <?php
+                        echo $user->getNom();
+                        echo ' ';
+                        echo $user->getPrenom();
+                        ?>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-unstyled">
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Pseudo: </dt>
+                                <dd><?php echo $user->getPseudo(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Email: </dt>
+                                <dd><?php echo $user->getMail(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Address: </dt>
+                                <dd><?php echo $user->getAdresse(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Birth date: </dt>
+                                <dd><?php echo $user->getDateNaissance(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Creation date: </dt>
+                                <dd><?php echo $user->getDateCreation(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>User type: </dt>
+                                <dd><?php echo $user->getType()->getLabel(); ?></dd>
+                            </dl>
+                        </li>
+                         <li>
+                            <dl class="dl-horizontal">
+                                <dt>Module(s) followed: </dt>
+                                <dd></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Module(s) teached: </dt>
+                                <dd></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Avatar: </dt>
+                                <dd><img src=<?php echo '".' . $user->getAvatar()->getType()->getChemin() .
+                                        '/' . $user->getAvatar()->getNom() . '"'; ?> ></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+<?php
+endforeach;

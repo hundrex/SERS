@@ -1,4 +1,5 @@
-<?php
+<?php 
+require_once './model/DAL/TypeFichierDAL.php';
 
 /**
  * Description of Fichier
