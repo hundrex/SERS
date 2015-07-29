@@ -141,6 +141,10 @@ class Module {
             }
         }
     }
+    
+    public function getMoyenneAssignment(){
+        return ModuleDAL::moyenneAssignment($this->id);
+    }
 
     /////////////////////
     // GETTERS&SETTERS //

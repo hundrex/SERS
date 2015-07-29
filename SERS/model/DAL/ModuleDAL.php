@@ -281,4 +281,27 @@ class ModuleDAL extends Module {
         return $estInscrit;
     }
 
+    public function moyenneAssignment($moduleId)
+    {
+        $moyenneAssign = null;
+
+        $sql = 'SELECT AVG(user_participe_assignment.note) as MoyenneAssign '
+                . ' FROM user_participe_assignment, assignment, module '
+                . ' WHERE module.id = ? '
+                . 'AND user_participe_assignment.assignment_id = assignment.id '
+                . 'AND assignment.module_id = module.id';
+        $param = array('i', &$moduleId);
+        $data = BaseSingleton::select($sql, $param);
+        
+        echo "<pre>";
+        var_dump($data);
+        echo "</pre>";
+        $moyenneAssign = $data[0];
+        
+        echo "<pre>MoyenneAssignment: ";
+        var_dump($data[0]);
+        echo "</pre>";
+        return $moyenneAssign;
+    }
+
 }
