@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/Assignment.php');
+require_once('./model/class/Assignment.php');
 
 class AssignmentDAL extends Assignment {
 
@@ -14,7 +14,7 @@ class AssignmentDAL extends Assignment {
     public static function findById($id)
     {
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
-                        . 'date_creation, annee, date_passage, affiche, prixRattrapage '
+                        . 'date_creation, annee, date_passage, affiche, prixRattrapage, 1 as note ' //to do: verifier la rustine
                         . 'FROM assignment '
                         . 'WHERE id = ?', array('i', &$id));
         $assignment = new Assignment();

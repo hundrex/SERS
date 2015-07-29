@@ -32,20 +32,21 @@
     <table class="table">
         <tr><th>Module</th><th>Description</th><th>Assignment</th><th>Exam</th><th>Final</th></tr>
         <?php foreach ($modules as $module): ?>
-        <tr>
-            <?php $modulId = $module->getId(); ?>
-            <?php $nbAssign = AssignmentDAL::findNbAssign($modulId); ?>
-            <?php $nbExam = ExamDAL::findNbExam($modulId); ?>
-            <?php $nbFinal = $nbAssign + $nbExam; ?>
-            <td><?php echo $module->getLabel(); ?></td>
-            <td><?php echo $module->getDescription(); ?></td>
-            <td><?php echo $nbAssign; ?></td>
-            <td><?php echo $nbExam; ?></td>
-            <td><?php echo $nbFinal; ?></td>
-            <td>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewModule">
-                    <span class="glyphicon glyphicon-eye-open"></span></button></td>
-        </tr>
+            <tr>
+                <?php $modulId = $module->getId(); ?>
+                <?php $nbAssign = AssignmentDAL::findNbAssign($modulId); ?>
+                <?php $nbExam = ExamDAL::findNbExam($modulId); ?>
+                <?php $nbFinal = ($nbAssign + $nbExam) / 2; ?>
+                <td><?php echo $module->getLabel(); ?></td>
+                <td><?php echo $module->getDescription(); ?></td>
+                <td><?php echo $nbAssign; ?></td>
+                <td><?php echo $nbExam; ?></td>
+                <td><?php echo $nbFinal; ?></td>
+                <td>
+                    <button type="button" class="btn btn-default" data-toggle="modal" 
+                            data-target=<?php echo '"#modalViewUserList-' . $module->getId() . '"' ?>>
+                        <span class="glyphicon glyphicon-eye-open"></span></button></td>
+            </tr>
         <?php endforeach; ?>
     </table>
 </div>
@@ -71,20 +72,131 @@
 </nav>
 
 <!--modal--> 
-<div class="modal fade" id="modalViewModule" tabindex="-1" role="dialog" aria-labelledby="modalViewModule">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modalViewModule">Module view</h4>
-            </div>
-            <div class="modal-body">
-                Module details
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+<?php foreach ($modules as $module): ?>
+    <div class="modal fade" id=<?php echo '"modalViewUserList-' . $module->getId() . '"' ?>
+         tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalViewUserList-' . $module->getId() . '"' ?> >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalViewModule">
+                        <?php echo $module->getLabel(); ?>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-unstyled">
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Number: </dt>
+                                <dd><?php echo $module->getNumber(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Creation date: </dt>
+                                <dd><?php echo $module->getDateCreation(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Description: </dt>
+                                <dd><?php echo $module->getDescription(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Assignment: <?php echo $module->getAssignment()->getLabel(); ?></div>
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Description: </dt>
+                                                    <dd><?php echo $module->getAssignment()->getDescription(); ?></dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Due date: </dt>
+                                                    <dd><?php echo $module->getAssignment()->getDatePassage(); ?></dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Retry price: </dt>
+                                                    <dd><?php echo $module->getAssignment()->getPrixRattrapage(); ?></dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Mark: </dt>
+                                                    <dd><?php echo $module->getAssignment()->getNote(); ?></dd>
+                                                </dl>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Exam: <?php echo $module->getExam()->getLabel(); ?></div>
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Description: </dt>
+                                                    <dd><?php echo $module->getExam()->getDescription(); ?></dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Due date: </dt>
+                                                    <dd><?php echo $module->getExam()->getDatePassage(); ?></dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Retry price: </dt>
+                                                    <dd><?php echo $module->getExam()->getPrixRattrapage(); ?></dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Mark: </dt>
+                                                    <dd><?php echo $module->getExam()->getNote(); ?></dd>
+                                                </dl>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </dl>
+                        </li>
+
+
+                        <!--                        
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Students following: </dt>
+                                <dd><?php echo $module->getEleves(); ?></dd>
+                            </dl>
+                        </li>
+                        -->
+
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <?php
+endforeach;
