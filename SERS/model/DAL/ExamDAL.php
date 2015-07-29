@@ -14,7 +14,7 @@ class ExamDAL extends Exam {
     public static function findById($id)
     {
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
-                        . 'date_creation, annee, date_passage, affiche, prixRattrapage, 1 as note ' //to do: verifier la rustine
+                        . 'date_creation, date_passage, affiche, prixRattrapage, 1 as note ' //to do: verifier la rustine
                         . 'FROM exam '
                         . 'WHERE id = ?', array('i', &$id));
         $exam = new Exam();
@@ -48,7 +48,7 @@ class ExamDAL extends Exam {
     {
         $mesExams = array();
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
-                        . 'date_creation, annee, date_passage, affiche, prixRattrapage '
+                        . 'date_creation, date_passage, affiche, prixRattrapage '
                         . 'FROM exam ');
         foreach ($data as $row)
         {
@@ -67,37 +67,52 @@ class ExamDAL extends Exam {
      */
     public static function insertOnDuplicate($exam, $moduleId = null)
     {
-        $sql = 'INSERT INTO exam ' . '(module_id, label, description, '
-                . 'date_creation, annee, date_passage, affiche, prixRattrapage) '
-                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?, ?,?,?) '
-                . 'ON DUPLICATE KEY '
-                . 'UPDATE module_id = VALUES(module_id), '
-                . 'label = VALUES(label), '
-                . 'description = VALUES(description), '
-                . 'annee = VALUES(annee), '
-                . 'date_passage = DATE_FORMAT(VALUES(date_passage),"%Y/%m/%d"), '
-                . 'affiche = VALUES(affiche),'
-                . 'prixRattrapage = VALUES(prixRattrapage) ';
-        if (is_null($moduleId))
+         if (is_null($moduleId))
         {
             $moduleId = $exam->getModule()->getId(); //int
         }
         $label = $exam->getLabel(); //string
         $description = $exam->getDescription(); //string
-        $annee = $exam->getAnnee(); //int
         $datePassage = $exam->getDatePassage(); //date
         $affiche = $exam->getAffiche(); //bool
-        $prixRattrapage = $exam->getPrixRattrapage(); //int        
+        $prixRattrapage = $exam->getPrixRattrapage(); //int
 
-        $params = array('issisbi',
-            &$moduleId, //int
-            &$label, //string
-            &$description, //string
-            &$annee, //int
-            &$datePassage, //date
-            &$affiche, //bool
-            &$prixRattrapage //int
-        );
+        $examId = $exam->getId();
+        if ($examId < 0) //s'il y a pas d'id transmis avec l'asignment
+        { //on insert un nouvel exam
+            $sql = 'INSERT INTO exam '
+                    . '(module_id, label, description, '
+                    . 'date_creation, date_passage, affiche, prixRattrapage) '
+                    . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"), ?,?,?) ';
+            $params = array('isssbi',
+                &$moduleId, //int
+                &$label, //string
+                &$description, //string
+                &$datePassage, //date
+                &$affiche, //bool
+                &$prixRattrapage //int
+            );
+        }
+        else //s'il y a un id avec l'exam (id>0)
+        { //on l'update
+            $sql = 'UPDATE exam '
+                    . ' SET module_id = ? '
+                    . 'label = ? '
+                    . 'description = ? '
+                    . 'date_passage = ? '
+                    . 'affiche = ? '
+                    . 'prixRattrapage = ?'
+                    . ' WHERE id=?';
+            $params = array('isssbii',
+                &$moduleId, //int
+                &$label, //string
+                &$description, //string
+                &$datePassage, //date
+                &$affiche, //bool
+                &$prixRattrapage, //int
+                &$examId
+            );
+        }
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $exam->setId($idInsert);
         return $idInsert;

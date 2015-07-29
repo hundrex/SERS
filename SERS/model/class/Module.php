@@ -5,7 +5,6 @@
  *
  * @author Alexis
  */
-
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/BaremeDAL.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Assignment.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Exam.php');
@@ -60,18 +59,18 @@ class Module {
      * @var Assignment
      */
     private $assignment;
-    
-        /*
+
+    /*
      * @var Exam
      */
     private $exam;
-    
-        /*
+
+    /*
      * @var Assignment
      */
     private $retryAsignment;
-    
-        /*
+
+    /*
      * @var Exam
      */
     private $retryExam;
@@ -81,8 +80,7 @@ class Module {
     ///////////////////
 
     public function Module(
-    $id = -1, $label = "label default", $description = "description default", $dateCreation = "0000-00-00",
-    $number = 0000, $affiche = 1, $bareme = null
+    $id = -1, $label = "label default", $description = "description default", $dateCreation = "0000-00-00", $number = 0000, $affiche = 1, $bareme = null
     )
     {
         $this->id = $id;
@@ -99,7 +97,7 @@ class Module {
         {
             $this->bareme = $bareme;
         }
-        
+
         $this->assignment = new Assignment();
         $this->exam = new Exam();
     }
@@ -258,10 +256,11 @@ class Module {
     {
         return $this->eleves;
     }
-    
+
     public function setAssignment($assignment)
     {
-        if (is_string($assignment)) {
+        if (is_string($assignment))
+        {
             $assignment = (int) $assignment;
             $this->assignment = AssignmentDAL::findById($assignment);
         }
@@ -289,10 +288,11 @@ class Module {
         }
         return $assignment;
     }
-    
-     public function setExam($exam)
+
+    public function setExam($exam)
     {
-        if (is_string($exam)) {
+        if (is_string($exam))
+        {
             $exam = (int) $exam;
             $this->exam = ExamDAL::findById($exam);
         }
@@ -321,6 +321,39 @@ class Module {
         return $exam;
     }
 
+    public function setRetryAssignment($retryAssign)
+    {
+        if (is_string($retryAssign))
+        {
+            $retryAssign = (int) $retryAssign;
+            $this->retryAsignment = AssignmentDAL::findById($retryAssign);
+        }
+        else if (is_int($retryAssign))
+        {
+            $this->retryAsignment = AssignmentDAL::findById($retryAssign);
+        }
+        else if (is_a($retryAssign, "Assignment"))
+        {
+            $this->retryAsignment = $retryAssign;
+        }
+    }
+
+    public function setRetryExam($retryExam)
+    {
+        if (is_string($retryExam))
+        {
+            $retryExam = (int) $retryExam;
+            $this->retryExam = ExamDAL::findById($retryExam);
+        }
+        else if (is_int($retryExam))
+        {
+            $this->retryExam = ExamDAL::findById($retryExam);
+        }
+        else if (is_a($retryExam, "Exam"))
+        {
+            $this->retryExam = $retryExam;
+        }
+    }
 
     //////////////
     // METHODES //

@@ -1,13 +1,11 @@
 $(document).ready(function () {
-    console.debug('test');
-    
     var myData = $.ajax({
         url: 'controller/ajax/report_b.php',
         type: 'POST',
         dataType: 'json',
         success: function (aData) {
             var mySeries = aData;
-//            var mySeries = getSeries(aData);
+            console.debug(mySeries);
             chargerGraph(mySeries);
         }
     });
@@ -22,8 +20,13 @@ function chargerGraph(data) {
         title: {
             text: 'Student marks for this module'
         },
+        colors: [
+            'green',
+            '#72AE00',
+            '#72AE00'
+        ],
         xAxis: {
-            categories: ['Anderson Thomas', 'Rabbit Roger']
+            categories: data[0]
         },
         yAxis: {
             title: {
@@ -31,78 +34,22 @@ function chargerGraph(data) {
             },
             max: 100
         },
-        series: [{
-            name: 'Final',
-            data: [
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'},
-                {y : 67.5, color: 'green'}, 
-                {y : 50, color: 'red'}
-            ]
-        }, {
-            name: 'Assignment',
-            data: [
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}, 
-                {y : 35, color: '#FF5454'}, 
-                {y : 70, color: '#72AE00'}
-            ]
-        }, {
-            name: 'Exam',
-            data: [
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'},
-                {y : 100, color: '#72AE00'},
-                {y : 30, color: '#FF5454'}
-            ]
-        }]
+        tooltip: {
+            borderColor: '#AAAAAA',
+            headerFormat: '<span style="font-size:14px; font-weight:bold">{point.key}</span><table>',
+            pointFormat: '' +
+                    '<tr> ' +
+                    '<th style="color:{series.color};padding:1px;padding-right:5px;">{series.name}: </th>' +
+                    '<td style="padding:1px;padding-right:5px;">' +
+                    '<span style="color:{point.color}; font-weight:bold">{point.y:.1f}</span>%' +
+                    '</td>' +
+                    '</tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        series:
+                data[1]
     });
-};
+}
+;
