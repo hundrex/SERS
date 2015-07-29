@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/TypeFichier.php');
+require_once('./model/class/TypeFichier.php');
 
 class TypeFichierDAL extends TypeFichier {
 
@@ -13,12 +13,11 @@ class TypeFichierDAL extends TypeFichier {
      */
     public static function findById($id)
     {
-        $data = BaseSingleton::select('SELECT id, label, description, chemin'
+        $data = BaseSingleton::select('SELECT id, label, description, chemin '
                         . 'FROM type_fichier '
                         . 'WHERE id = ?', array('i', &$id));
-
         $typeFichier = new TypeFichier();
-        $typeFichier->hydrate($data);
+        $typeFichier->hydrate($data[0]);
         return $typeFichier;
     }
 
@@ -30,7 +29,7 @@ class TypeFichierDAL extends TypeFichier {
     public static function findAll()
     {
         $mesTypeFichiers = array();
-        $data = BaseSingleton::select('SELECT id, label, description, chemin'
+        $data = BaseSingleton::select('SELECT id, label, description, chemin '
                         . 'FROM type_fichier ');
         foreach ($data as $row)
         {
@@ -49,7 +48,13 @@ class TypeFichierDAL extends TypeFichier {
      */
     public static function insertOnDuplicate($typeFichier)
     {
-        $sql = 'INSERT INTO type_fichier ' . '(label, description, chemin) ' . 'VALUES(?,?,?) ' . 'ON DUPLICATE KEY ' . 'UPDATE label = VALUES(label),' . 'description = VALUES(description),' . 'chemin = VALUES(chemin) ';
+        $sql = 'INSERT INTO type_fichier ' . 
+                '(label, description, chemin) ' . 
+                'VALUES(?,?,?) ' . 
+                'ON DUPLICATE KEY ' . 
+                'UPDATE label = VALUES(label),' . 
+                'description = VALUES(description),' . 
+                'chemin = VALUES(chemin) ';
 
         $label = $typeFichier->getLabel(); //string
         $description = $typeFichier->getDescription(); //string
