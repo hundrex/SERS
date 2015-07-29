@@ -172,7 +172,7 @@ class User {
         if ($this->isStudent())
         {
             $studentId = $this->getId();
-            $noteStdAssign = $this->getNoteStudentAssignment($studentId, $moduleId);
+            $noteStdAssign = UserDAL::noteAssign($studentId, $moduleId);
             return $noteStdAssign;
         }
     }
@@ -188,7 +188,7 @@ class User {
         if ($this->isStudent())
         {
             $studentId = $this->getId();
-            $noteStdExam = $this->getNoteStudentExam($studentId, $moduleId);
+            $noteStdExam = UserDAL::noteExam($studentId, $moduleId);
             return $noteStdExam;
         }
     }
@@ -232,8 +232,8 @@ class User {
             {
                 $succes = true;
             }
-            return $succes;
         }
+        return $succes;
     }
 
     /**
