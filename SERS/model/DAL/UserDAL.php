@@ -198,19 +198,19 @@ class UserDAL extends User {
      */
     public function moyenneAssignment($studentId)
     {
-        $moyenneAssignmentEleve=0;
+        $moyenneAssignmentEleve = 0;
         $sql = 'SELECT AVG(user_participe_assignment.note) as MoyAssignStud'
-            .'FROM user_participe_assignment, assignment, user '
-            .'WHERE user.id = ? '
-                .'AND user_participe_assignment.user_id = user.id '
-                .'AND user_participe_assignment.assignment_id = assignment.id ';
+                . 'FROM user_participe_assignment, assignment, user '
+                . 'WHERE user.id = ? '
+                . 'AND user_participe_assignment.user_id = user.id '
+                . 'AND user_participe_assignment.assignment_id = assignment.id ';
         $param = array('i', &$studentId);
         $data = BaseSingleton::select($sql, $param);
-        
+
         $moyenneAssignmentEleve = $data[0]["MoyAssignStud"];
-        return (int)$moyenneAssignmentEleve;
+        return (int) $moyenneAssignmentEleve;
     }
-    
+
     /**
      * Methode qui retourne la moyenne de l'ensemble des exam d'un student 
      * @param int $studentId
@@ -218,17 +218,59 @@ class UserDAL extends User {
      */
     public function moyenneExam($studentId)
     {
-        $moyenneExamEleve=0;
+        $moyenneExamEleve = 0;
         $sql = 'SELECT AVG(user_participe_exam.note) as MoyExamStud'
-            .'FROM user_participe_exam, exam, user '
-            .'WHERE user.id = ? '
-                .'AND user_participe_exam.user_id = user.id '
-                .'AND user_participe_exam.exam_id = exam.id ';
+                . 'FROM user_participe_exam, exam, user '
+                . 'WHERE user.id = ? '
+                . 'AND user_participe_exam.user_id = user.id '
+                . 'AND user_participe_exam.exam_id = exam.id ';
         $param = array('i', &$studentId);
         $data = BaseSingleton::select($sql, $param);
-        
+
         $moyenneExamEleve = $data[0]["MoyExamStud"];
-        return (int)$moyenneExamEleve;
+        return (int) $moyenneExamEleve;
     }
 
+    /**
+     * Méthode permettant de requêter la note d'un assignment pour un eleve donnée dans un modele
+     * @param int $studentId
+     * @param int $moduleId
+     * @return int
+     */
+    public function noteAssign($studentId, $moduleId)
+    {
+        $noteAssign = 0;
+        $sql = 'SELECT AVG(user_participe_assignment.note) as noteAssign
+            FROM user_participe_assignment, assignment, user, module
+            WHERE user.id = ? AND module.id = ?
+                AND user_participe_assignment.user_id = user.id
+                AND user_participe_assignment.assignment_id = assignment.id
+                AND assignment.module_id = module.id';
+        $param = array('ii', &$studentId, &$moduleId);
+        $data = BaseSingleton::select($sql, $param);
+        $noteAssign = $data[0]["noteAssign"];
+        return (int) $noteAssign;
+    }
+
+    /**
+     * Méthode permettant de requêter la note d'un exam pour un eleve donnée dans un modele
+     * @param int $studentId
+     * @param int $moduleId
+     * @return int
+     */
+    public function noteExam($studentId, $moduleId)
+    {
+        $noteExam = 0;
+        $sql = 'SELECT AVG(user_participe_exam.note) as noteExam
+            FROM user_participe_exam, exam, user, module
+            WHERE user.id = ? AND module.id = ?
+                AND user_participe_exam.user_id = user.id
+                AND user_participe_exam.exam_id = exam.id
+                AND exam.module_id = module.id';
+        $param = array('ii', &$studentId, &$moduleId);
+        $data = BaseSingleton::select($sql, $param);
+        $noteExam = $data[0]["noteExam"];
+        return (int) $noteExam;
+    }
+    
 }

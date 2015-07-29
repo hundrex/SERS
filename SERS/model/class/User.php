@@ -116,7 +116,7 @@ class User {
      */
     public function getMoyenneAssignment()
     {
-        if($this->isStudent()) //si le code de l'user correspond a celui d'un student
+        if ($this->isStudent()) //si le code de l'user correspond a celui d'un student
         {
             return UserDAL::moyenneAssignment($this->id);
         }
@@ -132,7 +132,7 @@ class User {
      */
     public function getMoyenneExam()
     {
-        if($this->isStudent()) //si le code de l'user correspond a celui d'un student
+        if ($this->isStudent()) //si le code de l'user correspond a celui d'un student
         {
             return UserDAL::moyenneExam($this->id);
         }
@@ -141,17 +141,18 @@ class User {
             echo "User.getMoyenneExam: Vous demandez la moyenne d'un User qui n'est pas un student";
         }
     }
-    
+
     /**
      * Retourne la moyenne final d'un student
      * @return int 
      */
-    public function  getMoyenneFinal()
+    public function getMoyenneFinal()
     {
-        if($this->isStudent()){
+        if ($this->isStudent())
+        {
             $moyExam = $this->getMoyenneExam();
             $moyAssign = $this->getMoyenneAssignment();
-            $moyFinal = ($moyAssign+$moyExam)/2;
+            $moyFinal = ($moyAssign + $moyExam) / 2;
             return $moyFinal;
         }
         else
@@ -160,8 +161,77 @@ class User {
         }
     }
 
+    /**
+     * Methode retourne la note d'un assignment d'un eleve, dans un module donnée
+     * @param type $moduleId
+     * @return type
+     */
+    public function getNoteStudentAssignment($moduleId)
+    {
+        $noteStdAssign;
+        if ($this->isStudent())
+        {
+            $studentId = $this->getId();
+            $noteStdAssign = $this->getNoteStudentAssignment($studentId, $moduleId);
+            return $noteStdAssign;
+        }
+    }
 
+    /**
+     *  Methode retourne la note d'un exam d'un eleve, dans un module donnée
+     * @param type $moduleId
+     * @return type
+     */
+    public function getNoteStudentExam($moduleId)
+    {
+        $noteStdExam;
+        if ($this->isStudent())
+        {
+            $studentId = $this->getId();
+            $noteStdExam = $this->getNoteStudentExam($studentId, $moduleId);
+            return $noteStdExam;
+        }
+    }
 
+    /**
+     * Methode retournant la moyenne d'un étudiant donnée dans un module donnée
+     * (note Exam + note Assignment) / 2
+     * @param int $moduleId
+     * @return int $noteStdFinal
+     */
+    public function getNoteStudentFinal($moduleId)
+    {
+        $noteStdFinal;
+        if ($this->isStudent())
+        {
+            $noteAssign = $this->getNoteStudentAssignment($moduleId);
+            $noteExam = $this->getNoteStudentExam($moduleId);
+            $noteStdFinal = ($noteAssign + $noteExam) / 2;
+            return $noteStdFinal;
+        }
+    }
+    
+    /**
+     * Méthode return True si l'user a réussi son module (passer en param)
+     * False s'il a échoué
+     * cdtFail: moyModul<50 || noteAssign<40 || noteExam<40
+     * cdtSuccess: moyModul>=50 && noteAssign>=40 && noteExam>=40
+     * @param int $moduleId
+     * @return bool 
+     */
+    public function getSuccessModule($moduleId){
+        $succes = false;
+        if($this->isStudent()){
+            $studentId = $this->getId();
+            $noteAssign = $this->getNoteStudentAssignment($moduleId); //note du devoir Assignment de ce module
+            $noteExam = $this->getNoteStudentExam($moduleId); //note du devoir Exam de ce odule
+            $moyModule = $this->getNoteStudentFinal($moduleId); //moyenne du module
+            if($moyModule>=50 && $noteAssign>=40 && $noteExam>=40){
+                $succes = true;
+            }
+            return $succes;
+        }
+    }
 
     /////////////////////
     // GETTERS&SETTERS //
