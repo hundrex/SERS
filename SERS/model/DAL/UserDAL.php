@@ -3,6 +3,7 @@
 require_once('BaseSingleton.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/User.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/FichierDAL.php');
+
 class UserDAL extends User {
 
     /**
@@ -34,12 +35,12 @@ class UserDAL extends User {
         $codeStudent = self::TYPE_USER_STUDENT; //recupère une constante ce trouvant dans user, contenant le code (type_user) correspondant au student
         $mesUsers = array();
         $data = BaseSingleton::select('SELECT user.id, user.fichier_id, '
-                . 'user.type_user_id, user.prenom, user.nom, user.mail, '
-                . 'user.adresse, user.date_naissance, user.date_creation, '
-                . 'user.pseudo, user.password, user.affiche '
-                . 'FROM user, type_user '
-                . 'WHERE user.type_user_id = type_user.id '
-                . 'AND type_user.code = ? ', array('i', &$codeStudent));
+                        . 'user.type_user_id, user.prenom, user.nom, user.mail, '
+                        . 'user.adresse, user.date_naissance, user.date_creation, '
+                        . 'user.pseudo, user.password, user.affiche '
+                        . 'FROM user, type_user '
+                        . 'WHERE user.type_user_id = type_user.id '
+                        . 'AND type_user.code = ? ', array('i', &$codeStudent));
         foreach ($data as $row)
         {
             $user = new User();
@@ -78,18 +79,6 @@ class UserDAL extends User {
      */
     public static function insertOnDuplicate($user)
     {
-        $sql = 'INSERT INTO user ' . '(prenom, nom, mail, adresse, date_naissance, '
-                . 'pseudo, password, affiche, fichier_id, type_user_id, date_creation) '
-                . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(),"%Y/%m/%d")) '
-                . 'ON DUPLICATE KEY '
-                . 'UPDATE prenom = VALUES(prenom), '
-                . 'nom = VALUES(nom), '
-                . 'mail = VALUES(mail), '
-                . 'adresse = VALUES(adresse), '
-                . 'date_naissance = DATE_FORMAT(VALUES(date_naissance),"%Y/%m/%d"), '
-                . 'pseudo = VALUES(pseudo), '
-                . 'fichier_id = VALUES(fichier_id), '
-                . 'type_user_id = VALUES(type_user_id)';
         $avatar = null;
         if ($user->getAvatar() !== null)
         {
@@ -99,14 +88,10 @@ class UserDAL extends User {
         {
             $avatar = FichierDAL::findDefaultAvatar();
         }
-
         //Password
         $passWord = $user->getPassword();
-
         //Pseudo
         $pseudo = $user->getPrenom() . "." . $user->getNom();
-
-        //lalalala
         $prenom = $user->getPrenom(); //string
         $nom = $user->getNom(); //string
         $mail = $user->getMail(); //string
@@ -115,20 +100,54 @@ class UserDAL extends User {
         $affiche = $user->getAffiche(); //bool
         $avatarId = $avatar->getId(); //int
         $typeId = $user->getType()->getId(); //int
-
-        $params = array('sssssssbii',
-            &$prenom,
-            &$nom,
-            &$mail,
-            &$adresse,
-            &$dateNaissance,
-            &$pseudo, //string
-            &$passWord, //string
-            &$affiche,
-            &$avatarId,
-            &$typeId,
-        );
-
+        $userId = $user->getId();
+        if ($userId < 0)
+        {
+            $sql = 'INSERT INTO user ' . '(prenom, nom, mail, adresse, date_naissance, '
+                    . 'pseudo, password, affiche, fichier_id, type_user_id, date_creation) '
+                    . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(),"%Y/%m/%d")) ';
+            $params = array('sssssssbii',
+                &$prenom,
+                &$nom,
+                &$mail,
+                &$adresse,
+                &$dateNaissance,
+                &$pseudo, //string
+                &$passWord, //string
+                &$affiche,
+                &$avatarId,
+                &$typeId,
+            );
+        }
+        else
+        {
+            $sql = 'UPDATE user '
+                    . 'SET prenom = ?,'
+                    . ' nom = ?,'
+                    . ' mail = ?,'
+                    . ' adresse = ?,'
+                    . ' date_naissance = ?, '
+                    . 'pseudo = ?,'
+                    . ' password = ?,'
+                    . ' affiche = ?,'
+                    . ' fichier_id = ?,'
+                    . ' type_user_id = ?,'
+                    . ' date_creation = ?'
+                    . ' WHERE id = ?';
+            $params = array('sssssssbiii',
+                &$prenom,
+                &$nom,
+                &$mail,
+                &$adresse,
+                &$dateNaissance,
+                &$pseudo, //string
+                &$passWord, //string
+                &$affiche,
+                &$avatarId,
+                &$typeId,
+                &$userId
+            );
+        }
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $user->setId($idInsert);
         return $idInsert;
