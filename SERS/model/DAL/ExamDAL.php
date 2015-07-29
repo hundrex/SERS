@@ -14,7 +14,7 @@ class ExamDAL extends Exam {
     public static function findById($id)
     {
         $data = BaseSingleton::select('SELECT id, module_id, label, description, '
-                        . 'date_creation, annee, date_passage, affiche, prixRattrapage '
+                        . 'date_creation, annee, date_passage, affiche, prixRattrapage, 1 as note ' //to do: verifier la rustine
                         . 'FROM exam '
                         . 'WHERE id = ?', array('i', &$id));
         $exam = new Exam();
