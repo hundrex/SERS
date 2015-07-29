@@ -145,6 +145,18 @@ class Module {
     public function getMoyenneAssignment(){
         return ModuleDAL::moyenneAssignment($this->id);
     }
+    
+    public function getMoyenneExam(){
+        return ModuleDAL::moyenneExam($this->id);
+    }
+    
+    public function getMoyenneFinal(){
+        $moyAssignment = $this->getMoyenneAssignment();//ModuleDAL::moyenneAssignment($this->id);
+        $moyExam = $this->getMoyenneExam();//ModuleDAL::moyenneExam($this->id);
+        $moyFinal = ($moyAssignment+$moyExam)/2;
+        return $moyFinal;
+    }
+
 
     /////////////////////
     // GETTERS&SETTERS //

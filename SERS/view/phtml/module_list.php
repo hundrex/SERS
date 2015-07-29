@@ -34,14 +34,51 @@
         <?php foreach ($modules as $module): ?>
             <tr>
                 <?php $modulId = $module->getId(); ?>
-                <?php $nbAssign = AssignmentDAL::findNbAssign($modulId); ?>
-                <?php $nbExam = ExamDAL::findNbExam($modulId); ?>
-                <?php $nbFinal = ($nbAssign + $nbExam); ?>
+                <?php $nbAssign = $module->getMoyenneAssignment(); ?>
+                <?php $nbExam = $module->getMoyenneExam(); ?>
+                <?php $nbFinal = $module->getMoyenneFinal(); ?>
                 <td><?php echo $module->getLabel(); ?></td>
                 <td><?php echo $module->getDescription(); ?></td>
-                <td><?php echo $nbAssign; ?></td>
-                <td><?php echo $nbExam; ?></td>
-                <td><?php echo $nbFinal; ?></td>
+                <td>
+                    <?php //Affiche moyenne Assignment
+                    if ($nbAssign === 0)
+                    {
+                        echo "--";
+                    }
+                    else
+                    {
+                        echo $nbAssign;
+                    }
+                    ?>
+                </td>
+                <td>
+                    <?php //Affiche moyenne Exam
+                    if ($nbExam === 0)
+                    {
+                        echo "--";
+                    }
+                    else
+                    {
+                        echo $nbExam;
+                    }
+                    ?>
+                </td>
+                <td>
+                    <?php //Affiche Moyenne Final
+                    if ($nbAssign === 0 && $nbExam === 0)
+                    {
+                        echo "--";
+                    }
+                    else if ($nbAssign === 0 || $nbExam === 0)
+                    {
+                        echo $nbFinal * 2;
+                    }
+                    else
+                    {
+                        echo $nbFinal;
+                    }
+                    ?>
+                </td>
                 <td>
                     <button type="button" class="btn btn-default" data-toggle="modal" 
                             data-target=<?php echo '"#modalViewUserList-' . $module->getId() . '"' ?>>
@@ -175,10 +212,10 @@
                             <dl class="dl-horizontal">
                                 <dt>Final: </dt>
                                 <dd>
-                                    <?php 
-                                    $noteAssignment = $module->getAssignment()->getNote(); 
-                                    $noteExam = $module->getExam()->getNote(); 
-                                    $noteFinal = ($noteAssignment + $noteExam)/2;
+                                    <?php
+                                    $noteAssignment = $module->getAssignment()->getNote();
+                                    $noteExam = $module->getExam()->getNote();
+                                    $noteFinal = ($noteAssignment + $noteExam) / 2;
                                     echo $noteFinal;
                                     ?>
                                 </dd>
