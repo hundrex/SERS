@@ -1,6 +1,6 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php'); ?>
 <script type="text/javascript" src="./view/javascript/module_inscription.js"></script>
-<form method=POST action="./controller/page>/module_inscription.php">
+<form method=POST action="./controller/page/module_inscription.php">
     <div class="row filter-bar">
         <div class="col-lg-12">
             <div class="input-group">
