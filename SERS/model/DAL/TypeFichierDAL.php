@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('./model/class/TypeFichier.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/TypeFichier.php');
 
 class TypeFichierDAL extends TypeFichier {
 
