@@ -63,7 +63,7 @@ abstract class Travail {
     public function Travail($id = -1, $label = "default label", $number = 0000, 
             $description = "description default", $dateCreation = "0000-00-00", 
             $datePassage = "0000-00-00", $affiche = 1, 
-            $prixRattrapage = 0)
+            $prixRattrapage = 0, $rattrapage = 0)
     {
         $this->id = $id;
         $this->label = $label;
@@ -73,6 +73,7 @@ abstract class Travail {
         $this->affiche = $affiche;
         $this->number = $number;
         $this->prixRattrapage = $prixRattrapage;
+        $this->rattrapage = $rattrapage;
     }
 
     /**
@@ -189,6 +190,19 @@ abstract class Travail {
         return $this->affiche;
     }
     
+        public function setRattrapage($retry)
+    {
+        if (is_bool($retry))
+        {
+            $this->rattrapage = $retry;
+        }
+    }
+
+    public function getRattrapage()
+    {
+        return $this->rattrapage;
+    }
+    
     public function setNote($note)
     {
         if (is_a($note, "Note"))
@@ -215,6 +229,7 @@ abstract class Travail {
         $this->datePassage = $dataSet['date_passage'];
         $this->description = $dataSet['description'];
         $this->note = $dataSet['note'];
+        $this->rattrapage = $dataSet['rattrapage'];
     }
 
 }
