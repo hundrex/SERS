@@ -31,8 +31,11 @@ function chargerGraph(data) {
         yAxis: {
             title: {
                 text: 'Marks'
-            }
-//            max: 100
+            },
+            stackLabels: {
+                enabled: true
+            },
+            max: 100
         },
         legend: {
             enabled: false
@@ -42,19 +45,22 @@ function chargerGraph(data) {
             headerFormat: '<span style="font-size:14px; font-weight:bold">{point.key}</span><table>',
             pointFormat: '' +
                     '<tr> ' +
-                    '<th style="color:{series.color};padding:1px;padding-right:5px;">{series.name}: </th>' +
+                    '<td style="padding:1px;padding-right:5px;">{series.name}: </td>' +
                     '<td style="padding:1px;padding-right:5px;">' +
                     '<span style="color:{point.color}; font-weight:bold">{point.y:.1f}</span>%' +
                     '</td>' +
                     '</tr>',
             footerFormat: '</table>',
             hideDelay: 200,
-            shared: false,
+            shared: true,
             useHTML: true
         },
          plotOptions: {
             column: {
-                stacking: 'normal'
+                stacking: 'normal',
+                dataLabels: {
+                  enabled: true
+              }
             }
         },
         series:
