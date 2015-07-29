@@ -7,7 +7,7 @@
  */
 
 require_once('BaseSingleton.php');
-require_once('../model/class/ModeleMail.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/ModelMail.php');
 
 class ModeleMailDAL extends ModeleMail {
 

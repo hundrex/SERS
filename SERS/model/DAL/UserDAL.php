@@ -1,9 +1,8 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('./model/class/User.php');
-require_once('./model/DAL/FichierDAL.php');
-
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/User.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/FichierDAL.php');
 class UserDAL extends User {
 
     /**

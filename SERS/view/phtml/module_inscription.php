@@ -1,35 +1,33 @@
-<form method=POST action="./controller/page/student_create.php">
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php'); ?>
+<form method=POST action="./controller/page>/module_inscription.php">
     <div class="row filter-bar">
         <div class="col-lg-12">
             <div class="input-group">
+        <?php $modules = ModuleDAL::findAll(); ?>   
                 <label for="descriptionModule">Select a module</label>
                 <select class="form-control">
-                    <option value="webDevelopment">Web Development</option>
-                    <option value="webDesign">Web Design</option>
-                    <option value="contentManagementSystem">Content Management System</option>
-                    <option value="legalEthicalSocialAndProfessionalIssues">
-                        Legal Ethical Social and Professional Issues</option>
-                    <option value="webDevelopmentFramework">Web Development Framework</option>
+                    <?php foreach ($modules as $module): ?>
+                    <option value="<?php echo $module->getId(); ?>" id="<?php echo $module->getId(); ?>"><?php echo $module->getLabel(); ?></option>
+                     <?php endforeach; ?>
                 </select>
             </div>
         </div>
     </div>
+
+    <?php $students = UserDAL::findAllStudent(); ?>
+
     <div class="panel panel-default">
         <div class="panel-heading">Student list</div>
         <div class="panel-list">
             <ul class="list-unstyled">
-                <li><div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Student A
-                        </label>
-                    </div>
-                </li>
-                <li><div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Student B
-                        </label>
-                    </div>
-                </li>
+                <?php foreach ($students as $student): ?>
+                    <li><div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="student[]" id="<?php echo $student->getId(); ?>"> <?php echo $student->getPrenom() . " " . $student->getNom(); ?>
+                            </label>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
             </ul>
         </div>
 

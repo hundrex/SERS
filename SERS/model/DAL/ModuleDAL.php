@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('./model/class/Module.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Module.php');
 
 class ModuleDAL extends Module {
 
@@ -17,7 +17,8 @@ class ModuleDAL extends Module {
                         . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
                         . 'FROM module, assignment, exam '
                         . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id AND '
-                . 'module.id = ?', array('i', &$id));
+                . 'module.id = ? '
+                . 'GROUP BY module.id', array('i', &$id));
         $module = new Module();
         $module->hydrate($data[0]);
         return $module;
@@ -41,7 +42,8 @@ class ModuleDAL extends Module {
                         . 'module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
                         . 'FROM module, assignment, exam '
                         . 'WHERE assignment.module_id = module.id AND module.id = exam.module_id '
-                        . 'AND assignment.id = ?', array('i', &$assignmentId));
+                        . 'AND assignment.id = ? '
+                . 'GROUP BY module.id', array('i', &$assignmentId));
         $module = new Module();
         $module->hydrate($data);
         return $module;
@@ -63,7 +65,8 @@ class ModuleDAL extends Module {
                         . 'module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
                         . 'FROM module, exam, assignment '
                         . 'WHERE exam.module_id = module.id AND assignment.module_id = module.id '
-                        . 'AND exam.id = ?', array('i', &$examId));
+                        . 'AND exam.id = ? '
+                . 'GROUP BY module.id', array('i', &$examId));
         $module = new Module();
         $module->hydrate($data[0]);
         return $module;
@@ -88,7 +91,8 @@ class ModuleDAL extends Module {
                         . 'WHERE user.id = user_inscrire_module.user_id '
                         . 'AND user_inscrire_module.module_id = module.id '
                         . 'AND module.id = assignment.module_id AND module.id = exam.module_id '
-                        . 'AND user.id = ?', array('i', &$eleveId));
+                        . 'AND user.id = ? '
+                . 'GROUP BY module.id', array('i', &$eleveId));
         foreach ($data as $row)
         {
             $module = new Module();
@@ -109,7 +113,8 @@ class ModuleDAL extends Module {
         $data = BaseSingleton::select('SELECT module.id as id, module.bareme_id as bareme_id, module.label as label, module.description as description, '
                         . 'module.date_creation as date_creation, module.number as number, module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
                         . 'FROM module, assignment, exam '
-                        . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id');
+                        . 'WHERE module.id = assignment.module_id AND module.id = exam.module_id '
+                . 'GROUP BY module.id');
         foreach ($data as $row)
         {
             $module = new Module();

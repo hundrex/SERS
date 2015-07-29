@@ -6,9 +6,9 @@
  * @author Alexis
  */
 
-require_once('./model/DAL/BaremeDAL.php');
-require_once('./model/class/Assignment.php');
-require_once('./model/class/Exam.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/BaremeDAL.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Assignment.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Exam.php');
 
 class Module {
 
