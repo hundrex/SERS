@@ -1,7 +1,9 @@
-<form method=POST action="./controller/page/student_create.php">
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');?>
+<form method=POST action="./controller/page>/module_inscription.php">
     <div class="row filter-bar">
         <div class="col-lg-12">
             <div class="input-group">
+                
                 <label for="descriptionModule">Select a module</label>
                 <select class="form-control">
                     <option value="webDevelopment">Web Development</option>
@@ -14,22 +16,21 @@
             </div>
         </div>
     </div>
+    
+    <?php $students = UserDAL::findAllStudent(); ?>
+    
     <div class="panel panel-default">
         <div class="panel-heading">Student list</div>
         <div class="panel-list">
             <ul class="list-unstyled">
+                <?php foreach ($students as $student): ?>
                 <li><div class="checkbox">
                         <label>
-                            <input type="checkbox"> Student A
+                            <input type="checkbox" name="student[]" id="<?php echo $student->getId(); ?>"> <?php echo $student->getPrenom()." ".$student->getNom(); ?>
                         </label>
                     </div>
                 </li>
-                <li><div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Student B
-                        </label>
-                    </div>
-                </li>
+                <?php endforeach; ?>
             </ul>
         </div>
 
