@@ -118,8 +118,15 @@ class ModuleDAL extends Module {
                         . ' AND exam.rattrapage = 1'
                         . ' AND module.id = ? '
                         . 'GROUP BY module.id', array('i', &$moduleId));
-            $rattrapageExam = new Exam();
+        $rattrapageExam = new Exam();
+        if (sizeof($data) <= 0)
+        {
+            return false;
+        }
+        else
+        {
             $rattrapageExam->hydrate($data[0]);
+        }
         return $rattrapageExam;
     }
 
@@ -141,7 +148,14 @@ class ModuleDAL extends Module {
                         . ' AND module.id = ? '
                         . 'GROUP BY module.id', array('i', &$moduleId));
         $rattrapageAssign = new Assignment();
-        $rattrapageAssign->hydrate($data[0]);
+        if (sizeof($data) <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            $rattrapageAssign->hydrate($data[0]);
+        }
         return $rattrapageAssign;
     }
 
