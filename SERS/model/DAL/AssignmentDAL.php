@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('./model/class/Assignment.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Assignment.php');
 
 class AssignmentDAL extends Assignment {
 
@@ -21,7 +21,7 @@ class AssignmentDAL extends Assignment {
         $assignment->hydrate($data[0]);
         return $assignment;
     }
-    
+
     /**
      * Retourne le nombre d'assignment liéer à un module
      *
@@ -34,7 +34,7 @@ class AssignmentDAL extends Assignment {
         $data = BaseSingleton::select('SELECT count(*) '
                         . 'FROM assignment '
                         . 'WHERE module_id = ?', array('i', &$moduleId));
-        
+
         $nbAssign = $data[0];
         return $nbAssign[0];
     }
@@ -65,7 +65,7 @@ class AssignmentDAL extends Assignment {
      * @return int 
      * L'id de l'objet inséré en base. False si ça a planté.
      */
-    public static function insertOnDuplicate($assignment)
+    public static function insertOnDuplicate($assignment, $moduleId = null)
     {
         $sql = 'INSERT INTO assignment '
                 . '(module_id, label, description, '
@@ -80,7 +80,10 @@ class AssignmentDAL extends Assignment {
                 . 'affiche = VALUES(affiche),'
                 . 'prixRattrapage = VALUES(prixRattrapage) ';
 
-        $moduleId = $assignment->getModule()->getId(); //int
+        if (is_null($moduleId))
+        {
+            $moduleId = $assignment->getModule()->getId(); //int
+        }
         $label = $assignment->getLabel(); //string
         $description = $assignment->getDescription(); //string
         $annee = $assignment->getAnnee(); //int
@@ -89,13 +92,13 @@ class AssignmentDAL extends Assignment {
         $prixRattrapage = $assignment->getPrixRattrapage(); //int
 
         $params = array('issisbi',
-                &$moduleId, //int
-                &$label, //string
-                &$description, //string
-                &$annee, //int
-                &$datePassage, //date
-                &$affiche, //bool
-                &$prixRattrapage //int
+            &$moduleId, //int
+            &$label, //string
+            &$description, //string
+            &$annee, //int
+            &$datePassage, //date
+            &$affiche, //bool
+            &$prixRattrapage //int
         );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $assignment->setId($idInsert);

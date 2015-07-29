@@ -7,7 +7,7 @@
  */
 
 require_once('BaseSingleton.php');
-require_once('./model/class/Bareme.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Bareme.php');
 
 class BaremeDAL extends Bareme {
 

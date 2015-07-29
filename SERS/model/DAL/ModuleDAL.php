@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('./model/class/Module.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Module.php');
 
 class ModuleDAL extends Module {
 
@@ -156,8 +156,8 @@ class ModuleDAL extends Module {
         {
             self::saveInscriptionEleve($idInsert, $eleveId);
         }
-        AssignmentDAL::insertOnDuplicate($module->getAssignment());
-        ExamDAL::insertOnDuplicate($module->getExam());
+        AssignmentDAL::insertOnDuplicate($module->getAssignment(), $idInsert);
+        ExamDAL::insertOnDuplicate($module->getExam(), $idInsert);
         $module->setId($idInsert);
         return $idInsert;
     }

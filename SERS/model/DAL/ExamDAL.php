@@ -1,7 +1,7 @@
 <?php
 
 require_once('BaseSingleton.php');
-require_once('./model/class/Exam.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Exam.php');
 
 class ExamDAL extends Exam {
 
@@ -34,11 +34,11 @@ class ExamDAL extends Exam {
         $data = BaseSingleton::select('SELECT count(*) '
                         . 'FROM exam '
                         . 'WHERE module_id = ?', array('i', &$moduleId));
-        
+
         $nbExam = $data[0];
         return $nbExam[0];
-    }      
-    
+    }
+
     /**
      * Retourne tous les exam enregistrés.
      * 
@@ -65,7 +65,7 @@ class ExamDAL extends Exam {
      * @return int 
      * L'id de l'objet inséré en base. False si ça a planté.
      */
-    public static function insertOnDuplicate($exam)
+    public static function insertOnDuplicate($exam, $moduleId = null)
     {
         $sql = 'INSERT INTO exam ' . '(module_id, label, description, '
                 . 'date_creation, annee, date_passage, affiche, prixRattrapage) '
@@ -78,8 +78,10 @@ class ExamDAL extends Exam {
                 . 'date_passage = DATE_FORMAT(VALUES(date_passage),"%Y/%m/%d"), '
                 . 'affiche = VALUES(affiche),'
                 . 'prixRattrapage = VALUES(prixRattrapage) ';
-
-        $moduleId = $exam->getModule()->getId(); //int
+        if (is_null($moduleId))
+        {
+            $moduleId = $exam->getModule()->getId(); //int
+        }
         $label = $exam->getLabel(); //string
         $description = $exam->getDescription(); //string
         $annee = $exam->getAnnee(); //int
@@ -88,13 +90,13 @@ class ExamDAL extends Exam {
         $prixRattrapage = $exam->getPrixRattrapage(); //int        
 
         $params = array('issisbi',
-                &$moduleId, //int
-                &$label, //string
-                &$description, //string
-                &$annee, //int
-                &$datePassage, //date
-                &$affiche, //bool
-                &$prixRattrapage //int
+            &$moduleId, //int
+            &$label, //string
+            &$description, //string
+            &$annee, //int
+            &$datePassage, //date
+            &$affiche, //bool
+            &$prixRattrapage //int
         );
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $exam->setId($idInsert);
