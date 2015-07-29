@@ -325,7 +325,9 @@ class Module {
         $this->description = $dataSet['description'];
         $this->number = $dataSet['number'];
         $this->bareme = $dataSet['bareme_id'];
-        $this->assignment = $dataSet['bareme_id'];
+        $this->assignment = 1;
+        $this->exam = 1;
+        //to do: retourner les id assign et exam dans le dataSet
     }
 
 }
