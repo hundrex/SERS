@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    console.debug('test');
-
     var myData = $.ajax({
         url: 'controller/ajax/report_b.php',
         type: 'POST',
@@ -8,7 +6,6 @@ $(document).ready(function () {
         success: function (aData) {
             var mySeries = aData;
             console.debug(mySeries);
-//            var mySeries = getSeries(aData);
             chargerGraph(mySeries);
         }
     });
