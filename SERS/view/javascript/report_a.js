@@ -32,6 +32,15 @@ function chargerGraph(data) {
             },
             max: 100
         },
+        plotOptions: {
+          column: {
+              dataLabels: {
+                  enabled: true,
+                  crop: false,
+                  overflow: "none"
+              }
+          }  
+        },
         tooltip: {
             borderColor: '#AAAAAA',
             headerFormat: '<span style="font-size:14px; font-weight:bold">{point.key}</span><table>',
