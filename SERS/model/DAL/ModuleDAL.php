@@ -289,7 +289,7 @@ class ModuleDAL extends Module {
      */
     public function moyenneAssignment($moduleId)
     {
-        $moyenneAssign=0;
+        $moyenneAssign = 0;
 
         $sql = 'SELECT AVG(user_participe_assignment.note) as MoyenneAssign '
                 . ' FROM user_participe_assignment, assignment, module '
@@ -298,13 +298,12 @@ class ModuleDAL extends Module {
                 . 'AND assignment.module_id = module.id';
         $param = array('i', &$moduleId);
         $data = BaseSingleton::select($sql, $param);
-        
+
         $moyenneAssign = $data[0]["MoyenneAssign"];
-        
-        return (int)$moyenneAssign;
+
+        return (int) $moyenneAssign;
     }
 
-    
     /**
      * Methode permettant de retourne rla moyenne des exams lié a un module
      * 
@@ -313,7 +312,7 @@ class ModuleDAL extends Module {
      */
     public function moyenneExam($moduleId)
     {
-        $moyenneExam=0;
+        $moyenneExam = 0;
 
         $sql = 'SELECT AVG(user_participe_exam.note) as MoyenneExam '
                 . ' FROM user_participe_exam, exam, module '
@@ -322,18 +321,31 @@ class ModuleDAL extends Module {
                 . 'AND exam.module_id = module.id';
         $param = array('i', &$moduleId);
         $data = BaseSingleton::select($sql, $param);
-        
+
         $moyenneExam = $data[0]["MoyenneExam"];
-        
-        return (int)$moyenneExam;
-    }    
-    
-//    
-//    SELECT AVG(user_participe_assignment.note)
-//FROM user_participe_assignment, assignment, user, module
-//WHERE user.id = 2 AND module.id = 1
-//	AND user_participe_assignment.user_id = user.id
-//    AND user_participe_assignment.assignment_id = assignment.id
-//    AND assignment.module_id = module.id
-    
+
+        return (int) $moyenneExam;
+    }
+
+    /**
+     * Méthode permettant de requêter la note d'un assignment pour un eleve donnée dans un modele
+     * @param int $studentId
+     * @param int $moduleId
+     * @return int
+     */
+    public function noteAssign($studentId, $moduleId)
+    {
+        $noteAssign = 0;
+        $sql = 'SELECT AVG(user_participe_assignment.note) as noteAssign
+            FROM user_participe_assignment, assignment, user, module
+            WHERE user.id = ? AND module.id = ?
+                AND user_participe_assignment.user_id = user.id
+                AND user_participe_assignment.assignment_id = assignment.id
+                AND assignment.module_id = module.id';
+        $param = array('ii', &$studentId, &$moduleId);
+        $data = BaseSingleton::select($sql, $param);
+        $noteAssign = $data[0]["noteAssign"];
+        return (int) $noteAssign;
+    }
+
 }
