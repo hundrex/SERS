@@ -101,15 +101,13 @@ class ModuleDAL extends Module {
         return $mesModules;
     }
 
-    
     /**
      * Retourne tous les exam avec rattrapage à .
      *
-     * @return array[Exam] Tous les objets dans un tableau.
+     * @return Exam Tous les objets dans un tableau.
      */
     public static function findAllRattrapageExam($moduleId)
     {
-        $mesRattrapagesExam = array();
         $data = BaseSingleton::select('SELECT exam.id, exam.module_id, '
                         . 'exam.label, '
                         . 'exam.description, exam.date_creation, '
@@ -120,24 +118,18 @@ class ModuleDAL extends Module {
                         . ' AND exam.rattrapage = 1'
                         . ' AND module.id = ? '
                         . 'GROUP BY module.id', array('i', &$moduleId));
-        foreach ($data as $row)
-        {
             $rattrapageExam = new Exam();
-
-            $rattrapageExam->hydrate($row);
-            $mesRattrapagesExam[] = $rattrapageExam;
-        }
-        return $mesRattrapagesExam;
+            $rattrapageExam->hydrate($data[0]);
+        return $rattrapageExam;
     }
-    
+
     /**
      * Retourne tous les assign avec rattrapage à .
      *
-     * @return array[Assignment] Tous les objets dans un tableau.
+     * @return Assignment Tous les objets dans un tableau.
      */
     public static function findAllRattrapageAssign($moduleId)
     {
-        $mesRattrapagesAssign = array();
         $data = BaseSingleton::select('SELECT assignment.id, assignment.module_id, '
                         . 'assignment.label, '
                         . 'assignment.description, assignment.date_creation, '
@@ -148,14 +140,9 @@ class ModuleDAL extends Module {
                         . ' AND assignment.rattrapage = 1'
                         . ' AND module.id = ? '
                         . 'GROUP BY module.id', array('i', &$moduleId));
-        foreach ($data as $row)
-        {
-            $rattrapageAssign = new Assignment();
-
-            $rattrapageAssign->hydrate($row);
-            $mesRattrapagesAssign[] = $rattrapageAssign;
-        }
-        return $mesRattrapagesAssign;
+        $rattrapageAssign = new Assignment();
+        $rattrapageAssign->hydrate($data[0]);
+        return $rattrapageAssign;
     }
 
     /**
@@ -175,6 +162,8 @@ class ModuleDAL extends Module {
         {
             $module = new Module();
             $module->hydrate($row);
+            $module->setRetryAssignment(self::findAllRattrapageAssign($module->getId()));
+            $module->setRetryExam(self::findAllRattrapageExam($module->getId()));
             $mesModules[] = $module;
         }
         return $mesModules;
