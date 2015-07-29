@@ -23,6 +23,23 @@ class ExamDAL extends Exam {
     }
 
     /**
+     * Retourne le nombre d'exam liéer à un module
+     *
+     * @param int $id Identifiant du module où compter le nb Exam
+     * @return int
+     */
+    public static function findNbExam($id)
+    {
+        $nbExam = 0;
+        $data = BaseSingleton::select('SELECT count(*) '
+                        . 'FROM exam '
+                        . 'WHERE module_id = ?', array('i', &$moduleId));
+        
+        $nbExam = $data[0];
+        return $nbExam[0];
+    }      
+    
+    /**
      * Retourne tous les exam enregistrés.
      * 
      * @return array[Exam] Tous les objets dans un tableau.

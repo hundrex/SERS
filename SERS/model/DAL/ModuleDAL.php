@@ -21,7 +21,8 @@ class ModuleDAL extends Module {
         $module->hydrate($data[0]);
         return $module;
     }
-
+    
+      
     /**
      * Retourne le module correspondant à l'assignment donné.
      *

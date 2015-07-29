@@ -1,3 +1,5 @@
+<?php require_once './model/DAL/UserDAL.php'; ?>
+
 <div class="row filter-bar">
     <div class="col-lg-6">
         <div class="input-group">
@@ -20,21 +22,23 @@
     </div>
 </div>
 
+<?php $students = UserDAL::findAllStudent(); ?>
 
 <div class="panel panel-default">
     <div class="panel-heading">Student list</div>
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th></th></tr>
-        <tr><td>Durden</td><td>Taylor</td><td>1950</td><td>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewStudentList">
-                    <span class="glyphicon glyphicon-eye-open"></span></button> 
-            </td>
-        </tr>
-        <tr><td>Rabbit</td><td>Roger</td><td>1981</td><td>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewStudentList">
-                    <span class="glyphicon glyphicon-eye-open"></span></button> 
-            </td>
-        </tr>
+        <?php foreach ($students as $student): ?>
+            <tr>
+                <td><?php echo $student->getNom(); ?></td>
+                <td><?php echo $student->getPrenom(); ?></td>
+                <td><?php echo $student->getDateNaissance(); ?></td>
+                <td>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewStudentList">
+                        <span class="glyphicon glyphicon-eye-open"></span></button> 
+                </td>
+            </tr>
+        <?php endforeach; ?>
     </table>
 </div>
 

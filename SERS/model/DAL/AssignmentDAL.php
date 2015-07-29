@@ -21,6 +21,23 @@ class AssignmentDAL extends Assignment {
         $assignment->hydrate($data[0]);
         return $assignment;
     }
+    
+    /**
+     * Retourne le nombre d'assignment liéer à un module
+     *
+     * @param int $id Identifiant du module où compter le nb Assign
+     * @return int
+     */
+    public static function findNbAssign($moduleId)
+    {
+        $nbAssign = 0;
+        $data = BaseSingleton::select('SELECT count(*) '
+                        . 'FROM assignment '
+                        . 'WHERE module_id = ?', array('i', &$moduleId));
+        
+        $nbAssign = $data[0];
+        return $nbAssign[0];
+    }
 
     /**
      * Retourne tous les assignment enregistrés.

@@ -29,11 +29,13 @@
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>User Type</th><th></th></tr>
         <?php foreach ($users as $user): ?>
-            <tr><td><?php echo $user->getNom(); ?></td><td><?php echo $user->getPrenom(); ?></td>
-                <td><?php echo $user->getDateNaissance(); ?></td><td><?php echo $user->getType()->getLabel(); ?></td>
+            <tr>
+                <td><?php echo $user->getNom(); ?></td>
+                <td><?php echo $user->getPrenom(); ?></td>
+                <td><?php echo $user->getDateNaissance(); ?></td>
+                <td><?php echo $user->getType()->getLabel(); ?></td>
                 <td>
-                    <button type="button" class="btn btn-default" data-toggle="modal" 
-                            data-target=<?php echo '"#modalViewUserList-' . $user->getId() . '"' ?>>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalViewUserList">
                         <span class="glyphicon glyphicon-eye-open"></span></button>
                 </td>
             </tr>

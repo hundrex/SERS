@@ -8,6 +8,7 @@
 
 require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/DAL/BaremeDAL.php');
 require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/Assignment.php');
+require_once('F:/htdocs/webdev-405-G1/SERS/SERS/model/class/Exam.php');
 
 class Module {
 
