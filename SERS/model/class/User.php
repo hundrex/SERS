@@ -220,9 +220,15 @@ class User {
      * @return bool 
      */
     public function getSuccessModule($moduleId){
-        $succes;
+        $succes = false;
         if($this->isStudent()){
-            $succes = UserDAL::haveModule($moduleId);
+            $studentId = $this->getId();
+            $noteAssign = $this->getNoteStudentAssignment($moduleId); //note du devoir Assignment de ce module
+            $noteExam = $this->getNoteStudentExam($moduleId); //note du devoir Exam de ce odule
+            $moyModule = $this->getNoteStudentFinal($moduleId); //moyenne du module
+            if($moyModule>=50 && $noteAssign>=40 && $noteExam>=40){
+                $succes = true;
+            }
             return $succes;
         }
     }

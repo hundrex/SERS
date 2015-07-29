@@ -246,5 +246,5 @@ class UserDAL extends User {
         $noteExam = $data[0]["noteExam"];
         return (int) $noteExam;
     }
-
+    
 }
