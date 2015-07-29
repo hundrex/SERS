@@ -121,7 +121,7 @@
                                 <dd><?php echo $user->getType()->getLabel(); ?></dd>
                             </dl>
                         </li>
-                         <li>
+                        <li>
                             <dl class="dl-horizontal">
                                 <dt>Module(s) followed: </dt>
                                 <dd></dd>
@@ -136,8 +136,10 @@
                         <li>
                             <dl class="dl-horizontal">
                                 <dt>Avatar: </dt>
-                                <dd><img src=<?php echo '".' . $user->getAvatar()->getType()->getChemin() .
-                                        '/' . $user->getAvatar()->getNom() . '"'; ?> ></dd>
+                                <dd><img src=<?php
+                                    echo '".' . $user->getAvatar()->getType()->getChemin() .
+                                    '/' . $user->getAvatar()->getNom() . '"';
+                                    ?> ></dd>
                             </dl>
                         </li>
                     </ul>
@@ -149,5 +151,5 @@
             </div>
         </div>
     </div>
-<?php
+    <?php
 endforeach;
