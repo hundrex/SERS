@@ -1,3 +1,5 @@
+<?php require_once './model/DAL/ModuleDAL.php'; ?>
+
 <form method=POST action="./controller/page/student_create.php">
     <div class="form-group">
         <label for="lastName">Last name</label>
@@ -23,34 +25,18 @@
                placeholder="e.g. thomas.anderson@skynet.com">
     </div>
 
+    <?php $modules = ModuleDAL::findAll(); ?>
+    
     <div class="panel panel-default">
         <div class="panel-heading">Modules</div>
         <div class="panel-list">
+            <?php foreach ($modules as $module): ?>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="1" name="module[]"> Web Development
+                    <input type="checkbox" value="<?php echo $module->getId();?>" name="module[]"> <?php echo $module->getLabel();?>
                 </label>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="2" name="module[]"> Web Design
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="3" name="module[]"> Content Management System
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="4" name="module[]"> Legal Ethical Social and Professional Issues
-                </label>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="5" name="module[]"> Web Development Framework
-                </label>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
