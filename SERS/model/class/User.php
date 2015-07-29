@@ -210,7 +210,7 @@ class User {
             return $noteStdFinal;
         }
     }
-    
+
     /**
      * Méthode return True si l'user a réussi son module (passer en param)
      * False s'il a échoué
@@ -219,18 +219,32 @@ class User {
      * @param int $moduleId
      * @return bool 
      */
-    public function getSuccessModule($moduleId){
+    public function getSuccessModule($moduleId)
+    {
         $succes = false;
-        if($this->isStudent()){
+        if ($this->isStudent())
+        {
             $studentId = $this->getId();
             $noteAssign = $this->getNoteStudentAssignment($moduleId); //note du devoir Assignment de ce module
             $noteExam = $this->getNoteStudentExam($moduleId); //note du devoir Exam de ce odule
             $moyModule = $this->getNoteStudentFinal($moduleId); //moyenne du module
-            if($moyModule>=50 && $noteAssign>=40 && $noteExam>=40){
+            if ($moyModule >= 50 && $noteAssign >= 40 && $noteExam >= 40)
+            {
                 $succes = true;
             }
             return $succes;
         }
+    }
+
+    /**
+     * Méthode qui retourne le code du type d'utilisateur qu'est l'user
+     * @return int (0:root, 1:administration, 2:prof, 3:student)
+     */
+    public function getRole()
+    {
+        $typUser = TypeUserDAL::findById($this->type);
+        $codeTypUser = $typUser->getCode();
+        return $codeTypUser;
     }
 
     /////////////////////
