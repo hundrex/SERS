@@ -37,12 +37,12 @@ foreach ($databaseData as $row) {
     $failFinalData[] = 100 - $passFinal;
 }
 
-$passAssignement    = new SerieStack('AssignmentPassPercent', $passAssignmentData, 'Assignment', '#72AE00');
-$failAssignement    = new SerieStack('AssignmentFailPercent', $failAssignmentData, 'Assignment', '#FF5454');
-$passExam           = new SerieStack('ExamPassPercent', $passExamData, 'Exam', '#72AE00');
-$failExam           = new SerieStack('ExamFailPercent', $failExamData, 'Exam', '#FF5454');
-$passFinal          = new SerieStack('FinalPassPercent', $passFinalData, 'Final', 'green');
-$failFinal          = new SerieStack('FinalFailPercent', $failFinalData, 'Final', 'red');
+$passAssignement    = new SerieStack('Assignment pass rate', $passAssignmentData, 'Assignment', '#72AE00');
+$failAssignement    = new SerieStack('Assignment fail rate', $failAssignmentData, 'Assignment', '#FF5454');
+$passExam           = new SerieStack('Exam pass rate', $passExamData, 'Exam', '#72AE00');
+$failExam           = new SerieStack('Exam fail rate', $failExamData, 'Exam', '#FF5454');
+$passFinal          = new SerieStack('Final pass rate', $passFinalData, 'Final', 'green');
+$failFinal          = new SerieStack('Final fail rate', $failFinalData, 'Final', 'red');
 
 $data[] = $failFinal;
 $data[] = $passFinal;
