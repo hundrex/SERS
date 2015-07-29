@@ -89,7 +89,7 @@ class AssignmentDAL extends Assignment {
         $affiche = $assignment->getAffiche(); //bool
         $prixRattrapage = $assignment->getPrixRattrapage(); //int
 
-        $params = array('issisbi',
+        $params = array('isssbi',
             &$moduleId, //int
             &$label, //string
             &$description, //string
