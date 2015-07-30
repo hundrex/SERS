@@ -31,15 +31,11 @@ $mesStudents = UserDAL::findAllStudent();
             ?>
         </h3>
     </div>
-    <table class="table">
+    <table id="table-module-students" class="table">
+        <tbody>
         <tr>
             <th>Last Name</th><th>First Name</th><th>Result</th>
         </tr>
-        <?php
-        ?>
-        <tr>
-            <td>Durden</td><td>Taylor</td><td>Fail</td>
-        </tr>
-
+        </tbody>
     </table>
 </div>
