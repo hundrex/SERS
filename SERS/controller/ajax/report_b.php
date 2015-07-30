@@ -1,73 +1,94 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/SERS/SERS/model/class/Serie.php';
 
-$categories = array();
-$categories[] = 'test1';
-$categories[] = 'test2';
-$categories[] = 'test3';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Serie.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ModuleDAL.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php';
 
-$data = array();
+//non exploité pour l'instant, envoyé depuis menu déroulant
+$moduleId = filter_input(INPUT_GET, 'module_id', FILTER_SANITIZE_NUMBER_INT);
+$module   = ModuleDAL::findById($moduleId);
+$students = UserDAL::findAllByModule($module);
 
+
+$categories   = array();
+$data         = array();
 $databaseData = array();
-$databaseData[] = array(100,55);
-$databaseData[] = array(80,77);
-$databaseData[] = array(100,84);
-$databaseData[] = array(40,54);
-$databaseData[] = array(100,55);
-$databaseData[] = array(80,77);
-$databaseData[] = array(100,84);
-$databaseData[] = array(40,54);
 
-$assignmentData = array();
+
+
+
+foreach ($students as $student)
+{
+    $categories[]   = $student->getNom() . ' ' . $student->getPrenom();
+    $databaseData[] = array($student->getNoteStudentAssignment($moduleId), $student->getNoteStudentExam($moduleId));
+}
+
+//$databaseData[] = array(100,55);
+//$databaseData[] = array(80,77);
+//$databaseData[] = array(100,84);
+//$databaseData[] = array(40,54);
+//$databaseData[] = array(100,55);
+//$databaseData[] = array(80,77);
+//$databaseData[] = array(100,84);
+//$databaseData[] = array(40,54);
+
+$assignmentData   = array();
 $assignmentReturn = array();
-$examData = array();
-$examReturn = array();
-$finalData = array();
-$finalReturn = array();
+$examData         = array();
+$examReturn       = array();
+$finalData        = array();
+$finalReturn      = array();
 
-foreach ($databaseData as $row) {
-    $assignMark = $row[0];
+foreach ($databaseData as $row)
+{
+    $assignMark          = $row[0];
     $assignmentData["y"] = $assignMark;
-    if ($assignMark >= 60) {
+    if ($assignMark >= 60)
+    {
         $color = '#72AE00';
     }
-    else {
+    else
+    {
         $color = '#FF5454';
     }
     $assignmentData["color"] = $color;
-    $assignmentReturn[] = $assignmentData;
-    
-    $examMark = $row[1];
+    $assignmentReturn[]      = $assignmentData;
+
+    $examMark      = $row[1];
     $examData["y"] = $examMark;
-    if ($examMark >= 60) {
+    if ($examMark >= 60)
+    {
         $color = '#72AE00';
     }
-    else {
+    else
+    {
         $color = '#FF5454';
     }
     $examData["color"] = $color;
-    $examReturn[] = $examData;
-    
-    $finalMark = ($assignMark + $examMark)/2;
+    $examReturn[]      = $examData;
+
+    $finalMark      = ($assignMark + $examMark) / 2;
     $finalData["y"] = $finalMark;
-    if ($finalMark >= 60) {
+    if ($finalMark >= 60)
+    {
         $color = 'green';
     }
-    else {
+    else
+    {
         $color = 'red';
     }
     $finalData["color"] = $color;
-    $finalReturn[] = $finalData;
+    $finalReturn[]      = $finalData;
 }
 
-$exam = new Serie('Exam', $examReturn);
+$exam       = new Serie('Exam', $examReturn);
 $assignment = new Serie('Assignment', $assignmentReturn);
-$final = new Serie('Final', $finalReturn);
+$final      = new Serie('Final', $finalReturn);
 
 $data[] = $final;
 $data[] = $assignment;
 $data[] = $exam;
 
-$bigdata = array($categories, $data);
+$bigdata   = array($categories, $data);
 $data_json = json_encode($bigdata);
 echo $data_json;

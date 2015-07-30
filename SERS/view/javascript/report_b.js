@@ -1,13 +1,25 @@
 $(document).ready(function () {
-    var myData = $.ajax({
+    module_id = $("#report-b-selecter option:eq(0)").get(0).value;
+    $.ajax({
         url: 'controller/ajax/report_b.php',
-        type: 'POST',
+        type: 'GET',
+        data: 'module_id=' + module_id,
         dataType: 'json',
         success: function (aData) {
-            var mySeries = aData;
-            console.debug(mySeries);
-            chargerGraph(mySeries);
+            chargerGraph(aData);
         }
+    });
+    $("#report-b-selecter").on("change", function () {
+        module_id = this.value;
+        $.ajax({
+            url: 'controller/ajax/report_b.php',
+            type: 'GET',
+            data: 'module_id=' + module_id,
+            dataType: 'json',
+            success: function (aData) {
+                chargerGraph(aData);
+            }
+        });
     });
 });
 
