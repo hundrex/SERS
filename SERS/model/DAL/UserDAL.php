@@ -158,7 +158,6 @@ class UserDAL extends User {
                     . ' affiche = ?,'
                     . ' fichier_id = ?,'
                     . ' type_user_id = ?,'
-                    . ' date_creation = ?'
                     . ' WHERE id = ?';
             $params = array('sssssssbiii',
                 &$prenom,

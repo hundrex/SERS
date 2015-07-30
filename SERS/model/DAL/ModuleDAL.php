@@ -197,29 +197,40 @@ class ModuleDAL extends Module {
      */
     public static function insertOnDuplicate($module)
     {
-        $sql = 'INSERT INTO module ' . '(bareme_id, label, description, '
-                . 'date_creation, number, affiche) '
-                . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?, ?) '
-                . 'ON DUPLICATE KEY '
-                . 'UPDATE bareme_id = VALUES(bareme_id), '
-                . 'label = VALUES(label), '
-                . 'description = VALUES(description), '
-                . 'number = VALUES(number), '
-                . 'affiche = VALUES(affiche)';
-
         $baremId = $module->getBareme()->getId(); //int
         $label = $module->getLabel(); //string
         $descripion = $module->getDescription(); //string
         $number = $module->getNumber(); //int
         $affiche = $module->getAffiche(); //bool
-
-        $params = array('issib',
-            &$baremId, //int
-            &$label, //string
-            &$descripion, //string
-            &$number, //int
-            &$affiche //bool
-        );
+        $moduleId = $module->getId();
+        if ($moduleId < 0)
+        {
+            $sql = 'INSERT INTO module ' . '(bareme_id, label, description, '
+                    . 'date_creation, number, affiche) '
+                    . 'VALUES(?,?,?,DATE_FORMAT(NOW(),"%Y/%m/%d"),?, ?) ';
+            $params = array('issib',
+                &$baremId, //int
+                &$label, //string
+                &$descripion, //string
+                &$number, //int
+                &$affiche //bool
+            );
+        }
+        else
+        {
+            $sql = 'UPDATE module '
+                    . 'SET bareme_id = ?, label = ?, description = ?, '
+                    . ' number = ?, affiche = ? '
+                    . 'WHERE id = ?';
+            $params = array('issibi',
+                &$baremId, //int
+                &$label, //string
+                &$descripion, //string
+                &$number, //int
+                &$affiche, //bool
+                &$moduleId //int
+            );
+        }
         $idInsert = BaseSingleton::insertOrEdit($sql, $params);
         $eleves = $module->getEleves();
         foreach ($eleves as $eleveId => $eleve)
