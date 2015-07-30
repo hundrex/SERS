@@ -64,3 +64,4 @@ for ($i = 0; $i < $N; $i++)
 }
 
 
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=student_list&modification=success">';
