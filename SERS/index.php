@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <?php session_start(); ?>
         <meta charset="UTF-8">
         <title>SERS</title>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -12,12 +13,12 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        
+
         <!-- Graph libraries -->
         <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 
         <link rel="stylesheet" href="./view/css/main.css">
-        
+
         <link rel="icon" type="image/png" href="./view/document/picture/favicon.png" />
     </head>
     <body>
@@ -111,7 +112,7 @@
                                 <li><a href="" data-toggle="modal" data-target="#mail-mark">Resend Mark Mail</a></li>
                                 <li><a href="" data-toggle="modal" data-target="#mail-payment">Resend payment receipt</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href=""data-toggle="modal" data-target="#log-out-modal">Log Out</a></li>
+                                <li><a href="" data-toggle="modal" data-target="#log-out-modal">Log Out</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -122,9 +123,12 @@
         <div id="content" class="col-lg-8">
             <?php
             $page_to_require = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_URL);
-            if ($page_to_require !== null) {
+            if ($page_to_require !== null)
+            {
                 require_once './view/phtml/' . $page_to_require . '.php';
-            } else {
+            }
+            else
+            {
                 require_once './view/phtml/home.php';
             }
             ?>
@@ -179,7 +183,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Log out</button>
+                        <form action="./controller/page/logout.php">
+                            <button type="submit" class="btn btn-info">Log out</button>
+                        </form>
                     </div>
                 </div>
             </div>
