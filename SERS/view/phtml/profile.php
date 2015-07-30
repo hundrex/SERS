@@ -1,3 +1,9 @@
+<?php
+$userNowId = $_SESSION['user'];
+$userNow = UserDAL::findById($userNowId);
+$userRole = $_SESSION['role'];
+?>
+
 <div class="panel panel-default">
     <div class="panel-heading">Personnal information</div>
     <div class="panel-body">
@@ -6,19 +12,19 @@
                 <li>
                     <dl class="dl-horizontal">
                         <dt>Pseudo: </dt>
-                        <dd>thomas.anderson</dd>
+                        <dd><?php echo $userNow->getPseudo(); ?></dd>
                     </dl>
                 </li>
                 <li>
                     <dl class="dl-horizontal">
                         <dt>Last name: </dt>
-                        <dd>Anderson</dd>
+                        <dd><?php echo $userNow->getNom(); ?></dd>
                     </dl>
                 </li>
                 <li>
                     <dl class="dl-horizontal">
                         <dt>First name: </dt>
-                        <dd>Thomas</dd>
+                        <dd><?php echo $userNow->getPrenom(); ?></dd>
                     </dl>
                 </li>
             </ul>
@@ -41,19 +47,19 @@
                 <li>
                     <dl class="dl-horizontal">
                         <dt>Birth date: </dt>
-                        <dd>13/09/1971</dd>
+                        <dd><?php echo $userNow->getDateNaissance(); ?></dd>
                     </dl>
                 </li>
                 <li>
                     <dl class="dl-horizontal">
                         <dt>Address: </dt>
-                        <dd>21 St Nicholas St Bristol BS1 1UA</dd>
+                        <dd><?php echo $userNow->getAdresse(); ?></dd>
                     </dl>
                 </li>
                 <li>
                     <dl class="dl-horizontal">
                         <dt>Email: </dt>
-                        <dd>thomas.anderson@skynet.com</dd>
+                        <dd><?php echo $userNow->getMail(); ?></dd>
                     </dl>
                 </li>
             </ul>
@@ -62,37 +68,36 @@
 </div>
 
 <!--Differ is student or teacher-->
-<div class="panel panel-default">
-    <div class="panel-heading">Followed modules</div>
-    <div class="panel-body">
-        <div class="panel-list">
-            <ul class="list-unstyled">
-                <li>
-                    <dl class="dl-horizontal">
-                        <dt>Module 1: </dt>
-                        <dd>Nam vestibulum at eros ac cursus. Sed sapien nisl, accumsan quis lacinia vel, tempor in libero. 
-                            Sed dapibus velit eu velit iaculis, eu consectetur ante auctor.</dd>
-                    </dl>
-                </li>
-                <li>
-                    <dl class="dl-horizontal">
-                        <dt>Module 2: </dt>
-                        <dd>Nam vestibulum at eros ac cursus. Sed sapien nisl, accumsan quis lacinia vel, tempor in libero. 
-                            Sed dapibus velit eu velit iaculis, eu consectetur ante auctor.</dd>
-                    </dl>
-                </li>
-                <li>
-                    <dl class="dl-horizontal">
-                        <dt>Module 3: </dt>
-                        <dd>Nam vestibulum at eros ac cursus. Sed sapien nisl, accumsan quis lacinia vel, tempor in libero. 
-                            Sed dapibus velit eu velit iaculis, eu consectetur ante auctor.</dd>
-                    </dl>
-                </li>
-            </ul>
+<?php
+if ($userNow->isStudent())
+{
+    $modulesUser = ModuleDAL::findAllByEleve($userNow);
+    ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">Followed modules</div>
+        <div class="panel-body">
+            <div class="panel-list">
+                <ul class="list-unstyled">
+                    <?php foreach ($modulesUser as $module):?>
+                    <li>
+                        <dl class="dl-horizontal">
+                            <dt><?php echo $module->getLabel();?></dt>
+                            <dd><?php echo $module->getDescription();?></dd>
+                        </dl>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+<?php } ?>
 
+
+<?php
+//if ($userNow->isEnseignant())
+//{
+//$userModules = ModuleDAL::findAllByEnseignant($userNow);
+?>
 <div class="panel panel-default">
     <div class="panel-heading">Student list for each teached module</div>
     <div class="panel-body">
@@ -136,7 +141,7 @@
         </div>
     </div>
 </div>
-
+<?php // } ?>
 
 <form method=POST action="./controller/page/password.php">
     <div class="panel panel-default">
