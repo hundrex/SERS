@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+            <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
                 <div class="input-group input-right">
                     <button type="button" class="btn btn-danger  btn-right">
                         <span class="glyphicon glyphicon-trash"></span></button>
@@ -38,11 +38,42 @@
             <?php elseif ($_SESSION['role'] == User::TYPE_USER_STUDENT): ?>
                 <div class="input-group pull-right">
                     <label for="finalMark">
-                        <h4>Final mark: 
+                            Final mark: 
+                        <span class="mark-size">
                             <?php
                             echo $studentCurrent->getNoteStudentFinal($module_id);
                             ?>
-                        </h4>
+                        </span>
+                            <br/>
+                            Final grade: 
+                        <span class="mark-size">
+                            <?php
+                            if ($studentCurrent->getNoteStudentFinal($module_id) >= 90)
+                            {
+                                echo 'A+';
+                            }
+                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 80 && $studentCurrent->getNoteStudentFinal($module_id) < 90)
+                            {
+                                echo 'A';
+                            }
+                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 70 && $studentCurrent->getNoteStudentFinal($module_id) < 80)
+                            {
+                                echo 'B';
+                            }
+                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 60 && $studentCurrent->getNoteStudentFinal($module_id) < 70)
+                            {
+                                echo 'C';
+                            }
+                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 50 && $studentCurrent->getNoteStudentFinal($module_id) < 60)
+                            {
+                                echo 'D';
+                            }
+                            elseif ($studentCurrent->getNoteStudentFinal($module_id) < 50)
+                            {
+                                echo 'Fail';
+                            }
+                            ?>
+                        </span>
                     </label>
                 </div>
             <?php endif ?>
@@ -57,18 +88,51 @@
                         <h4> Assignment </h4>
                     </div>
                     <div class="option pull-right">
-                        <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+                        <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
                             <button type="button" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
                         <?php elseif ($_SESSION['role'] == User::TYPE_USER_STUDENT): ?>
                             <span class="panel-mark">
-                                <h4>
-                                    Assignment mark:
+                                Assignment mark:
+                                <span class="mark-size">
                                     <?php
                                     echo $studentCurrent->getNoteStudentAssignment($module_id);
-                                    ?> 
-                                </h4>
+                                    ?>
+                                </span> <br/>
+                                Assignment grade:
+                                <span class="mark-size">
+                                    <?php
+                                    if ($studentCurrent->getNoteStudentAssignment($module_id) >= 90)
+                                    {
+                                        echo 'A+';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentAssignment($module_id) >= 80 && $studentCurrent->getNoteStudentAssignment($module_id) < 90)
+                                    {
+                                        echo 'A';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentAssignment($module_id) >= 70 && $studentCurrent->getNoteStudentAssignment($module_id) < 80)
+                                    {
+                                        echo 'B';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentAssignment($module_id) >= 60 && $studentCurrent->getNoteStudentAssignment($module_id) < 70)
+                                    {
+                                        echo 'C';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentAssignment($module_id) >= 50 && $studentCurrent->getNoteStudentAssignment($module_id) < 60)
+                                    {
+                                        echo 'D';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentAssignment($module_id) >= 40 && $studentCurrent->getNoteStudentAssignment($module_id) < 50)
+                                    {
+                                        echo 'E';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentAssignment($module_id) < 40)
+                                    {
+                                        echo 'Fail';
+                                    }
+                                    ?>
+                                </span>
                             </span>
                         <?php endif ?>
                     </div>
@@ -101,18 +165,52 @@
                         <h4> Exam </h4>
                     </div>
                     <div class="option pull-right">
-                        <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+                        <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
                             <button type="button" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
                         <?php elseif ($_SESSION['role'] == User::TYPE_USER_STUDENT): ?>
                             <span class="panel-mark"> 
-                                <h4>
-                                    Exam mark:
+                                Exam mark:
+                                <span class="mark-size">
                                     <?php
                                     echo $studentCurrent->getNoteStudentExam($module_id);
                                     ?> 
-                                </h4>
+                                </span>
+                                <br/>
+                                Exam grade:
+                                <span class="mark-size">
+                                    <?php
+                                    if ($studentCurrent->getNoteStudentExam($module_id) >= 90)
+                                    {
+                                        echo 'A+';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentExam($module_id) >= 80 && $studentCurrent->getNoteStudentExam($module_id) < 90)
+                                    {
+                                        echo 'A';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentExam($module_id) >= 70 && $studentCurrent->getNoteStudentExam($module_id) < 80)
+                                    {
+                                        echo 'B';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentExam($module_id) >= 60 && $studentCurrent->getNoteStudentExam($module_id) < 70)
+                                    {
+                                        echo 'C';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentExam($module_id) >= 50 && $studentCurrent->getNoteStudentExam($module_id) < 60)
+                                    {
+                                        echo 'D';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentExam($module_id) >= 40 && $studentCurrent->getNoteStudentExam($module_id) < 50)
+                                    {
+                                        echo 'E';
+                                    }
+                                    elseif ($studentCurrent->getNoteStudentExam($module_id) < 40)
+                                    {
+                                        echo 'Fail';
+                                    }
+                                    ?>
+                                </span>
                             </span>
                         <?php endif ?>
                     </div>
@@ -140,7 +238,7 @@
         </div>
     </div>
 
-    <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+    <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
 
         <div class="panel panel-default">
             <div class="panel-heading"><h4> Students marks </h4></div>
