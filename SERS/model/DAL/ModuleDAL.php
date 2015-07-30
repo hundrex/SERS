@@ -118,10 +118,14 @@ class ModuleDAL extends Module {
         $enseignantId = $enseignant->getId();
         $mesModules = array();
         $data = BaseSingleton::select('SELECT module.id, module.bareme_id, 
-            module.label, module.description, 
-            module.date_creation, module.number, module.affiche
-            FROM module
-            WHERE module.user_id = ?', array('i', &$enseignantId));
+            module.label, module.description, module.date_creation, 
+            module.number, module.affiche, 
+            module.user_id, assignment.id as assignment_id, exam.id as exam_id
+            FROM module, exam, assignment
+            WHERE module.user_id = ?
+                AND module.id = exam.module_id
+                AND module.id = assignment.module_id
+            GROUP BY module.id ', array('i', &$enseignantId));
         foreach ($data as $row)
         {
             $module = new Module();
