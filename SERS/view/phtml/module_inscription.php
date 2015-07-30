@@ -18,8 +18,7 @@
     </div>
 
     <?php $students = UserDAL::findAllStudent(); ?>
-
-    <div id="panel-students-module" class="panel panel-default hidden">
+    <div id="panel-students-module" class="panel panel-default">
         <div class="panel-heading">Student list</div>
         <div class="panel-list">
             <ul class="list-unstyled">
@@ -28,6 +27,10 @@
                             <label>
                                 <input type="checkbox" name="student[]" value="<?php echo $student->getId(); ?>"
                                        id="checkbox-eleve-<?php echo $student->getId(); ?>"> <?php echo $student->getPrenom() . " " . $student->getNom(); ?>
+                                       <?php if ($module->isInscrit($student)){
+                                           echo 'checked';
+                                       }
+                                       ?>
                             </label>
                         </div>
                     </li>
