@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php session_start(); ?>
+        <?php
+        session_start();
+        if (isset($_SESSION['user']))
+        {
+            $user = UserDAL::findById($_SESSION['user']);
+        }
+        ?>
         <meta charset="UTF-8">
         <title>SERS</title>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -37,32 +43,43 @@
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> SERS
                     </a>
                 </div>
-
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                               aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="?page=user_list">User List</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="?page=user_create">New...</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <?php
+                    if (isset($_SESSION['user']) &&
+                            isset($_SESSION['role']) &&
+                            isset($_SESSION['role']) === User::TYPE_USER_ROOT):
+                        ?>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                                   aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?page=user_list">User List</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="?page=user_create">New...</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
 
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                               aria-haspopup="true" aria-expanded="false">Student <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="?page=student_list">Student List</a></li>
-                                <li><a href="?page=module_inscription">Module Inscription</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="?page=student_create">New...</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <?php
+                    if ((isset($_SESSION['user']) &&
+                            isset($_SESSION['role'])) &&
+                            (isset($_SESSION['role']) >= User::TYPE_USER_STUDENT)):
+                        ?>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                                   aria-haspopup="true" aria-expanded="false">Student <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?page=student_list">Student List</a></li>
+                                    <li><a href="?page=module_inscription">Module Inscription</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="?page=student_create">New...</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+<?php endif; ?>
 
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
@@ -104,6 +121,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                                aria-haspopup="true" aria-expanded="false">
+
                                 <img src="./view/document/picture/smile.png" class="avatar"/> Jean-Michel CtrlCV 
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">

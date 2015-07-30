@@ -8,7 +8,8 @@ if ($pseudo !== null && $password !== null)
     $user = UserDAL::connection($pseudo, $password);
     if ($user)
     {
-        $_SESSION['user'] = $user;
+        $_SESSION['user'] = $user->getId();
+        $_SESSION['role'] = $user->getRole();
     }
     else
     {

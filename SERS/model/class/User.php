@@ -11,6 +11,9 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ModuleDAL.php');
 
 class User {
 
+    const TYPE_USER_ROOT = 0;
+    const TYPE_USER_ADMINISTRATION = 1;
+    const TYPE_USER_TEACHER = 2;
     const TYPE_USER_STUDENT = 3;
 
     ///////////////
