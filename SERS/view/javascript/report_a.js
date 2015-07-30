@@ -1,12 +1,25 @@
 $(document).ready(function () {
-    var myData = $.ajax({
+    student_id = $("#report-a-selecter option:eq(0)").get(0).value;
+    $.ajax({
         url: 'controller/ajax/report_a.php',
-        type: 'POST',
+        type: 'GET',
+        data: 'student_id=' + student_id,
         dataType: 'json',
         success: function (aData) {
-            var mySeries = aData;
-            chargerGraph(mySeries);
+            chargerGraph(aData);
         }
+    });
+    $("#report-a-selecter").on("change", function () {
+        student_id = this.value;
+        $.ajax({
+            url: 'controller/ajax/report_a.php',
+            type: 'GET',
+            data: 'student_id=' + student_id,
+            dataType: 'json',
+            success: function (aData) {
+                chargerGraph(aData);
+            }
+        });
     });
 });
 
@@ -24,7 +37,7 @@ function chargerGraph(data) {
             '#72AE00'
         ],
         xAxis: {
-            categories: ['Web Dev', 'M2', 'M3', 'M4']
+            categories: data[0]
         },
         yAxis: {
             title: {
@@ -55,6 +68,6 @@ function chargerGraph(data) {
             shared: true,
             useHTML: true
         },
-        series: data
+        series: data[1]
     });
 };
