@@ -5,7 +5,6 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (aData) {
             var mySeries = aData;
-            console.debug(mySeries);
             chargerGraph(mySeries);
         }
     });

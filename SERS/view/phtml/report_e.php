@@ -1,11 +1,12 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php'); ?>
+<script type="text/javascript" src="./view/javascript/report_e.js"></script>
 
 <div class="row filter-bar">
     <div class="col-lg-6">
         <div class="input-group">
             <?php $modules = ModuleDAL::findAll(); ?> 
             <span class="input-group-addon" id="moduleSelecterReportE">Module</span>
-            <select class="form-control">
+            <select id="report-e-selecter" class="form-control">
                 <?php foreach ($modules as $module): ?>
                     <option value="<?php echo $module->getId(); ?>">
                         <?php echo $module->getLabel(); ?>
@@ -24,7 +25,7 @@ $mesStudents = UserDAL::findAllStudent();
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">
+        <h3 id="panel-title-module" class="panel-title">
             <?php
                 echo $modules[0]->getLabel();
             ?>
