@@ -114,6 +114,16 @@ class User {
     }
 
     /**
+     * Fonction permettant de savoir si l'utilisateur est un étudiant.
+     * 
+     * @return boolean true si c'est un étudiant, false sinon
+     */
+    public function isEnseignant()
+    {
+        return $this->getType()->getCode() === self::TYPE_USER_TEACHER;
+    }
+
+    /**
      * Retourne la moyenne d'un student de l'ensemble de ses assignment
      * @return int
      */
@@ -232,12 +242,13 @@ class User {
             $noteAssign = $this->getNoteStudentAssignment($moduleId); //note du devoir Assignment de ce module
             $noteExam = $this->getNoteStudentExam($moduleId); //note du devoir Exam de ce odule
             $moyModule = $this->getNoteStudentFinal($moduleId); //moyenne du module
-           // echo "Note assign = ".$noteAssign ." note Exam = ".$noteExam." =>";
+            // echo "Note assign = ".$noteAssign ." note Exam = ".$noteExam." =>";
             if ($moyModule >= 50 && $noteAssign >= 40 && $noteExam >= 40)
             {
                 $succes = 1;
             }
-            if($noteAssign==-1 || $noteExam==-1){
+            if ($noteAssign == -1 || $noteExam == -1)
+            {
                 $succes = 2;
             }
         }

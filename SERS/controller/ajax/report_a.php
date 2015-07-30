@@ -1,11 +1,12 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/SERS/SERS/model/class/Serie.php';
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Serie.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ModuleDAL.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php';
 
 $studentId = filter_input(INPUT_GET, 'student_id', FILTER_SANITIZE_NUMBER_INT);
-$student = UserDAL::findById($studentId);
-$modules  = ModuleDAL::findAllByEleve($student);
+$student   = UserDAL::findById($studentId);
+$modules   = ModuleDAL::findAllByEleve($student);
 
 $categories   = array();
 $data         = array();
@@ -13,9 +14,20 @@ $databaseData = array();
 
 foreach ($modules as $module)
 {
-    $categories[]   = $module->getLabel();
-    $databaseData[] = array($student->getNoteStudentAssignment($module->getId()), 
-        $student->getNoteStudentExam($module->getId()));
+    $categories[]    = $module->getLabel();
+    $assignmentMarks = $student->getNoteStudentAssignment($module->getId());
+    $examMarks       = $student->getNoteStudentExam($module->getId());
+
+    if ($assignmentMarks === -1)
+    {
+        $assignmentMarks = null;
+    }
+    if ($examMarks === -1)
+    {
+        $examMarks = null;
+    }
+
+    $databaseData[] = array($assignmentMarks, $examMarks);
 }
 
 $assignmentData   = array();
