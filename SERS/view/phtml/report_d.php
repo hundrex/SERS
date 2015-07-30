@@ -1,3 +1,7 @@
+<?php if ((isset($_SESSION['user']) && isset($_SESSION['role'])) && $_SESSION['role'] > User::TYPE_USER_TEACHER): ?>
+    <META HTTP-EQUIV="Refresh" Content="0; URL=./?error=403">
+<?php else: ?>
+
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ModuleDAL.php');
@@ -147,3 +151,4 @@ foreach ($mesModules as $module):
     </table>
 </div>
 -->
+<?php endif;?>

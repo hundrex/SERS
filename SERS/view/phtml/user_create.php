@@ -1,3 +1,7 @@
+<?php if ((isset($_SESSION['user']) && isset($_SESSION['role'])) && $_SESSION['role'] > User::TYPE_USER_ROOT): ?>
+    <META HTTP-EQUIV="Refresh" Content="0; URL=./?error=403">
+<?php else: ?>
+
 <?php require_once './model/DAL/TypeUserDAL.php'; ?>
 <form method=POST action="./controller/page/user_create.php">
     <div class="form-group">
@@ -36,4 +40,4 @@
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
-
+<?php endif;?>

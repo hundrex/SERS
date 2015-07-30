@@ -11,6 +11,8 @@ if ($pseudo !== null && $password !== null)
     {
         $_SESSION['user'] = $user->getId();
         $_SESSION['role'] = $user->getRole();
+        setcookie("user_id",$_SESSION['user']);
+        setcookie("user_role",$_SESSION['role']);
     }
     else
     {

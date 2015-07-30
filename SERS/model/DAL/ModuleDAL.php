@@ -39,7 +39,6 @@ class ModuleDAL extends Module {
     public static function findByAssignment($assignment)
     {
         $assignmentId = $assignment->getId();
-        echo "ModuleDAL.assignmentId: " . $assignmentId; //var_dump debug liaison assign<->module
         $data = BaseSingleton::select('SELECT '
                         . 'module.id as id, module.bareme_id as bareme_id, '
                         . 'module.label as label, module.description as description, '
