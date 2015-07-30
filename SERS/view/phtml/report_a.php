@@ -1,3 +1,7 @@
+<?php if ((isset($_SESSION['user']) && isset($_SESSION['role'])) && $_SESSION['role'] > User::TYPE_USER_TEACHER): ?>
+    <META HTTP-EQUIV="Refresh" Content="0; URL=./?error=403">
+<?php else: ?>
+
 <script type="text/javascript" src="./view/javascript/report_a.js"></script>
 <?php require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php'); ?>
 
@@ -28,3 +32,4 @@
     </div>
 </div>
 
+<?php endif; ?>

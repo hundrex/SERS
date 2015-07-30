@@ -1,3 +1,7 @@
+<?php if ((isset($_SESSION['user']) && isset($_SESSION['role'])) && $_SESSION['role'] > User::TYPE_USER_ADMINISTRATION): ?>
+    <META HTTP-EQUIV="Refresh" Content="0; URL=./?error=403">
+<?php else: ?>
+
 <?php require_once './model/DAL/ModuleDAL.php'; ?>
 
 <form method=POST action="./controller/page/student_create.php">
@@ -41,4 +45,4 @@
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
-
+<?php endif;?>
