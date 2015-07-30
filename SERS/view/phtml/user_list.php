@@ -71,9 +71,9 @@
     <!--modal-->
 
     <?php foreach ($users as $user): ?>
-        <div class="modal fade" id=""<?php echo 'modalViewUserList-' . $user->getId() ?>"
+        <div class="modal fade" id="<?php echo 'modalViewUserList-' . $user->getId() ?>"
              tabindex="-1" role="dialog" 
-             aria-labelledby=<?php echo '"modalViewUserList-' . $user->getId() . '"' ?> >
+             aria-labelledby="<?php echo 'modalViewUserList-' . $user->getId();?>" >
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -125,49 +125,59 @@
                                     <dd><?php echo $user->getType()->getLabel(); ?></dd>
                                 </dl>
                             </li>
-                            <li>
-                                <dl class="dl-horizontal">
-                                    <dt>Module(s) followed: </dt>
-                                    <dd>
+                            <?php if ($user->getRole() === User::TYPE_USER_STUDENT): ?>
+                                <li>
+                                    <dl class="dl-horizontal">
+                                        <dt>Module(s) followed: </dt>
+                                        <dd>
 
-                                        <?php
-                                        $modules = ModuleDAL::findAllByEleve($user);
-                                        if (sizeof($modules) === 0)
-                                        {
-                                            echo 'This user has not entered any module.';
-                                        }
-                                        else
-                                        {
-                                            ?>
-                                            <ul>
-                                                <?php
-                                                foreach ($modules as $module):
-                                                    ?>
-                                                    <li>
-                                                        <?php echo $module->getLabel(); ?>
-                                                    </li>
-                                                <?php endforeach;
-                                                ?>
-                                            </ul>
                                             <?php
-                                        }
-                                        ?>
-                                    </dd>
-                                </dl>
-                            </li>
-                            <li>
-                                <dl class="dl-horizontal">
-                                    <dt>Module(s) teached: </dt>
-                                    <dd></dd>
-                                </dl>
-                            </li>
+                                            $modules = ModuleDAL::findAllByEleve($user);
+                                            if (sizeof($modules) === 0)
+                                            {
+                                                echo 'This user has not entered any module.';
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                <ul>
+                                                    <?php
+                                                    foreach ($modules as $module):
+                                                        ?>
+                                                        <li>
+                                                            <?php echo $module->getLabel(); ?>
+                                                        </li>
+                                                    <?php endforeach;
+                                                    ?>
+                                                </ul>
+                                                <?php
+                                            }
+                                            ?>
+                                        </dd>
+                                    </dl>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($user->getRole() === User::TYPE_USER_TEACHER): ?>
+                                <li>
+                                    <dl class="dl-horizontal">
+                                        <dt>Module(s) teached: </dt>
+                                        <dd> <?php $modules = ModuleDAL::findAllByEnseignant($user); ?>
+                                            <?php foreach ($modules as $module): ?>
+                                            <li>
+                                                <?php echo $module->getLabel(); ?>
+                                            </li>
+                                        <?php endforeach;
+                                        ?></dd>
+                                    </dl>
+                                </li>
+                            <?php endif; ?>
                             <li>
                                 <dl class="dl-horizontal">
                                     <dt>Avatar: </dt>
                                     <dd><img src=<?php
-                                        echo '".' . $user->getAvatar()->getType()->getChemin() .
-                                        '/' . $user->getAvatar()->getNom() . '"';
-                                        ?> ></dd>
+                            echo '".' . $user->getAvatar()->getType()->getChemin() .
+                            '/' . $user->getAvatar()->getNom() . '"';
+                            ?> ></dd>
                                 </dl>
                             </li>
                         </ul>
