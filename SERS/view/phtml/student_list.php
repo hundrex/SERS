@@ -102,7 +102,7 @@
 
 <!--modals--> 
 <?php foreach ($students as $student): ?>
-    <div class="modal fade" id=<?php echo '"modalEditStudent-' . $student->getId() . '"' ?> 
+    <div class="modal fade" id="<?php echo 'modalEditStudent-' . $student->getId() ?>" 
          tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalEditStudent-' . $student->getId() . '"' ?> >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -207,7 +207,7 @@ endforeach;
 
 <?php foreach ($students as $student):
     ?>
-    <div class="modal fade" id=<?php echo '"modalViewStudentList-' . $student->getId() . '"' ?> 
+    <div class="modal fade" id="<?php echo 'modalViewStudentList-' . $student->getId()?> "
          tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalViewStudentList-' . $student->getId() . '"' ?> >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
