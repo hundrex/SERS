@@ -108,6 +108,36 @@ class ModuleDAL extends Module {
     }
 
     /**
+     * Retourne le ou les modules correspondant à l'enseignant donné.
+     *
+     * @param User $enseignant L'enseignant pour lequel on cherche les modules.
+     * @return array(Module)
+     */
+    public static function findAllByEnseignant($enseignant)
+    {
+        $enseignantId = $enseignant->getId();
+        $mesModules = array();
+        $data = BaseSingleton::select('SELECT '
+                        . 'module.id as id, module.bareme_id as bareme_id, '
+                        . 'module.label as label, module.description as description, '
+                        . 'module.date_creation as date_creation, module.number as number, '
+                        . 'module.affiche as affiche, assignment.id as assignment_id, exam.id as exam_id '
+                        . 'FROM module, user_inscrire_module, user, exam, assignment '
+                        . 'WHERE user.id = user_inscrire_module.user_id '
+                        . 'AND user_inscrire_module.module_id = module.id '
+                        . 'AND module.id = assignment.module_id AND module.id = exam.module_id '
+                        . 'AND user.id = ? '
+                        . 'GROUP BY module.id', array('i', &$enseignantId));
+        foreach ($data as $row)
+        {
+            $module = new Module();
+            $module->hydrate($row);
+            $mesModules[] = $module;
+        }
+        return $mesModules;
+    }
+
+    /**
      * Retourne tous les exam avec rattrapage à .
      *
      * @return Exam Tous les objets dans un tableau.
