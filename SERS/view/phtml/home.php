@@ -10,7 +10,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
     <?php if ($error !== null && $error === "403"): ?>
         <div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Error!</strong> You have not the necessary rights to access this page.
+            <strong>Error!</strong> You don't have the necessary rights to access this page.
         </div>
     <?php endif; ?>
     <div class="alert alert-info alert-dismissible" role="alert">
