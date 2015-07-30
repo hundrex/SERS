@@ -71,7 +71,7 @@ class BaseSingleton {
                     echo '<p>' . $sql . '</p>';
                     echo self::$instance->mysqli->error;
                 }
-
+                
                 // Si la requête a des paramètres.
                 if (!is_null($params))
                 {
@@ -131,12 +131,17 @@ class BaseSingleton {
                 echo self::$instance->mysqli->error;
                 // On prépare la requête.
                 self::$instance->statement = self::$instance->mysqli->prepare($sql);
+                if (self::$instance->statement === false)
+                {
+                    echo '<p>' . $sql . '</p>';
+                    echo self::$instance->mysqli->error;
+                }
 
                 // Si la requête a des paramètres.
                 if (!is_null($params))
                 {
 //                    echo '<pre>';
-//                    var_dump($sql);
+//                    var_dump(self::$instance->statement);
 //                    echo '</pre>';
                     $bindParamsMethod = new ReflectionMethod('mysqli_stmt', 'bind_param');
                     $bindParamsMethod->invokeArgs(self::$instance->statement, $params);
