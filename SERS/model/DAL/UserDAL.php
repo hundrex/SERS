@@ -115,9 +115,7 @@ class UserDAL extends User {
             $avatar = FichierDAL::findDefaultAvatar();
         }
         //Password
-        $passWord = $user->getPassword();
-        //Pseudo
-        $pseudo = $user->getPrenom() . "." . $user->getNom();
+        $password = $user->getPassword();
         $prenom = $user->getPrenom(); //string
         $nom = $user->getNom(); //string
         $mail = $user->getMail(); //string
@@ -129,6 +127,8 @@ class UserDAL extends User {
         $userId = $user->getId();
         if ($userId < 0)
         {
+            //Pseudo
+            $pseudo = $user->getPrenom() . "." . $user->getNom(); //string
             $sql = 'INSERT INTO user ' . '(prenom, nom, mail, adresse, date_naissance, '
                     . 'pseudo, password, affiche, fichier_id, type_user_id, date_creation) '
                     . 'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(),"%Y/%m/%d")) ';
@@ -139,7 +139,7 @@ class UserDAL extends User {
                 &$adresse,
                 &$dateNaissance,
                 &$pseudo, //string
-                &$passWord, //string
+                &$password, //string
                 &$affiche,
                 &$avatarId,
                 &$typeId,
@@ -147,18 +147,20 @@ class UserDAL extends User {
         }
         else
         {
+            //Pseudo
+            $pseudo = $user->getPseudo(); //string
             $sql = 'UPDATE user '
-                    . 'SET prenom = ?,'
-                    . ' nom = ?,'
-                    . ' mail = ?,'
-                    . ' adresse = ?,'
-                    . ' date_naissance = ?, '
-                    . 'pseudo = ?,'
-                    . ' password = ?,'
-                    . ' affiche = ?,'
-                    . ' fichier_id = ?,'
-                    . ' type_user_id = ?,'
-                    . ' WHERE id = ?';
+                    . 'SET prenom = ?, '
+                    . 'nom = ?, '
+                    . 'mail = ?, '
+                    . 'adresse = ?, '
+                    . 'date_naissance = ?, '
+                    . 'pseudo = ?, '
+                    . 'password = ?, '
+                    . 'affiche = ?, '
+                    . 'fichier_id = ?, '
+                    . 'type_user_id = ? '
+                    . 'WHERE id = ? ';
             $params = array('sssssssbiii',
                 &$prenom,
                 &$nom,
@@ -166,7 +168,7 @@ class UserDAL extends User {
                 &$adresse,
                 &$dateNaissance,
                 &$pseudo, //string
-                &$passWord, //string
+                &$password, //string
                 &$affiche,
                 &$avatarId,
                 &$typeId,

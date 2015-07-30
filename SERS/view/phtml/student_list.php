@@ -119,7 +119,7 @@
                             <li>
                                 <div class="form-group">
                                     <label for="lastNameEdit">Last name</label>
-                                    <input type="text" class="form-control" 
+                                    <input type="text" name="lastNameEdit" id="lastNameEdit" class="form-control" required
                                            value=
                                            <?php
                                            echo $student->getNom();
@@ -130,7 +130,7 @@
                             <li>
                                 <div class="form-group">
                                     <label for="firstNameEdit">First name</label>
-                                    <input type="text" class="form-control" 
+                                    <input type="text" name="firstNameEdit" class="form-control" required
                                            value=
                                            <?php
                                            echo $student->getPrenom();
@@ -141,7 +141,7 @@
                             <li>
                                 <div class="form-group">
                                     <label for="pseudoEdit">Pseudo</label>
-                                    <input type="text" class="form-control" 
+                                    <input type="text" name="pseudoEdit" class="form-control" required
                                            value=
                                            <?php
                                            echo $student->getPseudo();
@@ -152,7 +152,7 @@
                             <li>
                                 <div class="form-group">
                                     <label for="emailEdit">Email</label>
-                                    <input type="text" class="form-control" 
+                                    <input type="text" name="emailEdit" class="form-control" required
                                            value=
                                            <?php
                                            echo $student->getMail();
@@ -163,7 +163,7 @@
                             <li>
                                 <div class="form-group">
                                     <label for="addressEdit">Address</label>
-                                    <input type="text" class="form-control" 
+                                    <input type="text" name="addressEdit" class="form-control" required 
                                            value=
                                            <?php
                                            echo $student->getAdresse();
@@ -174,7 +174,7 @@
                             <li>
                                 <div class="form-group">
                                     <label for="birthDateEdit">Birth date</label>
-                                    <input type="date" class="form-control" 
+                                    <input type="date" name="birthDateEdit" class="form-control" required
                                            value=
                                            <?php
                                            echo $student->getDateNaissance();
@@ -182,12 +182,15 @@
                                            aria-describedby="birthDateEdit">
                                 </div>
                             </li>
+                            <li>
+                                <input type="text" class="hidden" name="studentId" value="<?php echo $student->getId();?>"> 
+                            </li>
                         </ul>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Submit</button>
-                </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
