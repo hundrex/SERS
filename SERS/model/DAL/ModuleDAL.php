@@ -332,9 +332,30 @@ class ModuleDAL extends Module {
 
         return (int) $moyenneExam;
     }
-    
-    
-    public static function razListeStudentInscrit($validModuleId)
+
+    /**
+     * Supprime toute les lignes dans la table user_inscrire_module où l'id du module 
+     * passer en param apparait. Permet de raz les liason entre un module et des user.
+     * Utiliser lors de la modification des user inscrit à un module donnée (voir module_inscription.php)
+     * @param int $moduleId
+     * @return bool 
+     */
+    public static function razListeStudentInscrit($moduleId)
     {
+        $sql = 'DELETE FROM user_inscrire_module
+                WHERE user_inscrire_module.module_id = ?';
+        $param = array('i', &$moduleId);
+        $deleted = BaseSingleton::delete($sql, $param);
+        return $deleted;
     }
+
+    public static function inscritStudentModule($studentId, $moduleId)
+    {
+        $sql = 'INSERT INTO user_inscrire_module '
+                . '(user_id, module_id) '
+                . 'VALUES(?,?)';
+        $param = array('ii', &$studentId, &$moduleId);
+        $data = BaseSingleton::insertOrEdit($sql, $param);
+    }
+
 }

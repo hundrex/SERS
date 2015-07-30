@@ -32,8 +32,5 @@ $studentId = 0;
 for ($i = 0; $i < $N; $i++)
 {
     $studentId = (int) $mesStudent[$i]; //recup l'id du student select, le cast en int et le stock  
-    $student = UserDAL::findById($studentId); //recherche le student correspondant à partir de son id
-    $module->inscrireEleve($student); //inscrit dans ce module le student qui a était précédemment créer
-    ModuleDAL::insertOnDuplicate($module); //met a jout le module avec son nouveau etudiant
-    echo "Ajout de " . $student->getNom() . " dans le module " . $module->getLabel() . "</br>";
+    ModuleDAL::inscritStudentModule($studentId, $validModuleId);
 }
