@@ -94,54 +94,39 @@ if ($userNow->isStudent())
 
 
 <?php
-//if ($userNow->isEnseignant())
-//{
-//$userModules = ModuleDAL::findAllByEnseignant($userNow);
+if ($userNow->isEnseignant())
+{
+    $modulesUser = ModuleDAL::findAllByEnseignant($userNow);
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">Student list for each teached module</div>
     <div class="panel-body">
         <div class="panel-list">
             <ul class="list-unstyled">
+                <?php foreach ($modulesUser as $module):?>
+                <?php $students = UserDAL::findAllByModule($module); ?>
                 <li>
                     <div class="panel panel-default">
-                        <div class="panel-heading">Web Development</div>
+                        <div class="panel-heading"><?php echo $module->getLabel();?></div>
                         <div class="panel-body">
                             <div class="panel-list">
                                 <ul class="list-unstyled">
+                                    <?php foreach ($students as $student):?>
                                     <li>
-                                        Anderson Thomas
+                                        <?php echo $student->getNom() . " ". $student->getPrenom();?>
                                     </li>
-                                    <li>
-                                        Rabbit Roger
-                                    </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Web Development Framework</div>
-                        <div class="panel-body">
-                            <div class="panel-list">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        Anderson Thomas
-                                    </li>
-                                    <li>
-                                        Rabbit Roger
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>
 </div>
-<?php // } ?>
+<?php } ?>
 
 <form method=POST action="./controller/page/password.php">
     <div class="panel panel-default">
