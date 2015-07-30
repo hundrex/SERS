@@ -182,16 +182,28 @@ class Module {
     {
         $moduleId = $this->id;
         $cptEleveSuccess = 0;
+        $cptEleveNonNote = 0;
         $mesEleves = UserDAL::findAllByModule($this);
         $cptEleveTotal = sizeof($mesEleves);
         foreach ($mesEleves as $eleve)
         {
-            if ($eleve->getSuccessModule($moduleId) === 1)
+            if ($eleve->getSuccessModule($moduleId) === 1)//si eleve success
             {
-                $cptEleveSuccess++;
+                $cptEleveSuccess++; //incr le compteur des eleve qui ont win leur module
+            }
+            if ($eleve->getSuccessModule($moduleId) === 2) //si un eleve n'a pas été sur tous le module (manque une note)
+            {
+                $cptEleveNonNote++; //incr le compteur des eleve pas evaluable
             }
         }
-        $percentSuccess = ($cptEleveSuccess * 1.0) / ($cptEleveTotal * 1.0);
+        if ($cptEleveTotal != 0 && $cptEleveNonNote === 0)
+        {
+            $percentSuccess = ($cptEleveSuccess * 1.0) / ($cptEleveTotal * 1.0);
+        }
+        else if (empty($mesEleves) || $cptEleveNonNote>0)//si aucun eleve pour ce module
+        {
+            $percentSuccess = -1;
+        }
         return $percentSuccess;
     }
 
