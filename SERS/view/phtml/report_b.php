@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <button type="button" class="btn btn-default btn-right"><span class="glyphicon glyphicon-print"></span></button>
+        <button type="button" class="btn btn-default btn-right hidden"><span class="glyphicon glyphicon-print"></span></button>
     </div>
 </div>
 

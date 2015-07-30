@@ -5,7 +5,7 @@
 
 <div class="row filter-bar">
     <div class="col-lg-12">
-        <button type="button" class="btn btn-default btn-right"><span class="glyphicon glyphicon-print"></span></button>
+        <button type="button" class="btn btn-default btn-right hidden"><span class="glyphicon glyphicon-print"></span></button>
     </div>
 </div>
 

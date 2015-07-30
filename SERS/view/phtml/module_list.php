@@ -7,7 +7,7 @@
     <?php require_once './model/DAL/AssignmentDAL.php'; ?>
     <?php require_once './model/DAL/ExamDAL.php'; ?>
 
-    <div class="row filter-bar">
+    <div class="row filter-bar hidden">
         <div class="col-lg-6">
             <div class="input-group">
                 <select class="form-control">
@@ -95,7 +95,7 @@
         </table>
     </div>
 
-    <nav class="center">
+    <nav class="center hidden">
         <ul class="pagination" >
             <li>
                 <a href="#" aria-label="Previous">
@@ -165,13 +165,13 @@
                                                     <dd><?php echo $module->getAssignment()->getDatePassage(); ?></dd>
                                                 </dl>
                                             </li>
-                                            <li>
+                                            <li class="hidden">
                                                 <dl class="dl-horizontal">
                                                     <dt>Retry price: </dt>
                                                     <dd><?php echo $module->getAssignment()->getPrixRattrapage(); ?></dd>
                                                 </dl>
                                             </li>
-                                            <li>
+                                            <li class="hidden">
                                                 <dl class="dl-horizontal">
                                                     <dt>Mark: </dt>
                                                     <dd><?php echo $module->getAssignment()->getNote(); ?></dd>
@@ -199,13 +199,13 @@
                                                     <dd><?php echo $module->getExam()->getDatePassage(); ?></dd>
                                                 </dl>
                                             </li>
-                                            <li>
+                                            <li class="hidden">
                                                 <dl class="dl-horizontal">
                                                     <dt>Retry price: </dt>
                                                     <dd><?php echo $module->getExam()->getPrixRattrapage(); ?></dd>
                                                 </dl>
                                             </li>
-                                            <li>
+                                            <li class="hidden">
                                                 <dl class="dl-horizontal">
                                                     <dt>Mark: </dt>
                                                     <dd><?php echo $module->getExam()->getNote(); ?></dd>
@@ -216,7 +216,7 @@
                                 </div>
                             </li>
                             <li>
-                                <dl class="dl-horizontal">
+                                <dl class="dl-horizontal hidden">
                                     <dt>Final: </dt>
                                     <dd>
                                         <?php

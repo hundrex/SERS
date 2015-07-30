@@ -4,7 +4,7 @@
 
 <?php require_once './model/DAL/UserDAL.php'; ?>
 
-<div class="row filter-bar">
+<div class="row filter-bar hidden">
     <div class="col-lg-6">
         <div class="input-group">
             <select class="form-control">
@@ -70,7 +70,7 @@
                             data-target=<?php echo '"#modalEditStudent-' . $student->getId() . '"' ?>>
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button> 
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger hidden">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button> 
                 </td>
@@ -79,7 +79,7 @@
     </table>
 </div>
 
-<nav class="center">
+<nav class="center hidden">
     <ul class="pagination" >
         <li>
             <a href="#" aria-label="Previous">
@@ -207,7 +207,7 @@ endforeach;
 
 <?php foreach ($students as $student):
     ?>
-    <div class="modal fade" id="<?php echo 'modalViewStudentList-' . $student->getId()?> "
+    <div class="modal fade" id="<?php echo 'modalViewStudentList-' . $student->getId()?>"
          tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalViewStudentList-' . $student->getId() . '"' ?> >
         <div class="modal-dialog" role="document">
             <div class="modal-content">

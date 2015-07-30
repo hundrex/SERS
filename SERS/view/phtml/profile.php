@@ -38,7 +38,7 @@ $userRole = $_SESSION['role'];
             General Information 
         </div>
         <div class="option pull-right">
-            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" class="btn btn-primary hidden"><span class="glyphicon glyphicon-pencil"></span></button>
         </div>
     </div>
     <div class="panel-body">
