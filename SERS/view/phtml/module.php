@@ -4,9 +4,9 @@
     <?php
     require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ModuleDAL.php');
     require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
-    $module_id      = filter_input(INPUT_GET, 'module_id', FILTER_SANITIZE_NUMBER_INT);
-    $module         = ModuleDAL::findById($module_id);
-    $students       = UserDAL::findAllByModule($module);
+    $module_id = filter_input(INPUT_GET, 'module_id', FILTER_SANITIZE_NUMBER_INT);
+    $module = ModuleDAL::findById($module_id);
+    $students = UserDAL::findAllByModule($module);
     $studentCurrent = UserDAL::findById($_SESSION['user']);
     ?>
 
@@ -38,37 +38,37 @@
             <?php elseif ($_SESSION['role'] == User::TYPE_USER_STUDENT): ?>
                 <div class="input-group pull-right">
                     <label for="finalMark">
-                            Final mark: 
+                        Final mark: 
                         <span class="mark-size">
                             <?php
-                            echo $studentCurrent->getNoteStudentFinal($module_id);
+                            echo $studentCurrent->getNoteModuleFinal($module_id);
                             ?>
                         </span>
-                            <br/>
-                            Final grade: 
+                        <br/>
+                        Final grade: 
                         <span class="mark-size">
                             <?php
-                            if ($studentCurrent->getNoteStudentFinal($module_id) >= 90)
+                            if ($studentCurrent->getNoteModuleFinal($module_id) >= 90)
                             {
                                 echo 'A+';
                             }
-                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 80 && $studentCurrent->getNoteStudentFinal($module_id) < 90)
+                            elseif ($studentCurrent->getNoteModuleFinal($module_id) >= 80 && $studentCurrent->getNoteModuleFinal($module_id) < 90)
                             {
                                 echo 'A';
                             }
-                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 70 && $studentCurrent->getNoteStudentFinal($module_id) < 80)
+                            elseif ($studentCurrent->getNoteModuleFinal($module_id) >= 70 && $studentCurrent->getNoteModuleFinal($module_id) < 80)
                             {
                                 echo 'B';
                             }
-                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 60 && $studentCurrent->getNoteStudentFinal($module_id) < 70)
+                            elseif ($studentCurrent->getNoteModuleFinal($module_id) >= 60 && $studentCurrent->getNoteModuleFinal($module_id) < 70)
                             {
                                 echo 'C';
                             }
-                            elseif ($studentCurrent->getNoteStudentFinal($module_id) >= 50 && $studentCurrent->getNoteStudentFinal($module_id) < 60)
+                            elseif ($studentCurrent->getNoteModuleFinal($module_id) >= 50 && $studentCurrent->getNoteModuleFinal($module_id) < 60)
                             {
                                 echo 'D';
                             }
-                            elseif ($studentCurrent->getNoteStudentFinal($module_id) < 50)
+                            elseif ($studentCurrent->getNoteModuleFinal($module_id) < 50)
                             {
                                 echo 'Fail';
                             }
@@ -89,7 +89,7 @@
                     </div>
                     <div class="option pull-right">
                         <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalViewAssign" >
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
                         <?php elseif ($_SESSION['role'] == User::TYPE_USER_STUDENT): ?>
@@ -378,7 +378,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <input type="text" name="id" class="hidden" value="<?php echo $student->getId();?>">
+                                <input type="text" name="id" class="hidden" value="<?php echo $student->getId(); ?>">
                                 <?php
                             }
                             ?>
@@ -392,4 +392,58 @@
             </div>
         </div>
     </div>
-<?php endif;
+
+    <?php foreach ($modules as $module):
+        ?>
+        <div class="modal fade" id="modalViewAssign"
+             tabindex="-1" role="dialog" aria-labelledby="modalViewAssign" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method=GET action="./controller/page/assign_edit.php"> 
+                        <input class="hidden" name="assign_id" value="<?php echo $module->getAssignment()->getId();?>">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="modalViewModuleList">Assignment</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <dl class="dl-horizontal">
+                                        <div class="form-group">
+                                            <label for="firstNameEdit">Label</label>
+                                            <input type="text" name="assign_label" class="form-control" required
+                                                   value=
+                                                   <?php
+                                                   echo $module->getAssignment()->getLabel();
+                                                   ?> 
+                                                   aria-describedby="assign_label">
+                                        </div>
+                                    </dl>
+                                </li>
+                                <li>
+                                    <dl class="dl-horizontal">
+                                        <div class="form-group">
+                                            <label for="firstNameEdit">Description</label>
+                                            <textarea type="text" name="assign_desc" class="form-control" required
+                                                      aria-describedby="assign_desc"><?php
+                                                          echo $module->getAssignment()->getDescription();
+                                                          ?> </textarea>
+                                        </div>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-info">Edit</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <?php
+    endforeach;
+endif;
