@@ -6,6 +6,13 @@
  * and open the template in the editor.
  */
 
+require_once '../../model/class/Exam.php';
+require_once '../../model/DAL/ExamDAL.php';
+require_once '../../model/class/Assignment.php';
+require_once '../../model/DAL/AssignmentDAL.php';
+require_once '../../model/class/Module.php';
+require_once '../../model/DAL/ModuleDAL.php';
+
 $validExamId = filter_input(INPUT_POST, 'exam_id', FILTER_SANITIZE_STRING);
 $validExamId = (int) $validExamId;
 $exam = ExamDAL::findById($validExamId);
