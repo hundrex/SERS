@@ -75,6 +75,11 @@ class Module {
      */
     private $retryExam;
 
+    /*
+     * @var User
+     */
+    private $enseignant;
+
     ///////////////////
     // CONSTRUCTEURS //
     ///////////////////
@@ -83,12 +88,12 @@ class Module {
     $id = -1, $label = "label default", $description = "description default", $dateCreation = "0000-00-00", $number = 0000, $affiche = 1, $bareme = null
     )
     {
-        $this->id           = $id;
-        $this->label        = $label;
+        $this->id = $id;
+        $this->label = $label;
         $this->dateCreation = $dateCreation;
-        $this->description  = $description;
-        $this->affiche      = $affiche;
-        $this->number       = $number;
+        $this->description = $description;
+        $this->affiche = $affiche;
+        $this->number = $number;
         if (is_null($bareme))
         {
             $bareme = BaremeDAL::findDefaultBareme();
@@ -99,7 +104,8 @@ class Module {
         }
 
         $this->assignment = new Assignment();
-        $this->exam       = new Exam();
+        $this->exam = new Exam();
+        $this->enseignant = new User();
     }
 
     /////////////////////
@@ -160,8 +166,8 @@ class Module {
     public function getMoyenneFinal()
     {
         $moyAssignment = $this->getMoyenneAssignment(); //ModuleDAL::moyenneAssignment($this->id);
-        $moyExam       = $this->getMoyenneExam(); //ModuleDAL::moyenneExam($this->id);
-        $moyFinal      = ($moyAssignment + $moyExam) / 2;
+        $moyExam = $this->getMoyenneExam(); //ModuleDAL::moyenneExam($this->id);
+        $moyFinal = ($moyAssignment + $moyExam) / 2;
         return $moyFinal;
     }
 
@@ -265,7 +271,7 @@ class Module {
 
         if (is_int($this->bareme))
         {
-            $bareme       = BaremeDAL::findById($this->bareme);
+            $bareme = BaremeDAL::findById($this->bareme);
             $this->bareme = $bareme;
         }
         else if (is_a($this->bareme, "Bareme"))
@@ -279,7 +285,7 @@ class Module {
     {
         return $this->eleves;
     }
-    
+
     private function setEleves($eleves)
     {
         $this->eleves = $eleves;
@@ -289,7 +295,7 @@ class Module {
     {
         if (is_string($assignment))
         {
-            $assignment       = (int) $assignment;
+            $assignment = (int) $assignment;
             $this->assignment = AssignmentDAL::findById($assignment);
         }
         else if (is_int($assignment))
@@ -307,7 +313,7 @@ class Module {
         $assignment = null;
         if (is_int($this->assignment))
         {
-            $assignment       = AssignmentDAL::findById($this->assignment);
+            $assignment = AssignmentDAL::findById($this->assignment);
             $this->assignment = $assignment;
         }
         else if (is_a($this->assignment, "Assignment"))
@@ -321,7 +327,7 @@ class Module {
     {
         if (is_string($exam))
         {
-            $exam       = (int) $exam;
+            $exam = (int) $exam;
             $this->exam = ExamDAL::findById($exam);
         }
         else if (is_int($exam))
@@ -339,7 +345,7 @@ class Module {
         $exam = null;
         if (is_int($this->exam))
         {
-            $exam       = ExamDAL::findById($this->exam);
+            $exam = ExamDAL::findById($this->exam);
             $this->exam = $exam;
         }
         else if (is_a($this->exam, "Exam"))
@@ -353,7 +359,7 @@ class Module {
     {
         if (is_string($retryAssign))
         {
-            $retryAssign          = (int) $retryAssign;
+            $retryAssign = (int) $retryAssign;
             $this->retryAsignment = AssignmentDAL::findById($retryAssign);
         }
         else if (is_int($retryAssign))
@@ -370,7 +376,7 @@ class Module {
     {
         if (is_string($retryExam))
         {
-            $retryExam       = (int) $retryExam;
+            $retryExam = (int) $retryExam;
             $this->retryExam = ExamDAL::findById($retryExam);
         }
         else if (is_int($retryExam))
@@ -383,21 +389,64 @@ class Module {
         }
     }
 
+    public function getEnseignant()
+    {
+        $prof = null;
+        if (is_int($this->enseignant))
+        {
+            $prof = UserDAL::findById($this->enseignant);
+            $this->enseignant = $prof;
+        }
+        else if (is_a($this->enseignant, "User"))
+        {
+            $prof = $this->enseignant;
+        }
+        return $prof;
+    }
+
+    public function setEnsignant($user)
+    {
+        if (is_string($user))
+        {
+            $user = (int) $user;
+            $prof = UserDAL::findById($user); //recupère l'user associé à cet id
+            if ($prof->isEnseignant()) //si cet user est un prof
+            {
+                $this->enseignant = $prof; //modifie l'attribut enseignant de ce module
+            }
+        }
+        if (is_int($user)) //si on a l'id d'un User
+        {
+            $prof = UserDAL::findById($user); //recupère l'user associé à cet id
+            if ($prof->isEnseignant()) //si cet user est un prof
+            {
+                $this->enseignant = $prof; //modifie l'attribut enseignant de ce module
+            }
+        }
+        else if (is_a($user, "User")) //si on a un User
+        {
+            if ($user->isEnseignant()) //si c'est un Enseignant
+            {
+                $this->enseignant = $user; //modifie l'attribut enseignant de ce module
+            }
+        }
+    }
+
     //////////////
     // METHODES //
     //////////////
 
     protected function hydrate($dataSet)
     {
-        $this->id           = $dataSet['id'];
-        $this->label        = $dataSet['label'];
-        $this->affiche      = $dataSet['affiche'];
+        $this->id = $dataSet['id'];
+        $this->label = $dataSet['label'];
+        $this->affiche = $dataSet['affiche'];
         $this->dateCreation = $dataSet['date_creation'];
-        $this->description  = $dataSet['description'];
-        $this->number       = $dataSet['number'];
-        $this->bareme       = $dataSet['bareme_id'];
-        $this->assignment   = $dataSet['assignment_id'];
-        $this->exam         = $dataSet['exam_id'];
+        $this->description = $dataSet['description'];
+        $this->number = $dataSet['number'];
+        $this->bareme = $dataSet['bareme_id'];
+        $this->assignment = $dataSet['assignment_id'];
+        $this->exam = $dataSet['exam_id'];
         //to do: retourner les id assign et exam dans le dataSet
     }
 
