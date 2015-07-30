@@ -15,7 +15,7 @@ class UserDAL extends User {
     public static function findById($id)
     {
         $data = BaseSingleton::select('SELECT id, prenom, nom, mail, adresse, date_naissance, '
-                        . 'date_creation, pseudo, password, affiche, fichier_id, '
+                        . 'date_creation, pseudo, password, affiche, fichier_id, type_user_id '
                         . 'FROM user '
                         . 'WHERE id = ?', array('i', &$id));
 
