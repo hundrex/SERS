@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
+session_start();
+$pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+if ($pseudo !== null && $password !== null)
+{
+    $user = UserDAL::connection($pseudo, $password);
+    if ($user)
+    {
+        $_SESSION['user'] = $user->getId();
+        $_SESSION['role'] = $user->getRole();
+    }
+    else
+    {
+        $_SESSION['user'] = false;
+    }
+}
 ?>
 <html>
     <head>
         <?php
-        session_start();
         if (isset($_SESSION['user']))
         {
             $user = UserDAL::findById($_SESSION['user']);
@@ -82,7 +97,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
                                 </ul>
                             </li>
                         </ul>
-<?php endif; ?>
+                    <?php endif; ?>
 
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
@@ -124,11 +139,18 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                                aria-haspopup="true" aria-expanded="false">
-
-                                <img src="./view/document/picture/smile.png" class="avatar"/> 
-                                    <?php
-                                    $user = UserDAL::findById($_SESSION['user']);
-                                    echo  'Jean-Michel CtrlCV' ?>
+                                   <?php if (isset($_SESSION['user'])): ?>
+                                       <?php
+                                       $user = UserDAL::findById($_SESSION['user']);
+                                       echo '<img src=".' .
+                                       $user->getAvatar()->getType()->getChemin() . '/' .
+                                       $user->getAvatar()->getNom() .
+                                       '" class="avatar"/>';
+                                       echo $user->getPrenom() . ' ' . $user->getNom();
+                                       ?>
+                                   <?php else: ?>
+                                    Log in
+                                <?php endif; ?>
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="?page=profile">Profile</a></li>

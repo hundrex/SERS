@@ -1,22 +1,21 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
-$pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
-$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-if ($pseudo !== null && $password !== null)
-{
-
-    $user = UserDAL::connection($pseudo, $password);
-    if ($user)
-    {
-        $_SESSION['user'] = $user->getId();
-        $_SESSION['role'] = $user->getRole();
-    }
-    else
-    {
-        $_SESSION['user'] = false;
-    }
-}
-?>
+//$pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
+//$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+//if ($pseudo !== null && $password !== null)
+//{
+//    $user = UserDAL::connection($pseudo, $password);
+//    if ($user)
+//    {
+//        $_SESSION['user'] = $user->getId();
+//        $_SESSION['role'] = $user->getRole();
+//    }
+//    else
+//    {
+//        $_SESSION['user'] = false;
+//    }
+//}
+//?>
 
 <?php if (isset($_SESSION['user']) && $_SESSION['user'] !== false): ?>
     <div class="alert alert-info alert-dismissible" role="alert">
