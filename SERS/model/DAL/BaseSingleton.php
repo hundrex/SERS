@@ -56,7 +56,6 @@ class BaseSingleton {
     public static function select($sql, $params = null)
     {
         $data = array();
-
         self::connect();
 
         // S'il n'y a pas d'erreur de connection.

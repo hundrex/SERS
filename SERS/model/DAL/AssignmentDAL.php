@@ -96,11 +96,11 @@ class AssignmentDAL extends Assignment {
         else //s'il y a un id avec l'assignment (id>0)
         { //on l'update
             $sql = 'UPDATE assignment '
-                    . ' SET module_id = ? '
-                    . 'label = ? '
-                    . 'description = ? '
-                    . 'date_passage = ? '
-                    . 'affiche = ? '
+                    . ' SET module_id = ?, '
+                    . 'label = ?, '
+                    . 'description = ?, '
+                    . 'date_passage = ?, '
+                    . 'affiche = ?, '
                     . 'prixRattrapage = ?'
                     . ' WHERE id=?';
             $params = array('isssbii',

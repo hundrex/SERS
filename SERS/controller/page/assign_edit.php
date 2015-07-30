@@ -13,17 +13,18 @@ require_once '../../model/DAL/AssignmentDAL.php';
 require_once '../../model/class/Module.php';
 require_once '../../model/DAL/ModuleDAL.php';
 
-$validAssignId = filter_input(INPUT_POST, 'assign_id', FILTER_SANITIZE_STRING);
+$validAssignId = filter_input(INPUT_GET, 'assign_id', FILTER_SANITIZE_STRING);
 $assignment = AssignmentDAL::findById((int)$validAssignId);
 
-var_dump($assignment);
+$validModuleId = filter_input(INPUT_GET, 'module_id', FILTER_SANITIZE_STRING);
+$validModuleId = (int)$validModuleId;
 
-$validLabel = filter_input(INPUT_POST, 'assign_label', FILTER_SANITIZE_STRING);
+$validLabel = filter_input(INPUT_GET, 'assign_label', FILTER_SANITIZE_STRING);
 $assignment->setLabel($validLabel);
 
-$validDesc= filter_input(INPUT_POST, 'assign_desc', FILTER_SANITIZE_STRING);
+$validDesc= filter_input(INPUT_GET, 'assign_desc', FILTER_SANITIZE_STRING);
 $assignment->setDescription($validDesc);
 
-AssignmentDAL::insertOnDuplicate($assignment);
+AssignmentDAL::insertOnDuplicate($assignment, $validModuleId);
 
-echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=module&modification=success">';
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=module&modification=success&module_id='.$validModuleId.'">';
