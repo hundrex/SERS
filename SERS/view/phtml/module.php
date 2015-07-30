@@ -446,7 +446,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method=GET action="./controller/page/exam_edit.php"> 
-                    <input class="hidden" name="assign_id" value="<?php echo $module->getExam()->getId(); ?>">
+                    <input class="hidden" name="exam_id" value="<?php echo $module->getExam()->getId(); ?>">
                     <input class="hidden" name="module_id" value="<?php echo $module->getId(); ?>">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
