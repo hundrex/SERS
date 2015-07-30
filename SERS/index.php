@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php');
+?>
 <html>
     <head>
         <?php
@@ -122,7 +125,10 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
                                aria-haspopup="true" aria-expanded="false">
 
-                                <img src="./view/document/picture/smile.png" class="avatar"/> Jean-Michel CtrlCV 
+                                <img src="./view/document/picture/smile.png" class="avatar"/> 
+                                    <?php
+                                    $user = UserDAL::findById($_SESSION['user']);
+                                    echo  'Jean-Michel CtrlCV' ?>
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="?page=profile">Profile</a></li>
