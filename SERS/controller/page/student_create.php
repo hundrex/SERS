@@ -60,6 +60,7 @@ for ($i = 0; $i < $N; $i++)
     $module = ModuleDAL::findById($moduleId); //recherche le module correspondant à partir de son id
     $module->inscrireEleve($student); //inscrit dans ce module le student qui a était précédemment créer
     ModuleDAL::insertOnDuplicate($module); //met a jout le module avec son nouveau etudiant
+    ModuleDAL::inscritStudentModule($student->getId(), $moduleId);
     echo "Ajout de " . $student->getNom() . " dans le module " . $module->getLabel() . "</br>";
 }
 
