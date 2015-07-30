@@ -280,4 +280,23 @@ class UserDAL extends User {
         return (int) $noteExam;
     }
 
+    public static function connection($pseudo, $password)
+    {
+        $data = BaseSingleton::select('SELECT id, prenom, nom, mail, adresse, date_naissance, '
+                        . 'date_creation, pseudo, password, affiche, fichier_id, type_user_id '
+                        . 'FROM user '
+                        . 'WHERE pseudo = ? '
+                        . 'AND password = ? ', array('ss', &$pseudo, &$password));
+        if (sizeof($data) === 0)
+        {
+            return false;
+        }
+        else
+        {
+            $user = new User();
+            $user->hydrate($data[0]);
+            return $user;
+        }
+    }
+
 }
