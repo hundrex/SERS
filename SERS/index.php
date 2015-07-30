@@ -117,12 +117,17 @@ if ($pseudo !== null && $password !== null)
                                 <ul class="dropdown-menu">
                                     <li><a href="?page=module_list">All Modules</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <?php ?>
-                                    <li><a href="?page=module">Web Development</a></li>
-                                    <li><a href="#">Web Design</a></li>
-                                    <li><a href="#">Content Management System</a></li>
-                                    <li><a href="#">Legal Ethical Social And Professional Issues</a></li>
-                                    <li><a href="#">Web Development Frameworks</a></li>
+                                    <?php $modules = ModuleDAL::findAll(); ?>
+                                    <?php
+                                    foreach ($modules as $module)
+                                    {
+                                        echo '<li>'
+                                        . '<a href="?page=module&module_id=' . $module->getId() . '">' .
+                                        $module->getLabel() .
+                                        '</a>'
+                                        . '</li>';
+                                    }
+                                    ?>
                                     <?php
                                     if (isset($_SESSION['user']) &&
                                             isset($_SESSION['role']) &&
