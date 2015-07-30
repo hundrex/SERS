@@ -262,7 +262,7 @@ class User {
      */
     public function getRole()
     {
-        $typUser = TypeUserDAL::findById($this->type);
+        $typUser = TypeUserDAL::findById($this->getType()->getId());
         $codeTypUser = $typUser->getCode();
         return $codeTypUser;
     }
