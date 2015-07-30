@@ -378,6 +378,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <input type="text" name="id" class="hidden" value="<?php echo $student->getId();?>">
                                 <?php
                             }
                             ?>
