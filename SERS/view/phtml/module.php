@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+            <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
                 <div class="input-group input-right">
                     <button type="button" class="btn btn-danger  btn-right">
                         <span class="glyphicon glyphicon-trash"></span></button>
@@ -88,7 +88,7 @@
                         <h4> Assignment </h4>
                     </div>
                     <div class="option pull-right">
-                        <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+                        <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
                             <button type="button" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
@@ -165,7 +165,7 @@
                         <h4> Exam </h4>
                     </div>
                     <div class="option pull-right">
-                        <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+                        <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
                             <button type="button" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
@@ -238,7 +238,7 @@
         </div>
     </div>
 
-    <?php if ($_SESSION['role'] == User::TYPE_USER_TEACHER): ?>
+    <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
 
         <div class="panel panel-default">
             <div class="panel-heading"><h4> Students marks </h4></div>
