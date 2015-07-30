@@ -188,7 +188,7 @@ if ($pseudo !== null && $password !== null)
                                             $_SESSION['role'] === User::TYPE_USER_STUDENT):
                                         ?>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="" data-toggle="modal" data-target="#mail-mark">Pay retry fees</a></li>
+                                        <li><a href="?page=pay_fees">Pay retry fees</a></li>
                                     <?php endif; ?>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="" data-toggle="modal" data-target="#log-out-modal">Log Out</a></li>
