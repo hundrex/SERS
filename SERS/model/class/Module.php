@@ -171,6 +171,28 @@ class Module {
         return $moyFinal;
     }
 
+    /**
+     * Méthode qui retourne le pourçentage d'étudiant qui ont le module
+     * Compris entre 0 et 1
+     * @return double 
+     */
+    public function getPourcentageHaveModule()
+    {
+        $moduleId = $this->id;
+        $cptEleveSuccess = 0;
+        $mesEleves = UserDAL::findAllByModule($this);
+        $cptEleveTotal = sizeof($mesEleves);
+        foreach ($mesEleves as $eleve)
+        {
+            if ($eleve->getSuccessModule($moduleId) === 1)
+            {
+                $cptEleveSuccess++;
+            }
+        }
+        $percentSuccess = ($cptEleveSuccess * 1.0) / ($cptEleveTotal * 1.0);
+        return $percentSuccess;
+    }
+
     /////////////////////
     // GETTERS&SETTERS //
     /////////////////////

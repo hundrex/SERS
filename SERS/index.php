@@ -252,8 +252,8 @@ if ($pseudo !== null && $password !== null)
                         Do you want to log out?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                         <form action="./controller/page/logout.php">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-info">Log out</button>
                         </form>
                     </div>
