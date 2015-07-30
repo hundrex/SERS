@@ -65,7 +65,7 @@ if ($pseudo !== null && $password !== null)
                     <?php
                     if (isset($_SESSION['user']) &&
                             isset($_SESSION['role']) &&
-                            isset($_SESSION['role']) === User::TYPE_USER_ROOT):
+                            $_SESSION['role'] === User::TYPE_USER_ROOT):
                         ?>
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
@@ -81,9 +81,9 @@ if ($pseudo !== null && $password !== null)
                     <?php endif; ?>
 
                     <?php
-                    if ((isset($_SESSION['user']) &&
-                            isset($_SESSION['role'])) &&
-                            (isset($_SESSION['role']) >= User::TYPE_USER_STUDENT)):
+                    if (isset($_SESSION['user']) &&
+                            isset($_SESSION['role']) &&
+                            $_SESSION['role'] <= User::TYPE_USER_TEACHER):
                         ?>
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
@@ -91,55 +91,81 @@ if ($pseudo !== null && $password !== null)
                                    aria-haspopup="true" aria-expanded="false">Student <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="?page=student_list">Student List</a></li>
-                                    <li><a href="?page=module_inscription">Module Inscription</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="?page=student_create">New...</a></li>
+                                    <?php
+                                    if (isset($_SESSION['user']) &&
+                                            isset($_SESSION['role']) &&
+                                            $_SESSION['role'] <= User::TYPE_USER_ADMINISTRATION):
+                                        ?>
+                                        <li><a href="?page=module_inscription">Module Inscription</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="?page=student_create">New...</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
                         </ul>
                     <?php endif; ?>
 
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                               aria-haspopup="true" aria-expanded="false">Module <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="?page=module_list">All Modules</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="?page=module">Web Development</a></li>
-                                <li><a href="#">Web Design</a></li>
-                                <li><a href="#">Content Management System</a></li>
-                                <li><a href="#">Legal Ethical Social And Professional Issues</a></li>
-                                <li><a href="#">Web Development Frameworks</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="?page=module_create">New...</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <?php
+                    if (isset($_SESSION['user']) &&
+                            isset($_SESSION['role']) &&
+                            $_SESSION['role'] <= User::TYPE_USER_STUDENT):
+                        ?>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                                   aria-haspopup="true" aria-expanded="false">Module <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?page=module_list">All Modules</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <?php $modules = ModuleDAL::findAll(); ?>
+                                    <?php
+                                    foreach ($modules as $module)
+                                    {
+                                        echo '<li>'
+                                        . '<a href="?page=module&module_id=' . $module->getId() . '">' .
+                                        $module->getLabel() .
+                                        '</a>'
+                                        . '</li>';
+                                    }
+                                    ?>
+                                    <?php
+                                    if (isset($_SESSION['user']) &&
+                                            isset($_SESSION['role']) &&
+                                            $_SESSION['role'] <= User::TYPE_USER_ADMINISTRATION):
+                                        ?>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="?page=module_create">New...</a></li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
 
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                               aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Overview</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="?page=report_a">A</a></li>
-                                <li><a href="?page=report_b">B</a></li>
-                                <li><a href="?page=report_c">C</a></li>
-                                <li><a href="?page=report_d">D</a></li>
-                                <li><a href="?page=report_e">E</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Print all</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <?php
+                    if ((isset($_SESSION['user']) &&
+                            isset($_SESSION['role'])) &&
+                            $_SESSION['role'] <= User::TYPE_USER_TEACHER):
+                        ?>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                                   aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?page=report_a">A</a></li>
+                                    <li><a href="?page=report_b">B</a></li>
+                                    <li><a href="?page=report_c">C</a></li>
+                                    <li><a href="?page=report_d">D</a></li>
+                                    <li><a href="?page=report_e">E</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
-                               aria-haspopup="true" aria-expanded="false">
-                                   <?php if (isset($_SESSION['user'])): ?>
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                                   aria-haspopup="true" aria-expanded="false">
                                        <?php
                                        $user = UserDAL::findById($_SESSION['user']);
                                        echo '<img src=".' .
@@ -148,20 +174,18 @@ if ($pseudo !== null && $password !== null)
                                        '" class="avatar"/>';
                                        echo $user->getPrenom() . ' ' . $user->getNom();
                                        ?>
-                                   <?php else: ?>
-                                    Log in
-                                <?php endif; ?>
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="?page=profile">Profile</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="" data-toggle="modal" data-target="#mail-mark">Resend Mark Mail</a></li>
-                                <li><a href="" data-toggle="modal" data-target="#mail-payment">Resend payment receipt</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="" data-toggle="modal" data-target="#log-out-modal">Log Out</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?page=profile">Profile</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="" data-toggle="modal" data-target="#mail-mark">Resend Mark Mail</a></li>
+                                    <li><a href="" data-toggle="modal" data-target="#mail-payment">Resend payment receipt</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="" data-toggle="modal" data-target="#log-out-modal">Log Out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php endif; ?>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
