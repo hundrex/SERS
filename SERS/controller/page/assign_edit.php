@@ -14,8 +14,9 @@ require_once '../../model/class/Module.php';
 require_once '../../model/DAL/ModuleDAL.php';
 
 $validAssignId = filter_input(INPUT_POST, 'assign_id', FILTER_SANITIZE_STRING);
-$validAssignId = (int) $validAssignId;
-$assignment = AssignmentDAL::findById($validAssignId);
+$assignment = AssignmentDAL::findById((int)$validAssignId);
+
+var_dump($assignment);
 
 $validLabel = filter_input(INPUT_POST, 'assign_label', FILTER_SANITIZE_STRING);
 $assignment->setLabel($validLabel);

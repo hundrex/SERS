@@ -166,7 +166,7 @@
                     </div>
                     <div class="option pull-right">
                         <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalViewExam">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </button>
                         <?php elseif ($_SESSION['role'] == User::TYPE_USER_STUDENT): ?>
@@ -393,57 +393,97 @@
         </div>
     </div>
 
-    <?php foreach ($modules as $module):
-        ?>
-        <div class="modal fade" id="modalViewAssign"
-             tabindex="-1" role="dialog" aria-labelledby="modalViewAssign" >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form method=GET action="./controller/page/assign_edit.php"> 
-                        <input class="hidden" name="assign_id" value="<?php echo $module->getAssignment()->getId();?>">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="modalViewModuleList">Assignment</h4>
-                        </div>
-                        <div class="modal-body">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <dl class="dl-horizontal">
-                                        <div class="form-group">
-                                            <label for="firstNameEdit">Label</label>
-                                            <input type="text" name="assign_label" class="form-control" required
-                                                   value=
-                                                   <?php
-                                                   echo $module->getAssignment()->getLabel();
-                                                   ?> 
-                                                   aria-describedby="assign_label">
-                                        </div>
-                                    </dl>
-                                </li>
-                                <li>
-                                    <dl class="dl-horizontal">
-                                        <div class="form-group">
-                                            <label for="firstNameEdit">Description</label>
-                                            <textarea type="text" name="assign_desc" class="form-control" required
-                                                      aria-describedby="assign_desc"><?php
-                                                          echo $module->getAssignment()->getDescription();
-                                                          ?> </textarea>
-                                        </div>
-                                    </dl>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Edit</button>
-                        </div>
-                    </form>
+    <div class="modal fade" id="modalViewAssign"
+         tabindex="-1" role="dialog" aria-labelledby="modalViewAssign" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method=GET action="./controller/page/assign_edit.php"> 
+                    <input class="hidden" name="assign_id" value="<?php echo $module->getAssignment()->getId(); ?>">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalViewModuleList">Assignment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-unstyled">
+                            <li>
+                                <dl class="dl-horizontal">
+                                    <div class="form-group">
+                                        <label for="firstNameEdit">Label</label>
+                                        <input type="text" name="assign_label" class="form-control" required
+                                               value="<?php echo $module->getAssignment()->getLabel(); ?>"
+                                               aria-describedby="assign_label">
+                                    </div>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl class="dl-horizontal">
+                                    <div class="form-group">
+                                        <label for="firstNameEdit">Description</label>
+                                        <textarea type="text" name="assign_desc" class="form-control" required
+                                                  aria-describedby="assign_desc"><?php
+                                                      echo $module->getAssignment()->getDescription();
+                                                      ?> </textarea>
+                                    </div>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Edit</button>
+                    </div>
+                </form>
 
-                </div>
             </div>
         </div>
-        <?php
-    endforeach;
-endif;
+    </div>
+    
+    <div class="modal fade" id="modalViewExam"
+         tabindex="-1" role="dialog" aria-labelledby="modalViewAssign" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method=GET action="./controller/page/exam_edit.php"> 
+                    <input class="hidden" name="assign_id" value="<?php echo $module->getExam()->getId(); ?>">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalViewModuleList">Exam</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-unstyled">
+                            <li>
+                                <dl class="dl-horizontal">
+                                    <div class="form-group">
+                                        <label for="firstNameEdit">Label</label>
+                                        <input type="text" name="assign_label" class="form-control" required
+                                               value="<?php echo $module->getExam()->getLabel(); ?>"
+                                               aria-describedby="assign_label">
+                                    </div>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl class="dl-horizontal">
+                                    <div class="form-group">
+                                        <label for="firstNameEdit">Description</label>
+                                        <textarea type="text" name="assign_desc" class="form-control" required
+                                                  aria-describedby="assign_desc"><?php
+                                                      echo $module->getExam()->getDescription();
+                                                      ?> </textarea>
+                                    </div>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Edit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+<?php endif;
