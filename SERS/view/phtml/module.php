@@ -62,7 +62,7 @@ $studentCurrent = UserDAL::findById($_SESSION['user']);
                         <span class="panel-mark">
                             <h4>
                                 Assignment mark:
-                               <?php
+                                <?php
                                 echo $studentCurrent->getNoteStudentAssignment($module_id);
                                 ?> 
                             </h4>
@@ -106,7 +106,7 @@ $studentCurrent = UserDAL::findById($_SESSION['user']);
                         <span class="panel-mark"> 
                             <h4>
                                 Exam mark:
-                               <?php
+                                <?php
                                 echo $studentCurrent->getNoteStudentExam($module_id);
                                 ?> 
                             </h4>
@@ -181,15 +181,112 @@ $studentCurrent = UserDAL::findById($_SESSION['user']);
     </div>
     <div class="center">
         <nav>
-            <button type="button" class="btn btn-default  btn-right">Import marks (.csv) <span 
-                    class="glyphicon glyphicon-open-file"></span></button>
+            <button type="button" class="btn btn-default  btn-right" data-toggle="modal" 
+                    data-target="#modalAddMarks">
+                Add / Edit marks
+            </button>
         </nav>
     </div>
-    <?php
+<?php endif;
+?>
 
 
-
-
-    
-
- endif ;
+<div class="modal fade" id="modalAddMarks" 
+     tabindex="-1" role="dialog" aria-labelledby="modalAddMarks" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method=POST action="./controller/page/add_notes.php"> 
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalViewStudentList">
+                        Add / Edit marks
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tr><th>Last Name</th><th>First Name</th><th>Assignment mark</th><th>Exam mark</th><th>Final mark</th></tr>
+                        <?php
+                        foreach ($students as $student)
+                        {
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo $student->getNom();
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    echo $student->getPrenom();
+                                    ?>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" name=<?php
+                                               echo 'studentAssignementNoteEdit-' . $student->getId();
+                                               ?>  
+                                               id=<?php
+                                               echo 'studentAssignementNoteEdit-' . $student->getId();
+                                               ?> 
+                                               class="form-control" required
+                                               value=
+                                               <?php
+                                               echo $student->getNoteStudentAssignment($module_id);
+                                               ?>
+                                               aria-describedby=<?php
+                                               echo 'studentAssignementNoteEdit-' . $student->getId();
+                                               ?> >
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" name=<?php
+                                               echo 'studentExamNoteEdit-' . $student->getId();
+                                               ?>  
+                                               id=<?php
+                                               echo 'studentExamNoteEdit-' . $student->getId();
+                                               ?> 
+                                               class="form-control" required
+                                               value=
+                                               <?php
+                                               echo $student->getNoteStudentExam($module_id);
+                                               ?>
+                                               aria-describedby=<?php
+                                               echo 'studentExamNoteEdit-' . $student->getId();
+                                               ?> >
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <input type="text" name=<?php
+                                               echo 'studentFinalNoteEdit-' . $student->getId();
+                                               ?>  
+                                               id=<?php
+                                               echo 'studentFinalNoteEdit-' . $student->getId();
+                                               ?> 
+                                               class="form-control" required
+                                               value=
+                                               <?php
+                                               echo $student->getNoteStudentFinal($module_id);
+                                               ?>
+                                               aria-describedby=<?php
+                                               echo 'studentFinalNoteEdit-' . $student->getId();
+                                               ?> >
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
