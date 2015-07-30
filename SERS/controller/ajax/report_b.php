@@ -15,7 +15,20 @@ $databaseData = array();
 foreach ($students as $student)
 {
     $categories[]   = $student->getNom() . ' ' . $student->getPrenom();
-    $databaseData[] = array($student->getNoteStudentAssignment($moduleId), $student->getNoteStudentExam($moduleId));
+    $assignmentMarks = $student->getNoteStudentAssignment($moduleId);
+    $examMarks       = $student->getNoteStudentExam($moduleId);
+    
+    if ($assignmentMarks === -1)
+    {
+        $assignmentMarks = null;
+    }
+    if ($examMarks === -1)
+    {
+        $examMarks = null;
+    }
+
+    $databaseData[] = array($assignmentMarks, $examMarks);
+
 }
 
 $assignmentData   = array();
