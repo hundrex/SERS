@@ -29,7 +29,7 @@
         </div>
         <div class="col-lg-6">
             <?php if ($_SESSION['role'] <= User::TYPE_USER_TEACHER): ?>
-                <div class="input-group input-right">
+                <div class="input-group input-right hidden">
                     <button type="button" class="btn btn-danger  btn-right">
                         <span class="glyphicon glyphicon-trash"></span></button>
                     <button type="button" class="btn btn-primary btn-right">

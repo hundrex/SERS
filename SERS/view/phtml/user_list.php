@@ -4,7 +4,7 @@
 
     <?php require_once './model/DAL/UserDAL.php'; ?>
 
-    <div class="row filter-bar">
+    <div class="row filter-bar hidden">
         <div class="col-lg-6">
             <div class="input-group">
                 <select class="form-control">
@@ -48,7 +48,7 @@
         </table>
     </div>
 
-    <nav class="center">
+    <nav class="center hidden">
         <ul class="pagination" >
             <li>
                 <a href="#" aria-label="Previous">
