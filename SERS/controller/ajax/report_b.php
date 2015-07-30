@@ -1,10 +1,8 @@
 <?php
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Serie.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ModuleDAL.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php';
 
-//non exploité pour l'instant, envoyé depuis menu déroulant
 $moduleId = filter_input(INPUT_GET, 'module_id', FILTER_SANITIZE_NUMBER_INT);
 $module   = ModuleDAL::findById($moduleId);
 $students = UserDAL::findAllByModule($module);
@@ -14,23 +12,11 @@ $categories   = array();
 $data         = array();
 $databaseData = array();
 
-
-
-
 foreach ($students as $student)
 {
     $categories[]   = $student->getNom() . ' ' . $student->getPrenom();
     $databaseData[] = array($student->getNoteStudentAssignment($moduleId), $student->getNoteStudentExam($moduleId));
 }
-
-//$databaseData[] = array(100,55);
-//$databaseData[] = array(80,77);
-//$databaseData[] = array(100,84);
-//$databaseData[] = array(40,54);
-//$databaseData[] = array(100,55);
-//$databaseData[] = array(80,77);
-//$databaseData[] = array(100,84);
-//$databaseData[] = array(40,54);
 
 $assignmentData   = array();
 $assignmentReturn = array();
