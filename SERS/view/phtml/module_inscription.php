@@ -26,7 +26,7 @@
                 <?php foreach ($students as $student): ?>
                     <li><div class="checkbox">
                             <label>
-                                <input type="checkbox" name="student[]" value="<?php echo $student->getId();?>"
+                                <input type="checkbox" name="student[]" value="<?php echo $student->getId(); ?>"
                                        id="checkbox-eleve-<?php echo $student->getId(); ?>"> <?php echo $student->getPrenom() . " " . $student->getNom(); ?>
                             </label>
                         </div>

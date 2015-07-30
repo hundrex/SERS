@@ -332,4 +332,9 @@ class ModuleDAL extends Module {
 
         return (int) $moyenneExam;
     }
+    
+    
+    public static function razListeStudentInscrit($validModuleId)
+    {
+    }
 }

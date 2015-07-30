@@ -11,11 +11,29 @@ require_once '../../model/DAL/UserDAL.php';
 require_once '../../model/class/Module.php';
 require_once '../../model/DAL/ModuleDAL.php';
 
-//Création de l'module à update
+//Création du module à update
 $module = new Module();
-        
 $validModuleId = filter_input(INPUT_POST, 'module', FILTER_SANITIZE_STRING);
-echo $validModuleId;
 $module = ModuleDAL::findById($validModuleId); //recupre le module associé à l'id renvoyer par module_inscription
-echo "id:".$module->getId()."</br>";
-echo "label".$module->getLabel()."</br>";
+
+//Supprime toute les lignes dans la table user_inscrit_module, où l'id de ce module apparait
+//permet de raz les liaison entre ce module et les user afin de rebartir avec un nouveau lot de student
+ModuleDAL::razListeStudentInscrit($validModuleId);
+
+//Gestion des student selectionner
+$mesStudent = $_POST['student'];
+if (empty($mesStudent))
+{
+    echo("You didn't select any students.");
+}
+$N = count($mesStudent);
+$student = new User();
+$studentId = 0;
+for ($i = 0; $i < $N; $i++)
+{
+    $studentId = (int) $mesStudent[$i]; //recup l'id du student select, le cast en int et le stock  
+    $student = UserDAL::findById($studentId); //recherche le student correspondant à partir de son id
+    $module->inscrireEleve($student); //inscrit dans ce module le student qui a était précédemment créer
+    ModuleDAL::insertOnDuplicate($module); //met a jout le module avec son nouveau etudiant
+    echo "Ajout de " . $student->getNom() . " dans le module " . $module->getLabel() . "</br>";
+}
