@@ -96,13 +96,13 @@ class ExamDAL extends Exam {
         else //s'il y a un id avec l'exam (id>0)
         { //on l'update
             $sql = 'UPDATE exam '
-                    . ' SET module_id = ? '
-                    . 'label = ? '
-                    . 'description = ? '
-                    . 'date_passage = ? '
-                    . 'affiche = ? '
+                    . ' SET module_id = ?, '
+                    . 'label = ?, '
+                    . 'description = ?, '
+                    . 'date_passage = ?, '
+                    . 'affiche = ?, '
                     . 'prixRattrapage = ?'
-                    . ' WHERE id=?';
+                    . ' WHERE id = ?';
             $params = array('isssbii',
                 &$moduleId, //int
                 &$label, //string

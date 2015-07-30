@@ -28,4 +28,4 @@ $exam->setDescription($validDesc);
 
 ExamDAL::insertOnDuplicate($exam,$validModuleId);
 
-echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=module&modification=success">';
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=module&modification=success&module_id='.$validModuleId.'">';
