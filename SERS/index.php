@@ -11,8 +11,8 @@ if ($pseudo !== null && $password !== null)
     {
         $_SESSION['user'] = $user->getId();
         $_SESSION['role'] = $user->getRole();
-        setcookie("user_id",$_SESSION['user']);
-        setcookie("user_role",$_SESSION['role']);
+        setcookie("user_id", $_SESSION['user']);
+        setcookie("user_role", $_SESSION['role']);
     }
     else
     {
@@ -182,6 +182,14 @@ if ($pseudo !== null && $password !== null)
                                     <li role="separator" class="divider"></li>
                                     <li><a href="" data-toggle="modal" data-target="#mail-mark">Resend Mark Mail</a></li>
                                     <li><a href="" data-toggle="modal" data-target="#mail-payment">Resend payment receipt</a></li>
+                                    <?php
+                                    if ((isset($_SESSION['user']) &&
+                                            isset($_SESSION['role'])) &&
+                                            $_SESSION['role'] === User::TYPE_USER_STUDENT):
+                                        ?>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="" data-toggle="modal" data-target="#mail-mark">Pay retry fees</a></li>
+                                    <?php endif; ?>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="" data-toggle="modal" data-target="#log-out-modal">Log Out</a></li>
                                 </ul>
