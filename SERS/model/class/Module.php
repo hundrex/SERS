@@ -6,6 +6,8 @@
  * @author Alexis
  */
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/BaremeDAL.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/AssignmentDAL.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/ExamDAL.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Assignment.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/Exam.php');
 
