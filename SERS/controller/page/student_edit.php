@@ -42,3 +42,4 @@ $student->setType(4); //place l'user type à 4 (correspond à l'id de student)
 //Insertion du student dans la table user
 $validInsertion = UserDAL::insertOnDuplicate($student);
 
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=student_list&modification=success">';

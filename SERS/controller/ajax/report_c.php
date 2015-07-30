@@ -3,10 +3,15 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/class/SerieStack.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/SERS/SERS/model/DAL/UserDAL.php';
 
-$enseignantId = (int) $_COOKIE['user_id']; //recupe l'id de l'enseignant logguer
-$enseignant = UserDAL::findById($enseignantId); //recup l'objet User liier a cette enseignant
-$mesModules = ModuleDAL::findAllByEnseignant($enseignant); //recupère les module de l'enseignant
+if ((isset($_COOKIE['user_id']) && isset($_COOKIE['user_role'])) && $_COOKIE['user_role'] == User::TYPE_USER_TEACHER):
 
+    $enseignantId = (int) $_COOKIE['user_id']; //recupe l'id de l'enseignant logguer
+    $enseignant = UserDAL::findById($enseignantId); //recup l'objet User liier a cette enseignant
+    $mesModules = ModuleDAL::findAllByEnseignant($enseignant); //recupère les module de l'enseignant
+endif;
+if ((isset($_COOKIE['user_id']) && isset($_COOKIE['user_role'])) && $_COOKIE['user_role'] == User::TYPE_USER_ROOT):
+    $mesModules = ModuleDAL::findAll(); //recupère TOUS les modules
+endif;
 
 $categories = array();
 $data = array();

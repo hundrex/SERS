@@ -116,3 +116,5 @@ else
 {
     echo "ECHEC insertion exam, good luck";
 }
+
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=module_list&modification=success">';

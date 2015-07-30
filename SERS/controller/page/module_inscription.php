@@ -34,3 +34,5 @@ for ($i = 0; $i < $N; $i++)
     $studentId = (int) $mesStudent[$i]; //recup l'id du student select, le cast en int et le stock  
     ModuleDAL::inscritStudentModule($studentId, $validModuleId);
 }
+
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=module_inscription&modification=success">';

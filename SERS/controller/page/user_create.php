@@ -55,3 +55,5 @@ else
 {
     echo "ECHEC insertion, good luck";
 }
+
+echo '<META HTTP-EQUIV="Refresh" Content="0; URL=../../?page=user_list&modification=success">';
