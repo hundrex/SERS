@@ -29,28 +29,48 @@
     <table class="table">
         <tr><th>Last Name</th><th>First Name</th><th>Birth date</th><th>Module Associated</th></tr>
         <?php foreach ($students as $student): ?>
-        <tr>
-            <td><?php echo $student->getNom(); ?></td>
-            <td><?php echo $student->getPrenom(); ?></td>
-            <td><?php echo $student->getDateNaissance(); ?></td>
-            <td><?php $modules = $student->getModule(); ?>
-                <?php
-                if (sizeof($modules) > 0) {
-                foreach ($modules as $module):
-                echo $module->getLabel() . "; ";
-                endforeach;
-                }
-                else {
-                echo "User is not registered in any module.";
-                }
-                ?>
-            </td>
-            <td>
-                <button type="button" class="btn btn-default" data-toggle="modal" 
-                        data-target=<?php echo '"#modalViewUserList-' . $student->getId() . '"' ?>>
-                    <span class="glyphicon glyphicon-eye-open"></span></button> 
-            </td>
-        </tr>
+            <tr>
+                <td><?php echo $student->getNom(); ?></td>
+                <td><?php echo $student->getPrenom(); ?></td>
+                <td><?php echo $student->getDateNaissance(); ?></td>
+                <td><?php $modules = $student->getModule(); ?>
+                    <ul class="list-unstyled">
+
+
+                        <?php
+                        if (sizeof($modules) > 0)
+                        {
+                            foreach ($modules as $module):
+                                ?>
+                                <li>
+                                    <?php
+                                    echo $module->getLabel();
+                                    ?>
+                                </li>
+                                <?php
+                            endforeach;
+                        }
+                        else
+                        {
+                            echo "User is not registered in any module.";
+                        }
+                        ?>
+                    </ul>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" data-toggle="modal" 
+                            data-target=<?php echo '"#modalViewStudentList-' . $student->getId() . '"' ?>>
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </button> 
+                    <button type="button" class="btn btn-primary" data-toggle="modal" 
+                            data-target=<?php echo '"#modalEditStudent-' . $student->getId() . '"' ?>>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button> 
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button> 
+                </td>
+            </tr>
         <?php endforeach; ?>
     </table>
 </div>
@@ -76,104 +96,209 @@
 </nav>
 
 
-<!--modal--> 
+<!--modals--> 
 <?php foreach ($students as $student): ?>
-<div class="modal fade" id=<?php echo '"modalViewUserList-' . $student->getId() . '"' ?> 
-     tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalViewUserList-' . $student->getId() . '"' ?> >
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="modalViewStudentList">
-                    <?php
-                    echo $student->getNom();
-                    echo ' ';
-                    echo $student->getPrenom();
-                    ?>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <ul class="list-unstyled">
-                    <li>
-                        <dl class="dl-horizontal">
-                            <dt>Pseudo: </dt>
-                            <dd><?php echo $student->getPseudo(); ?></dd>
-                        </dl>
-                    </li>
-                    <li>
-                        <dl class="dl-horizontal">
-                            <dt>Email: </dt>
-                            <dd><?php echo $student->getMail(); ?></dd>
-                        </dl>
-                    </li>
-                    <li>
-                        <dl class="dl-horizontal">
-                            <dt>Address: </dt>
-                            <dd><?php echo $student->getAdresse(); ?></dd>
-                        </dl>
-                    </li>
-                    <li>
-                        <dl class="dl-horizontal">
-                            <dt>Birth date: </dt>
-                            <dd><?php echo $student->getDateNaissance(); ?></dd>
-                        </dl>
-                    </li>
-                    <li>
-                        <dl class="dl-horizontal">
-                            <dt>Creation date: </dt>
-                            <dd><?php echo $student->getDateCreation(); ?></dd>
-                        </dl>
-                    </li>
-                    <li>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Module(s) followed
-                            </div>
-                            <div class="panel-body">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <?php
-                                        if (sizeof($modules) > 0) {
-                                        foreach ($modules as $module):
-                                        ?>
-                                        <dl class="dl-horizontal">
-                                            <dt>
-                                                <?php echo $module->getLabel() . "; "; ?>
-                                            </dt>
-                                            <dd>
-                                                <?php echo $module->getDescription() . "; "; ?>
-                                            </dd>
-                                        </dl>
-                                        <?php endforeach; 
-                                        }
-                                        else {
-                                        echo "User is not registered in any module.";
-                                        }
-                                        ?>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <dl class="dl-horizontal">
-                            <dt>Avatar: </dt>
-                            <dd><img src=<?php
-                                echo '".' . $student->getAvatar()->getType()->getChemin() .
-                                '/' . $student->getAvatar()->getNom() . '"';
-                                ?> ></dd>
-                        </dl>
-                    </li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+    <div class="modal fade" id=<?php echo '"modalEditStudent-' . $student->getId() . '"' ?> 
+         tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalEditStudent-' . $student->getId() . '"' ?> >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method=POST action="./controller/page/student_edit.php">  
+                    <!--todo Alexis : créer student_edit pour traiter la modif-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalEditStudent">
+                            <?php
+                            echo $student->getNom() . ' ' . $student->getPrenom();
+                            ?>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-unstyled">
+                            <li>
+                                <div class="form-group">
+                                    <label for="lastNameEdit">Last name</label>
+                                    <input type="text" class="form-control" 
+                                           value=
+                                           <?php
+                                           echo $student->getNom();
+                                           ?>
+                                           aria-describedby="lastNameEdit">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label for="firstNameEdit">First name</label>
+                                    <input type="text" class="form-control" 
+                                           value=
+                                           <?php
+                                           echo $student->getPrenom();
+                                           ?> 
+                                           aria-describedby="firstNameEdit">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label for="pseudoEdit">Pseudo</label>
+                                    <input type="text" class="form-control" 
+                                           value=
+                                           <?php
+                                           echo $student->getPseudo();
+                                           ?> 
+                                           aria-describedby="pseudoEdit">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label for="emailEdit">Email</label>
+                                    <input type="text" class="form-control" 
+                                           value=
+                                           <?php
+                                           echo $student->getMail();
+                                           ?> 
+                                           aria-describedby="emailEdit">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label for="addressEdit">Address</label>
+                                    <input type="text" class="form-control" 
+                                           value=
+                                           <?php
+                                           echo $student->getAdresse();
+                                           ?> 
+                                           aria-describedby="addressEdit">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label for="birthDateEdit">Birth date</label>
+                                    <input type="date" class="form-control" 
+                                           value=
+                                           <?php
+                                           echo $student->getDateNaissance();
+                                           ?> 
+                                           aria-describedby="birthDateEdit">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info">Submit</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-<?php
+    <?php
+endforeach;
+?>
+
+
+
+<?php foreach ($students as $student):
+    ?>
+    <div class="modal fade" id=<?php echo '"modalViewStudentList-' . $student->getId() . '"' ?> 
+         tabindex="-1" role="dialog" aria-labelledby=<?php echo '"modalViewStudentList-' . $student->getId() . '"' ?> >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalViewStudentList">
+                        <?php
+                        echo $student->getNom() . ' ' . $student->getPrenom();
+                        ?>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-unstyled">
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Avatar: </dt>
+                                <dd><img src=<?php
+                                    echo '".' . $student->getAvatar()->getType()->getChemin() .
+                                    '/' . $student->getAvatar()->getNom() . '"';
+                                    ?> ></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Pseudo: </dt>
+                                <dd><?php echo $student->getPseudo(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Email: </dt>
+                                <dd><?php echo $student->getMail(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Address: </dt>
+                                <dd><?php echo $student->getAdresse(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Birth date: </dt>
+                                <dd><?php echo $student->getDateNaissance(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <dl class="dl-horizontal">
+                                <dt>Creation date: </dt>
+                                <dd><?php echo $student->getDateCreation(); ?></dd>
+                            </dl>
+                        </li>
+                        <li>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4>
+                                        Module(s) followed
+                                    </h4>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+
+                                        <?php
+                                        if (sizeof($modules) > 0)
+                                        {
+                                            foreach ($modules as $module):
+                                                ?>
+                                                <li class="list-group-item">
+                                                    <h4> 
+                                                        <?php echo $module->getLabel(); ?>
+                                                    </h4>
+
+                                                    <span> 
+                                                        <?php echo $module->getDescription(); ?>
+                                                    </span>
+                                                </li>
+                                                <?php
+                                            endforeach;
+                                        }
+                                        else
+                                        {
+                                            echo "User is not registered in any module.";
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
 endforeach;
